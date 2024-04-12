@@ -19,19 +19,19 @@ mostrar_menu() {
 ejecutar_opcion() {
     case $1 in
         1)
-            /home/$user_name/Desktop/Digital_Signage_USM/Contenido/Plantillas/1/video_creacion_1.sh
+            /home/$user_name/Desktop/Digital_Signage_USM/Plantillas/1/video_creacion_1.sh
             ;;
         2)
-            /home/$user_name/Desktop/Digital_Signage_USM/Contenido/Plantillas/2/video_creacion_2.sh
+            /home/$user_name/Desktop/Digital_Signage_USM/Plantillas/2/video_creacion_2.sh
             ;;
         3)
-            /home/$user_name/Desktop/Digital_Signage_USM/Contenido/Plantillas/3/video_creacion_3.sh
+            /home/$user_name/Desktop/Digital_Signage_USM/Plantillas/3/video_creacion_3.sh
             ;;
         4)
-            /home/$user_name/Desktop/Digital_Signage_USM/Contenido/Plantillas/4/video_creacion_4.sh
+            /home/$user_name/Desktop/Digital_Signage_USM/Plantillas/4/video_creacion_4.sh
             ;;
         5)
-            /home/$user_name/Desktop/Digital_Signage_USM/Contenido/Plantillas/5/video_creacion_5.sh
+            /home/$user_name/Desktop/Digital_Signage_USM/Plantillas/5/video_creacion_5.sh
             ;;
         6)
             echo "Saliendo..."

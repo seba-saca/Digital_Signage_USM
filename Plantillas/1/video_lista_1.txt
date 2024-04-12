@@ -1,4 +1,4 @@
-file 'test_acatec.mkv'
-file 'test_historia.mkv'
-file 'test_postulante.mkv'
-file 'test_pau.mkv'
+file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_shake.mkv'
+file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_luna.mkv'
+file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_post.mkv'
+file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_historia.mkv'
