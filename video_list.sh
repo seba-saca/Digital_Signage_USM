@@ -10,10 +10,8 @@ echo "1. Plantilla 3"
 echo "1. Plantilla 4"
 echo "1. Plantilla 5"
 
-
-read -p "Opción seleccionada: " plantilla_number
 # Numero Plantilla
-#plantilla_number=1
+read -p "Opción seleccionada: " plantilla_number
 
 # Directorio donde se encuentran los videos
 video_dir="/home/$user_name/Desktop/Contenido/Videos/Material_Prueba"
