@@ -3,8 +3,17 @@
 # User name
 user_name=seba
 
+echo "Seleccione lista para plantilla"
+echo "1. Plantilla 1"
+echo "1. Plantilla 2"
+echo "1. Plantilla 3"
+echo "1. Plantilla 4"
+echo "1. Plantilla 5"
+
+
+read -p "Opción seleccionada: " plantilla_number
 # Numero Plantilla
-plantilla_number=1
+#plantilla_number=1
 
 # Directorio donde se encuentran los videos
 video_dir="/home/$user_name/Desktop/Contenido/Videos/Material_Prueba"
