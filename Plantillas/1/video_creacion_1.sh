@@ -33,7 +33,6 @@ AUDIO_ENCODER="aac"
 echo "Seleccione accion"
 echo "Opcion 1: Tiempo real"
 echo "Opcion 2: Diferido"
-echo "Opcion 3: Subtitulado"
 
 read -p "Opción seleccionada: " opcion
 
@@ -45,9 +44,9 @@ read -p "Opción seleccionada: " opcion
             -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
             -filter_complex "[0:v]scale=1920:1080[fondo]; \
             [1:v]scale=iw*0.59:ih*0.41[scale_main_video]; \
-            [fondo][scale_main_video]overlay=x=155:y=280[pepe];\
+            [fondo][scale_main_video]overlay=x=155:y=280[xy_video_main];\
             [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
-            [pepe][scaled_logo]overlay=1410:120,ass='$titulares'" \
+            [xy_video_main][scaled_logo]overlay=1410:120,ass='$titulares'" \
             -f matroska - | ffplay -fs -autoexit -
             ;;
         2)
@@ -57,24 +56,10 @@ read -p "Opción seleccionada: " opcion
             -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
             -filter_complex "[0:v]scale=1920:1080[fondo]; \
             [1:v]scale=iw*0.59:ih*0.41[scale_main_video]; \
-            [fondo][scale_main_video]overlay=x=155:y=280[pepe];\
+            [fondo][scale_main_video]overlay=x=155:y=280[xy_video_main];\
             [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
-            [pepe][scaled_logo]overlay=1410:120" \
+            [xy_video_main][scaled_logo]overlay=1410:120,ass='$titulares'" \
             "$ruta_video_final/video_plantilla_$plantilla_number.mkv"
-            ;;
-        3)
-            ffmpeg -i $overlay -f concat -safe 0 -i $lista_videos -i $logo -i $titulares \
-            -c:v libx264 -profile:v baseline -preset $QUAL \
-            -r $FPS -b:v $VBR -bufsize $BUFSIZE -maxrate $VBR \
-            -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
-            -filter_complex "[0:v]scale=1920:1080[fondo]; \
-            [1:v]scale=iw*0.59:ih*0.41[scale_main_video]; \
-            [fondo][scale_main_video]overlay=x=155:y=280[pepe];\
-            [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
-            [pepe][scaled_logo]overlay=1410:120[pre_final];\
-            [pre_final][3:s]overlay[textos]" \
-            -map "[textos]" -map 1:a \
-            -f matroska - | ffplay -fs -autoexit -
             ;;
         *)
             echo "Opción inválida. Por favor, seleccione 1 o 2."
