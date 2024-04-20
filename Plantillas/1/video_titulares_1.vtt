@@ -1,0 +1,42 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:05.000
+<b>Subtítulo en negrita</b>
+
+2
+00:00:05.000 --> 00:00:10.000
+<i>Subtítulo en cursiva</i>
+
+3
+00:00:10.000 --> 00:00:15.000 position:10%,line-left align:left
+Subtítulo con estilo de posición y alineación
+
+4
+00:00:15.000 --> 00:00:20.000 align:right size:50%
+Subtítulo con tamaño y alineación personalizados
+
+5
+00:00:20.000 --> 00:00:25.000
+Subtítulo con una <c.yellow>anotación en amarillo</c>
+
+6
+00:00:25.000 --> 00:00:30.000
+Subtítulo con una <c.blue>anotación en azul</c>
+
+7
+00:00:30.000 --> 00:00:35.000
+Subtítulo con una <c.red>anotación en rojo</c>
+
+8
+00:00:35.000 --> 00:00:40.000
+<v Color=green>Subtítulo con color verde</v>
+
+9
+00:00:40.000 --> 00:00:45.000 region:region1
+Subtítulo asignado a una región específica
+
+10
+00:00:45.000 --> 00:00:50.000
+Subtítulo con una marca de tiempo (marca de capítulo)
+
