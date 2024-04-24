@@ -1,4 +1,4 @@
-0;5;Post Malone reclama por pocos minutos
-5;10;La Paula es la mujer mas bonita del wor
-10;15;Seba y Paula se aman mucho
-15;20;Pedro pedro pedro pedro
+0|5|Post Malone quiere mas canciones por que Taylor no le puso mas
+5|10|La Taylor no le dio espacio Paula
+10|15|Seba es mi nombre Hola
+15|20|Pedro Pedro Pedro 

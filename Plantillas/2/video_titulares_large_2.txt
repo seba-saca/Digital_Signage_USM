@@ -1,0 +1,5 @@
+0|5|48|600|1000|Primera vez  que surge esto
+5|10|48|900|500|Hola que tal aca vamos
+10|15|48|300|200|Primero que todo
+15|20|48|150|300|Lalalala
+

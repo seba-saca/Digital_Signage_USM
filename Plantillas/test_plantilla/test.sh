@@ -30,20 +30,6 @@ BUFSIZE="10000K"
 QUAL="ultrafast"
 AUDIO_ENCODER="aac"
 
-# Función para leer un archivo de texto línea por línea
-read_file() {
-    local file="$1"
-    local array=()
-    while IFS= read -r line || [[ -n "$line" ]]; do
-        array+=("$line")
-    done < "$file"
-    echo "${array[@]}"
-}
-
-# Leer nombres de archivo de video y nombres de intervalos desde un archivo de texto combinado
-input_files=($(read_file $titulares))
-
-
 # Iniciar la cadena de filtros
 filtro_completo=""
 
@@ -54,37 +40,22 @@ filtro_completo+="[0:v]scale=1920:1080[fondo];\
 [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
 [xy_video_main][scaled_logo]overlay=1410:120,"
 
-# Iterar sobre los intervalos y textos
-i=1
-for line in "${input_files[@]}"; do
-    #interval=$(echo "$line" | cut -d'|' -f1)
-    #next_interval=$(echo "$line" | cut -d'|' -f2)
-    #text=$(echo "$line" | cut -d'|' -f3)
-    interval=$(echo "$line" | awk -F ';' '{print $1}')
-    next_interval=$(echo "$line" | awk -F ';' '{print $2}')
-    text=$(echo "$line" | awk -F ';' '{print $3}')
-    filtro_completo+="drawtext=text='${text}':x=150:y=830:fontsize=52:fontcolor=white:enable='between(t,${interval},${next_interval})',"
-    ((i++))
-done
-echo $filtro_completo
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-: '
-echo $filtro_completo
-echo " "
-echo " "
-echo " "
-echo " "
-echo " "
-'
+# Tamano letra parametros
+# Ancho máximo deseado
+ancho_maximo=10
+
+# Leer el archivo línea por línea
+while IFS='|' read -r inicio fin texto || [[ -n "$campo1" ]]; do
+    # Longitud del texto
+    longitud_texto=$(echo -n "$texto" | wc -m)
+    # Calcular el tamaño de la fuente necesario
+    tamano_fuente=($(ancho_maximo / longitud_texto))
+    filtro_completo+="drawtext=text='${texto}':fontsize=${tamano_fuente}:x=150:y=830:fontsize=52:fontcolor=white:enable='between(t,${inicio},${fin})',"
+done < "$titulares"
+
 
 # Agregar la última parte de la cadena de filtros, le quita el ultimo caracter, en este caso la ,
 filtro_completo="${filtro_completo%?}"
-
-
 
 ffmpeg -i $overlay -f concat -safe 0 -i $lista_videos -i $logo \
 -c:v libx264 -profile:v baseline -preset $QUAL \
