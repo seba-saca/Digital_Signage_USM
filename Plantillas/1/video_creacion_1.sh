@@ -63,6 +63,7 @@ echo "Opcion 2: Diferido"
 
 #read -p "Opción seleccionada: " opcion
 opcion=1
+
     case $opcion in
         1)
             ffmpeg -i $overlay -f concat -safe 0 -i $lista_videos -i $logo \

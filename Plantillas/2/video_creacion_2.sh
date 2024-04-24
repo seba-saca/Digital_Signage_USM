@@ -34,7 +34,8 @@ echo "Seleccione accion"
 echo "Opcion 1: Tiempo real"
 echo "Opcion 2: Diferido"
 
-read -p "Opción seleccionada: " opcion
+#read -p "Opción seleccionada: " opcion
+opcion=1
 
     case $opcion in
         1)

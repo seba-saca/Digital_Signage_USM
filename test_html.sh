@@ -19,7 +19,7 @@ overlay="/home/$user_name/Desktop/Contenido/Imagenes/Overlays/$fondo"
 
 logo="/home/$user_name/Desktop/Contenido/Imagenes/Logos/$logo"
 
-titulares="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_$plantilla_number.txt"
+titulares="/home/$user_name/Dessktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_$plantilla_number.txt"
 
 titulares_large="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_large_$plantilla_number.txt"
 
