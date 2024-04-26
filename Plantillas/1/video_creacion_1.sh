@@ -42,14 +42,17 @@ filtro_completo+="[0:v]scale=1920:1080[fondo];\
 [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
 [xy_video_main][scaled_logo]overlay=1410:120,"
 
+#ffmpeg -i video.mp4 -vf "drawtext=textfile=texto.txt:fontsize=30:fontcolor=white:x=50:y=50" -codec:a copy output.mp4
+
+
 # Leer el archivo línea por línea
 while IFS='|' read -r inicio fin size_fuente pos_x pos_y texto || [[ -n "$inicio" ]]; do
     filtro_completo+="drawtext=text='${texto}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
 done < "$titulares"
 
 # Leer el archivo línea por línea
-while IFS='|' read -r inicio fin size_fuente pos_x pos_y texto || [[ -n "$inicio" ]]; do
-    filtro_completo+="drawtext=text='${texto}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
+while IFS='|' read -r inicio fin size_fuente pos_x pos_y archivo_txt || [[ -n "$inicio" ]]; do
+    filtro_completo+="drawtext=textfile='${archivo_txt}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
 done < "$titulares_large"
 
 
@@ -62,7 +65,7 @@ echo "Opcion 1: Tiempo real"
 echo "Opcion 2: Diferido"
 
 #read -p "Opción seleccionada: " opcion
-opcion=1
+opcion=2
 
     case $opcion in
         1)
