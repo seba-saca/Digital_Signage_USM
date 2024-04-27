@@ -23,7 +23,6 @@ private slots:
 
     void on_Lista_plantillas_activated(int index);
 
-    void on_LogoUSM_linkActivated(const QString &link);
 
 private:
     Ui::MainWindow *ui;

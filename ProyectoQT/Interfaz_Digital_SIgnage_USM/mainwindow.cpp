@@ -75,8 +75,5 @@ void MainWindow::on_Lista_plantillas_activated(int index)
 
 
 
-void MainWindow::on_LogoUSM_linkActivated(const QString &link)
-{
-    return;
-}
+
 

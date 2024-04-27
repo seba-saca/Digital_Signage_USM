@@ -65,7 +65,7 @@ echo "Opcion 1: Tiempo real"
 echo "Opcion 2: Diferido"
 
 #read -p "Opción seleccionada: " opcion
-opcion=2
+opcion=1
 
     case $opcion in
         1)

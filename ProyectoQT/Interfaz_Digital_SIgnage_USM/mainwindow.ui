@@ -10,73 +10,145 @@
     <height>720</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>1280</width>
+    <height>720</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Digital SIgnage USM</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="Bienvenida">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>30</y>
-      <width>621</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>30</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Bienvenido a Digital Signage USM</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="LogoUSM">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QLabel" name="Logo_USM">
+   <widget class="QTabWidget" name="Pestanas">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>271</width>
-      <height>91</height>
+      <y>90</y>
+      <width>1280</width>
+      <height>611</height>
      </rect>
     </property>
-    <property name="text">
-     <string/>
+    <property name="maximumSize">
+     <size>
+      <width>1280</width>
+      <height>720</height>
+     </size>
     </property>
-    <property name="scaledContents">
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="usesScrollButtons">
      <bool>true</bool>
     </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>330</y>
-      <width>171</width>
-      <height>181</height>
-     </rect>
+    <property name="documentMode">
+     <bool>false</bool>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
+    <property name="tabsClosable">
+     <bool>false</bool>
+    </property>
+    <property name="movable">
+     <bool>false</bool>
+    </property>
+    <property name="tabBarAutoHide">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="Inicio">
+     <attribute name="title">
+      <string>Inicio</string>
+     </attribute>
+     <widget class="QPushButton" name="Start">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>60</y>
+        <width>171</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>35</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Iniciar</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="preview_plantilla">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>40</y>
+        <width>720</width>
+        <height>480</height>
+       </rect>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Seleccione plantilla para previsualizar</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::PlainText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>210</y>
+        <width>171</width>
+        <height>241</height>
+       </rect>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QPushButton" name="Start">
+        <widget class="QLabel" name="label">
          <property name="text">
-          <string>Iniciar</string>
+          <string>Seleccione Dispositivo:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>Disp 1er Piso</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Disp 2do Piso</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Disp 3er Piso</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Seleccione Plantilla:</string>
          </property>
         </widget>
        </item>
@@ -110,54 +182,128 @@
         </widget>
        </item>
       </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QFrame" name="Cuadro_preplantilla">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>440</y>
-      <width>331</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QLabel" name="preview_plantilla">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>291</width>
-       <height>179</height>
-      </rect>
-     </property>
-     <property name="sizeIncrement">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Seleccione para previsualizar</string>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="EditPlantilla">
+     <attribute name="title">
+      <string>Editor</string>
+     </attribute>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>20</y>
+        <width>1061</width>
+        <height>531</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Videos</string>
+       </attribute>
+       <widget class="QListWidget" name="Video_lista">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>140</y>
+          <width>256</width>
+          <height>192</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Titulares</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Resumen</string>
+       </attribute>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>137</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Seleccione Plantilla:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Lista_plantillas_2">
+         <item>
+          <property name="text">
+           <string>Plantilla 1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla 2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla 3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla 4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla 5</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Credito">
+     <attribute name="title">
+      <string>Credito</string>
+     </attribute>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>891</width>
+        <height>271</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Trabajo de Titulacion&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Desarrollo de plataforma de senalizacion digital para distribucion de contenido multimedia: Unidad de reproduccion audiovisual.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Autor:&lt;/span&gt; Sebastian Castillo - Estudiante Ingenieria Civil Electronica UTFSM&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Version: &lt;/span&gt;1&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Repositorio: &lt;/span&gt;https://github.com/sebandrescastillo1/Digital_Signage_USM&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      </property>
+     </widget>
     </widget>
    </widget>
-   <widget class="QLabel" name="Logo_ELO">
+   <widget class="QLabel" name="Logo_USM">
     <property name="geometry">
      <rect>
-      <x>1010</x>
-      <y>0</y>
-      <width>271</width>
-      <height>81</height>
+      <x>260</x>
+      <y>60</y>
+      <width>151</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -167,16 +313,44 @@
      <bool>true</bool>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1280</width>
-     <height>22</height>
-    </rect>
-   </property>
+   <widget class="QLabel" name="Logo_ELO">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>60</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Bienvenida">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>30</y>
+      <width>621</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>30</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Digital Signage USM&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <zorder>Pestanas</zorder>
+   <zorder>Bienvenida</zorder>
+   <zorder>Logo_USM</zorder>
+   <zorder>Logo_ELO</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
