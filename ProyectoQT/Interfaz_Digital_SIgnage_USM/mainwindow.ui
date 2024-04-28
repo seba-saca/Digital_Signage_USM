@@ -42,7 +42,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -67,9 +67,9 @@
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>60</y>
+        <y>330</y>
         <width>171</width>
-        <height>101</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="font">
@@ -109,11 +109,11 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>110</x>
-        <y>210</y>
+        <y>60</y>
         <width>171</width>
         <height>241</height>
        </rect>
@@ -192,7 +192,7 @@
       <property name="geometry">
        <rect>
         <x>190</x>
-        <y>20</y>
+        <y>10</y>
         <width>1061</width>
         <height>531</height>
        </rect>
@@ -204,15 +204,75 @@
        <attribute name="title">
         <string>Videos</string>
        </attribute>
-       <widget class="QListWidget" name="Video_lista">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>140</y>
-          <width>256</width>
-          <height>192</height>
+          <x>120</x>
+          <y>130</y>
+          <width>258</width>
+          <height>217</height>
          </rect>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="titulo_videos_disponibles">
+           <property name="text">
+            <string>Videos disponibles:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="Video_lista"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>580</x>
+          <y>130</y>
+          <width>258</width>
+          <height>217</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="titulo_videos_escogidos">
+           <property name="text">
+            <string>Videos escogidos:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="Video_lista_escogida"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>390</x>
+          <y>220</y>
+          <width>172</width>
+          <height>58</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QPushButton" name="Agregar_video">
+           <property name="text">
+            <string>Agregar video --&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Borrar_video">
+           <property name="text">
+            <string>&lt;-- Desagregar video</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
@@ -226,7 +286,7 @@
        </attribute>
       </widget>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>30</x>
