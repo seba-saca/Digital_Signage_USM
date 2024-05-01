@@ -8,6 +8,9 @@
 #include <QFileInfo>
 #include <QListWidgetItem>
 #include <QFile>
+#include <QListWidget>
+#include <QFile>
+#include <QTextStream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -34,6 +37,12 @@ private slots:
     void on_Agregar_video_clicked();
 
     void on_Borrar_video_clicked();
+
+
+
+    void on_Generar_lista_clicked();
+
+    void on_Limpiar_lista_clicked();
 
 private:
     Ui::MainWindow *ui;
