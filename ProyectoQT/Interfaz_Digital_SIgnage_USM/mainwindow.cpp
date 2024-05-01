@@ -17,12 +17,31 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Video_lista->addItems(files);
 
     QString filename;
+    QString filename2;
+    QString filename3;
+
     filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_lista_1.txt";
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
-        ui->Resumen_Videos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        ui->ResumenVideos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
         file.close();
+    }
+
+    filename2 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_titulares_1.txt";
+    QFile file2(filename2);
+    if (file2.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file2);
+        ui->ResumenTitulares->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file2.close();
+    }
+
+    filename3 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_titulares_large_1.txt";
+    QFile file3(filename3);
+    if (file3.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file3);
+        ui->ResumenTitularesLarge->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file3.close();
     }
 }
 
@@ -55,12 +74,30 @@ void MainWindow::on_Lista_plantillas_2_activated(int index)
     // Dependiendo del índice seleccionado, cambias la imagen mostrada en el QLabel
     QString indice = QString::number(index+1);
     QString filename;
+    QString filename2;
+    QString filename3;
     filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_lista_"+indice+".txt";
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
-        ui->Resumen_Videos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        ui->ResumenVideos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
         file.close();
+    }
+
+    filename2 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_"+indice+".txt";
+    QFile file2(filename2);
+    if (file2.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file2);
+        ui->ResumenTitulares->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file2.close();
+    }
+
+    filename3 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_large_"+indice+".txt";
+    QFile file3(filename3);
+    if (file3.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file3);
+        ui->ResumenTitularesLarge->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file3.close();
     }
 
 }
