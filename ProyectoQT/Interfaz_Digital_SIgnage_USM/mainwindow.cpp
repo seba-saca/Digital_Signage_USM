@@ -16,6 +16,16 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList files = dir.entryList(QDir::Files);
     ui->Video_lista->addItems(files);
 
+    QString path2 = "/home/seba/Desktop/Contenido/Titulares/Small";
+    QDir dir2(path2);
+    QStringList files2 = dir2.entryList(QDir::Files);
+    ui->Titulares_Lista->addItems(files2);
+
+    QString path3 = "/home/seba/Desktop/Contenido/Titulares/Large";
+    QDir dir3(path3);
+    QStringList files3 = dir3.entryList(QDir::Files);
+    ui->Titulares_Large_Lista->addItems(files3);
+
     QString filename;
     QString filename2;
     QString filename3;
@@ -154,5 +164,36 @@ void MainWindow::on_Generar_lista_clicked()
 void MainWindow::on_Limpiar_lista_clicked()
 {
     ui->Video_lista_escogida->clear();
+}
+
+
+void MainWindow::on_Titulares_Lista_itemClicked(QListWidgetItem *item)
+{
+    QString titular_texto;
+    QString file_content;
+    titular_texto=item->text();
+    file_content = "/home/seba/Desktop/Contenido/Titulares/Small/"+titular_texto;
+    QFile file(file_content);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        ui->Titulares_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file.close();
+    }
+
+}
+
+
+void MainWindow::on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item)
+{
+    QString titular_texto;
+    QString file_content;
+    titular_texto=item->text();
+    file_content = "/home/seba/Desktop/Contenido/Titulares/Large/"+titular_texto;
+    QFile file(file_content);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        ui->Titulares_Large_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file.close();
+    }
 }
 

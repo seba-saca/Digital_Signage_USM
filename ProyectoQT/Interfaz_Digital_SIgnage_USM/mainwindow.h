@@ -44,6 +44,10 @@ private slots:
 
     void on_Limpiar_lista_clicked();
 
+    void on_Titulares_Lista_itemClicked(QListWidgetItem *item);
+
+    void on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::MainWindow *ui;
 };

@@ -274,7 +274,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>580</x>
@@ -305,7 +305,7 @@
        <attribute name="title">
         <string>Titulares</string>
        </attribute>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>30</x>
@@ -339,7 +339,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Titulares_Contenido"/>
+            <widget class="QTextBrowser" name="Titulares_Contenido"/>
            </item>
           </layout>
          </item>
@@ -367,7 +367,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Titulares_Large_Contenido"/>
+            <widget class="QTextBrowser" name="Titulares_Large_Contenido"/>
            </item>
           </layout>
          </item>
