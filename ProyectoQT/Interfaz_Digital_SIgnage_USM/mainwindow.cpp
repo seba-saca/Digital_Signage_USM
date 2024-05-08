@@ -197,3 +197,118 @@ void MainWindow::on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item)
     }
 }
 
+
+void MainWindow::on_Agregar_titular_small_clicked()
+{
+    QString inicio = ui->Inicio_titular_small->toPlainText();
+    QString final = ui->Final_titular_small->toPlainText();
+    // Obtener el elemento seleccionado del primer QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Titulares_Lista->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
+        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text()+"|"+inicio+"|"+final);
+        ui->Titulares_small_lista_escogida->addItem(newItem);
+    }
+}
+
+
+void MainWindow::on_Quitar_titular_small_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Titulares_small_lista_escogida->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Titulares_small_lista_escogida->takeItem(ui->Titulares_small_lista_escogida->row(selectedItem));
+    }
+}
+
+
+void MainWindow::on_Limpiar_lista_titulares_small_clicked()
+{
+    ui->Titulares_small_lista_escogida->clear();
+}
+
+//titulares="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_$plantilla_number.txt"
+
+    //titulares_large="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_large_$plantilla_number.txt"
+
+void MainWindow::on_Generar_lista_titulares_small_clicked()
+{
+    int indice_actual = ui->Lista_plantillas_2->currentIndex();
+    QString textfile;
+    QString indice = QString::number(indice_actual+1);
+    textfile = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_"+indice+".txt";
+
+    QFile file(textfile);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out(&file);
+    for (int i = 0; i < ui->Titulares_small_lista_escogida->count(); ++i) {
+        out << "/home/seba/Desktop/Contenido/Titulares/Small/" << ui->Titulares_small_lista_escogida->item(i)->text()<< "|48|150|830" << "\n";
+    }
+
+    file.close();
+    qDebug() << "Elementos de la lista guardados en lista.txt";
+}
+
+
+void MainWindow::on_Agregar_titular_large_clicked()
+{
+    QString inicio = ui->Inicio_titular_large->toPlainText();
+    QString final = ui->FInal_titular_large->toPlainText();
+    // Obtener el elemento seleccionado del primer QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Titulares_Large_Lista->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
+        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text()+"|"+inicio+"|"+final);
+        ui->Titulares_large_lista_escogida->addItem(newItem);
+    }
+}
+
+
+void MainWindow::on_Borrar_titular_large_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Titulares_large_lista_escogida->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Titulares_large_lista_escogida->takeItem(ui->Titulares_large_lista_escogida->row(selectedItem));
+    }
+}
+
+
+void MainWindow::on_Limpiar_lista_titulares_large_clicked()
+{
+    ui->Titulares_large_lista_escogida->clear();
+}
+
+
+void MainWindow::on_Generar_lista_titulares_large_clicked()
+{
+    int indice_actual = ui->Lista_plantillas_2->currentIndex();
+    QString textfile;
+    QString indice = QString::number(indice_actual+1);
+    textfile = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_large_"+indice+".txt";
+
+    QFile file(textfile);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out(&file);
+    for (int i = 0; i < ui->Titulares_large_lista_escogida->count(); ++i) {
+        out << "/home/seba/Desktop/Contenido/Titulares/Large/" << ui->Titulares_large_lista_escogida->item(i)->text()<< "|40|1380|280" << "\n";
+    }
+
+    file.close();
+    qDebug() << "Elementos de la lista guardados en lista.txt";
+}
+

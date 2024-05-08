@@ -48,6 +48,22 @@ private slots:
 
     void on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item);
 
+    void on_Agregar_titular_small_clicked();
+
+    void on_Quitar_titular_small_clicked();
+
+    void on_Limpiar_lista_titulares_small_clicked();
+
+    void on_Generar_lista_titulares_small_clicked();
+
+    void on_Agregar_titular_large_clicked();
+
+    void on_Borrar_titular_large_clicked();
+
+    void on_Limpiar_lista_titulares_large_clicked();
+
+    void on_Generar_lista_titulares_large_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

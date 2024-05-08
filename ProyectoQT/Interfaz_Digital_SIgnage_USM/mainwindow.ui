@@ -198,7 +198,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -384,14 +384,14 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_10">
          <item>
-          <widget class="QPushButton" name="Agregar_video_2">
+          <widget class="QPushButton" name="Agregar_titular_small">
            <property name="text">
             <string>Agregar --&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="Borrar_video_2">
+          <widget class="QPushButton" name="Quitar_titular_small">
            <property name="text">
             <string>&lt;-- Quitar</string>
            </property>
@@ -410,14 +410,14 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_11">
          <item>
-          <widget class="QPushButton" name="Agregar_video_3">
+          <widget class="QPushButton" name="Agregar_titular_large">
            <property name="text">
             <string>Agregar --&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="Borrar_video_3">
+          <widget class="QPushButton" name="Borrar_titular_large">
            <property name="text">
             <string>&lt;-- Quitar</string>
            </property>
@@ -436,14 +436,14 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_16">
          <item>
-          <widget class="QPushButton" name="Limpiar_lista_3">
+          <widget class="QPushButton" name="Limpiar_lista_titulares_small">
            <property name="text">
             <string>Limpiar lista</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="Generar_lista_3">
+          <widget class="QPushButton" name="Generar_lista_titulares_small">
            <property name="text">
             <string>Generar lista</string>
            </property>
@@ -471,7 +471,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Video_lista_escogida_2"/>
+            <widget class="QListWidget" name="Titulares_small_lista_escogida"/>
            </item>
           </layout>
          </item>
@@ -485,7 +485,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="Video_lista_escogida_3"/>
+            <widget class="QListWidget" name="Titulares_large_lista_escogida"/>
            </item>
           </layout>
          </item>
@@ -502,14 +502,14 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_15">
          <item>
-          <widget class="QPushButton" name="Limpiar_lista_2">
+          <widget class="QPushButton" name="Limpiar_lista_titulares_large">
            <property name="text">
             <string>Limpiar lista</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="Generar_lista_2">
+          <widget class="QPushButton" name="Generar_lista_titulares_large">
            <property name="text">
             <string>Generar lista</string>
            </property>
@@ -521,9 +521,9 @@
         <property name="geometry">
          <rect>
           <x>480</x>
-          <y>310</y>
+          <y>280</y>
           <width>150</width>
-          <height>51</height>
+          <height>99</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -548,22 +548,22 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit_3"/>
+            <widget class="QPlainTextEdit" name="Inicio_titular_large"/>
            </item>
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit_4"/>
+            <widget class="QPlainTextEdit" name="FInal_titular_large"/>
            </item>
           </layout>
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>480</x>
-          <y>100</y>
-          <width>141</width>
-          <height>51</height>
+          <y>60</y>
+          <width>150</width>
+          <height>99</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_17">
@@ -588,10 +588,10 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit"/>
+            <widget class="QPlainTextEdit" name="Inicio_titular_small"/>
            </item>
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+            <widget class="QPlainTextEdit" name="Final_titular_small"/>
            </item>
           </layout>
          </item>
@@ -735,7 +735,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </rect>
         </property>
         <property name="text">
-         <string>Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y | Titular</string>
+         <string> Titular | Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y </string>
         </property>
        </widget>
        <widget class="QLabel" name="label_6">
@@ -748,7 +748,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </rect>
         </property>
         <property name="text">
-         <string>Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y | Titular</string>
+         <string>Titular | Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y</string>
         </property>
        </widget>
       </widget>

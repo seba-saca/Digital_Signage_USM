@@ -44,14 +44,15 @@ filtro_completo+="[0:v]scale=1920:1080[fondo];\
 
 #ffmpeg -i video.mp4 -vf "drawtext=textfile=texto.txt:fontsize=30:fontcolor=white:x=50:y=50" -codec:a copy output.mp4
 
+#/home/seba/Desktop/Contenido/Titulares/Small/paula.txt|10|20|40|1380|280
 
 # Leer el archivo línea por línea
-while IFS='|' read -r inicio fin size_fuente pos_x pos_y texto || [[ -n "$inicio" ]]; do
-    filtro_completo+="drawtext=text='${texto}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
+while IFS='|' read -r archivo_txt inicio fin size_fuente pos_x pos_y || [[ -n "$inicio" ]]; do
+    filtro_completo+="drawtext=textfile='${archivo_txt}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
 done < "$titulares"
 
 # Leer el archivo línea por línea
-while IFS='|' read -r inicio fin size_fuente pos_x pos_y archivo_txt || [[ -n "$inicio" ]]; do
+while IFS='|' read -r archivo_txt inicio fin size_fuente pos_x pos_y || [[ -n "$inicio" ]]; do
     filtro_completo+="drawtext=textfile='${archivo_txt}':x=${pos_x}:y=${pos_y}:fontsize=${size_fuente}:fontcolor=white:fontfile=path/to/font.ttf:shadowcolor=gray@0.5:shadowx=2:shadowy=2:enable='between(t,${inicio},${fin})',"
 done < "$titulares_large"
 
