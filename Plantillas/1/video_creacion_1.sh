@@ -42,8 +42,6 @@ filtro_completo+="[0:v]scale=1920:1080[fondo];\
 [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
 [xy_video_main][scaled_logo]overlay=1410:120,"
 
-#ffmpeg -i video.mp4 -vf "drawtext=textfile=texto.txt:fontsize=30:fontcolor=white:x=50:y=50" -codec:a copy output.mp4
-
 #/home/seba/Desktop/Contenido/Titulares/Small/paula.txt|10|20|40|1380|280
 
 # Leer el archivo línea por línea
