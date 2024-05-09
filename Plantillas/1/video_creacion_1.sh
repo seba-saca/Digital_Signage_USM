@@ -6,6 +6,12 @@ user_name=seba
 # Numero Plantilla
 plantilla_number=1
 
+# Accion Video
+accion_video=$2
+
+# Dispositivo
+reproductor=$1
+
 # Overlay
 fondo=fondo_usm_1.jpg
 
@@ -23,7 +29,7 @@ titulares="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_nu
 
 titulares_large="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_large_$plantilla_number.txt"
 
-ruta_video_final="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number"
+ruta_video_final="/home/$user_name/Desktop/Contenido_Compartir/Dispositivo_$reproductor/Plantilla_$plantilla_number"
 
 # Parametros
 VBR="3000K"
@@ -33,16 +39,21 @@ QUAL="ultrafast"
 AUDIO_ENCODER="aac"
 
 # Iniciar la cadena de filtros
-filtro_completo=""
+filtro_base=""
 
 # Filtro previo sin texto
-filtro_completo+="[0:v]scale=1920:1080[fondo];\
+filtro_base+="[0:v]scale=1920:1080[fondo];\
 [1:v]scale=iw*0.59:ih*0.41[scale_main_video];\
 [fondo][scale_main_video]overlay=x=155:y=280[xy_video_main];\
 [2:v]scale=iw*0.5:ih*0.5[scaled_logo];\
-[xy_video_main][scaled_logo]overlay=1410:120,"
+[xy_video_main][scaled_logo]overlay=1410:120"
 
-#/home/seba/Desktop/Contenido/Titulares/Small/paula.txt|10|20|40|1380|280
+# Iniciar la cadena de filtros
+filtro_completo=""
+
+# Filtro previo sin texto
+filtro_completo+="$filtro_base,"
+
 
 # Leer el archivo línea por línea
 while IFS='|' read -r archivo_txt inicio fin size_fuente pos_x pos_y || [[ -n "$inicio" ]]; do
@@ -61,10 +72,11 @@ filtro_completo="${filtro_completo%?}"
 
 echo "Seleccione accion"
 echo "Opcion 1: Tiempo real"
-echo "Opcion 2: Diferido"
+echo "Opcion 2: Diferido con titular"
+echo "Opcion 3: Diferido sin titular"
 
 #read -p "Opción seleccionada: " opcion
-opcion=1
+opcion=$accion_video
 
     case $opcion in
         1)
@@ -81,6 +93,14 @@ opcion=1
             -r $FPS -b:v $VBR -bufsize $BUFSIZE -maxrate $VBR \
             -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
             -filter_complex "$filtro_completo" \
+            "$ruta_video_final/video_plantilla_$plantilla_number.mkv"
+            ;;
+        3)
+            ffmpeg -i $overlay -f concat -safe 0 -i $lista_videos -i $logo \
+            -c:v libx264 -profile:v baseline -preset $QUAL \
+            -r $FPS -b:v $VBR -bufsize $BUFSIZE -maxrate $VBR \
+            -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
+            -filter_complex "$filtro_base" \
             "$ruta_video_final/video_plantilla_$plantilla_number.mkv"
             ;;
         *)
