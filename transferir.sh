@@ -1,15 +1,38 @@
 #!/bin/bash
 
 # Definir variables para directorios de origen y destino
-origen="/home/seba/Desktop/Contenido_Compartir"
+device=$1
 
-user_destino="seba"
-ip_destino="192.168.0.48"
+origen="/home/seba/Desktop/Contenido_Compartir/Dispositivo_$device"
 
-destino="$user_destino@$ip_destino:/home/seba/Desktop"
+user_destino_1="seba"
+ip_destino_1="192.168.0.48"
 
-# Ejecutar rsync para copiar los archivos
-rsync -avr --delete "$origen" "$destino"
+user_destino_2=""
+ip_destino_2=""
+
+user_destino_3=""
+ip_destino_3=""
+
+opcion=$device
+
+    case $opcion in
+        1)
+            destino="$user_destino_1@$ip_destino_1:/home/$user_destino_1/Desktop"
+            rsync -avr --delete "$origen" "$destino"
+            ;;
+        2)
+            destino="$user_destino_2@$ip_destino_2:/home/$user_destino_2/Desktop"
+            rsync -avr --delete "$origen" "$destino"
+            ;;
+        3)
+            destino="$user_destino_3@$ip_destino_3:/home/$user_destino_3/Desktop"
+            rsync -avr --delete "$origen" "$destino"
+            ;;
+        *)
+            echo "Opción inválida. Por favor, seleccione 1, 2 o 3."
+            ;;
+    esac
 
 # Comprobar el código de salida de rsync
 if [ $? -eq 0 ]; then
