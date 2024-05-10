@@ -64,6 +64,8 @@ private slots:
 
     void on_Generar_lista_titulares_large_clicked();
 
+    void on_sincronizar_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

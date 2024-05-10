@@ -63,14 +63,27 @@ MainWindow::~MainWindow()
 void MainWindow::on_Start_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
+    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
     QString scriptPath;
-    QString indice = QString::number(indice_actual+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_creacion_"+indice+".sh";
+    QString indice_string = QString::number(indice_actual+1);
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << indice_device_string << indice_string;
     QProcess *process = new QProcess(this);
-    process->start("bash", QStringList() << scriptPath);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    //process->start("bash", QStringList() << scriptPath);
     process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath;
 }
 
+void MainWindow::on_sincronizar_clicked()
+{
+
+}
 
 void MainWindow::on_Lista_plantillas_activated(int index)
 {
@@ -311,4 +324,10 @@ void MainWindow::on_Generar_lista_titulares_large_clicked()
     file.close();
     qDebug() << "Elementos de la lista guardados en lista.txt";
 }
+
+
+
+
+
+
 
