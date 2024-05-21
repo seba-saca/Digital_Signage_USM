@@ -66,6 +66,12 @@ private slots:
 
     void on_sincronizar_clicked();
 
+    void on_Generar_Video_clicked();
+
+    void on_Pause_clicked();
+
+    void on_Detener_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

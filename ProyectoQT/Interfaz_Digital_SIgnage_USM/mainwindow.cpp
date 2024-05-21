@@ -71,18 +71,31 @@ void MainWindow::on_Start_clicked()
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string;
+    arguments << indice_device_string << indice_string << "1";
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    //process->start("bash", QStringList() << scriptPath);
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath;
+}
+
+void MainWindow::on_sincronizar_clicked()
+{
+    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    QString scriptPath;
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/transferir.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << indice_device_string;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
     //process->start("bash", QStringList() << scriptPath);
     process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath;
-}
-
-void MainWindow::on_sincronizar_clicked()
-{
-
 }
 
 void MainWindow::on_Lista_plantillas_activated(int index)
@@ -330,4 +343,67 @@ void MainWindow::on_Generar_lista_titulares_large_clicked()
 
 
 
+
+
+void MainWindow::on_Generar_Video_clicked()
+{
+    int indice_actual = ui->Lista_plantillas->currentIndex();
+    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    QString scriptPath;
+    QString indice_plantilla = QString::number(indice_actual+1);
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice_plantilla+"/video_creacion_"+indice_plantilla+".sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << indice_device_string << "2";
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    //process->start("bash", QStringList() << scriptPath);
+    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath;
+}
+
+
+void MainWindow::on_Pause_clicked()
+{
+    int indice_actual = ui->Lista_plantillas->currentIndex();
+    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    QString scriptPath;
+    QString indice_string = QString::number(indice_actual+1);
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << indice_device_string << indice_string << "2";
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    //process->start("bash", QStringList() << scriptPath);
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath;
+}
+
+
+void MainWindow::on_Detener_clicked()
+{
+    int indice_actual = ui->Lista_plantillas->currentIndex();
+    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    QString scriptPath;
+    QString indice_string = QString::number(indice_actual+1);
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << indice_device_string << indice_string << "3";
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    //process->start("bash", QStringList() << scriptPath);
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath;
+}
 

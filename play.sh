@@ -1,16 +1,17 @@
 #!/bin/bash
 device=$1
 plantilla=$2
+accion=$3
 
 # Definir variables para directorios de origen y destino
 
 user_destino="seba"
 ip_destino="192.168.0.48"
 
-destino="/home/seba/Desktop/Dispositivo_$device/dispo_play.sh $device $plantilla"
+destino="/home/berry/Desktop/Dispositivo_$device/dispo_play.sh $device $plantilla $accion"
 
-user_destino_1="seba"
-ip_destino_1="192.168.0.48"
+user_destino_1="berry"
+ip_destino_1="192.168.43.221"
 
 user_destino_2=""
 ip_destino_2=""
