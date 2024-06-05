@@ -26,9 +26,15 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList files3 = dir3.entryList(QDir::Files);
     ui->Titulares_Large_Lista->addItems(files3);
 
+    QString path_lista_lugares = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    ui->lista_dispositivos_centro->addItems(files_lista_lugares);
+
     QString filename;
     QString filename2;
     QString filename3;
+
 
     filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_lista_1.txt";
     QFile file(filename);
