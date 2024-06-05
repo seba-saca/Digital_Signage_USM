@@ -11,7 +11,7 @@ ip_destino="192.168.0.48"
 destino="/home/berry/Desktop/Dispositivo_$device/dispo_play.sh $device $plantilla $accion"
 
 user_destino_1="berry"
-ip_destino_1="192.168.43.221"
+ip_destino_1="192.168.0.39"
 
 user_destino_2=""
 ip_destino_2=""

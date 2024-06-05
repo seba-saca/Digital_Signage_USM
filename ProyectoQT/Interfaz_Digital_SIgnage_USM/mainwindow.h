@@ -72,6 +72,16 @@ private slots:
 
     void on_Detener_clicked();
 
+    void on_Mute_video_clicked();
+
+    void on_Retroceder_clicked();
+
+    void on_Adelantar_clicked();
+
+    void on_Bajar_Volumen_clicked();
+
+    void on_Subir_Volumen_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
