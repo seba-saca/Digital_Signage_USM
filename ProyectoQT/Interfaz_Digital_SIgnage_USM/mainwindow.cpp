@@ -83,22 +83,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Start_clicked()
 {
+
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "1";
+    arguments << indice_device_string << indice_string << "1" << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
     //process->start("bash", QStringList() << scriptPath);
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
+    qDebug() << scriptPath << arguments;
+
+
 }
 
 void MainWindow::on_sincronizar_clicked()
@@ -395,10 +399,11 @@ void MainWindow::on_Pause_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "2";
+    arguments << indice_device_string << indice_string << "2"<<Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -416,10 +421,11 @@ void MainWindow::on_Detener_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "3";
+    arguments << indice_device_string << indice_string << "3" << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -437,10 +443,11 @@ void MainWindow::on_Mute_video_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "8";
+    arguments << indice_device_string << indice_string << "8" << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -458,10 +465,11 @@ void MainWindow::on_Retroceder_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "5";
+    arguments << indice_device_string << indice_string << "5"<<Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -479,10 +487,11 @@ void MainWindow::on_Adelantar_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "4";
+    arguments << indice_device_string << indice_string << "4"<<Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -500,10 +509,11 @@ void MainWindow::on_Bajar_Volumen_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "7";
+    arguments << indice_device_string << indice_string << "7" << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -521,10 +531,11 @@ void MainWindow::on_Subir_Volumen_clicked()
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "6";
+    arguments << indice_device_string << indice_string << "6" << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -605,12 +616,20 @@ void MainWindow::on_Agregar_dispositivo_ubicacion_boton_clicked()
 void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
 {
     QString textfile;
+    QString textfile_dispositivos_registrados;
     QString ubicacion;
     ubicacion =ui->lista_ubicaciones->currentText();
     textfile = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+ubicacion;
+    textfile_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
 
     QFile file(textfile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QFile file2(textfile_dispositivos_registrados);
+    if (!file2.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qDebug() << "No se pudo abrir el archivo para escritura";
         return;
     }
@@ -620,7 +639,14 @@ void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
         out << ui->Dispositivos_Ubicacion->item(i)->text()+"\n";
     }
 
+    QTextStream out2(&file2);
+    for (int i = 0; i < ui->Dispositivos_Registrados->count(); ++i) {
+        out2 << ui->Dispositivos_Registrados->item(i)->text()+"\n";
+    }
+
+
     file.close();
+    file2.close();
     qDebug() << "Elementos de la lista guardados en lista.txt";
 }
 

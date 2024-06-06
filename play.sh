@@ -2,41 +2,11 @@
 device=$1
 plantilla=$2
 accion=$3
-
-# Definir variables para directorios de origen y destino
-
-user_destino="seba"
-ip_destino="192.168.0.48"
+user_ip=$4
 
 destino="/home/berry/Desktop/Dispositivo_$device/dispo_play.sh $device $plantilla $accion"
 
-user_destino_1="berry"
-ip_destino_1="192.168.0.39"
-
-user_destino_2=""
-ip_destino_2=""
-
-user_destino_3=""
-ip_destino_3=""
-
-opcion=$device
-
-    case $opcion in
-        1)
-            # Conectarse al equipo remoto y ejecutar el script
-            #ssh $user_destino@$ip_destino < $destino
-            ssh $user_destino_1@$ip_destino_1 $destino
-            ;;
-        2)
-            ssh $user_destino_2@$ip_destino_2 $destino
-            ;;
-        3)
-            ssh $user_destino_3@$ip_destino_3 $destino
-            ;;
-        *)
-            echo "Opción inválida. Por favor, seleccione 1, 2 o 3."
-            ;;
-    esac
+ssh $user_ip $destino
 
 # Comprobar el código de salida de rsync
 if [ $? -eq 0 ]; then
