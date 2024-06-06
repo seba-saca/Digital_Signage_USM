@@ -29,11 +29,12 @@ MainWindow::MainWindow(QWidget *parent)
     QString path_lista_lugares = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones";
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    ui->lista_dispositivos_centro->addItems(files_lista_lugares);
+    ui->lista_ubicaciones->addItems(files_lista_lugares);
 
     QString filename;
     QString filename2;
     QString filename3;
+    QString filename_Dispositivos_Registrados;
 
 
     filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_lista_1.txt";
@@ -58,6 +59,19 @@ MainWindow::MainWindow(QWidget *parent)
         QTextStream stream(&file3);
         ui->ResumenTitularesLarge->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
         file3.close();
+    }
+
+    filename_Dispositivos_Registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
+    QFile file_Dispositivos_Registrados(filename_Dispositivos_Registrados);
+    if (file_Dispositivos_Registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file_Dispositivos_Registrados);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (!line.isEmpty()){
+                ui->Dispositivos_Registrados->addItem(line); // Cargar el contenido del archivo en el QTextEdit
+            }
+        }
+        file_Dispositivos_Registrados.close();
     }
 }
 
@@ -518,3 +532,56 @@ void MainWindow::on_Subir_Volumen_clicked()
     qDebug() << scriptPath;
 }
 
+
+void MainWindow::on_lista_ubicaciones_activated(int index)
+{
+    ui->Dispositivos_Ubicacion->clear();
+    QString Ubicacion = ui->lista_ubicaciones->currentText();
+    QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QFile file(filename_ubicaciones);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (!line.isEmpty()){
+                ui->Dispositivos_Ubicacion->addItem(line); // Cargar el contenido del archivo en el QTextEdit
+            }
+        }
+        file.close();
+    }
+}
+
+
+void MainWindow::on_Agregar_dispositivo_boton_clicked()
+{
+    QString user_and_ip = ui->Formato_ip_dispositivo->toPlainText();
+    QListWidgetItem *newItem = new QListWidgetItem(user_and_ip);
+    ui->Dispositivos_Registrados->addItem(newItem);
+}
+
+
+void MainWindow::on_Quitar_lista_dispositivos_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Dispositivos_seleccionados->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Dispositivos_seleccionados->takeItem(ui->Dispositivos_seleccionados->row(selectedItem));
+    }
+}
+
+
+void MainWindow::on_Agregar_lista_dispositivos_clicked()
+{
+    // Obtener el elemento seleccionado del primer QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Dispositivos_Registrados->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
+        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text());
+        ui->Dispositivos_seleccionados->addItem(newItem);
+    }
+}
+
+void MainWindow::on_Quitar_titular_small_2_clicked(){}

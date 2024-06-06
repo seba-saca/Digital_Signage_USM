@@ -82,6 +82,16 @@ private slots:
 
     void on_Subir_Volumen_clicked();
 
+    void on_lista_ubicaciones_activated(int index);
+
+    void on_Agregar_dispositivo_boton_clicked();
+
+    void on_Agregar_lista_dispositivos_clicked();
+
+    void on_Quitar_titular_small_2_clicked();
+
+    void on_Quitar_lista_dispositivos_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

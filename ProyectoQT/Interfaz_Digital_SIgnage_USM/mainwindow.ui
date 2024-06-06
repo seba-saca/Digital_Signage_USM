@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -442,7 +442,7 @@
        <rect>
         <x>40</x>
         <y>40</y>
-        <width>157</width>
+        <width>261</width>
         <height>50</height>
        </rect>
       </property>
@@ -462,8 +462,8 @@
      <widget class="QWidget" name="layoutWidget_7">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>120</y>
+        <x>930</x>
+        <y>10</y>
         <width>157</width>
         <height>50</height>
        </rect>
@@ -478,6 +478,160 @@
        </item>
        <item>
         <widget class="QComboBox" name="lista_dispositivos_centro"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_8">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>130</y>
+        <width>261</width>
+        <height>217</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_22">
+       <item>
+        <widget class="QLabel" name="Dispositivos_Ubicacion_label">
+         <property name="text">
+          <string>Dispositivos asociados a ubicacion:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="Dispositivos_Ubicacion"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_9">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>130</y>
+        <width>251</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_23">
+       <item>
+        <widget class="QLabel" name="Dispositivos_Registrados_label">
+         <property name="text">
+          <string>Dispositivos disponibles a registrar:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="Dispositivos_Registrados"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_10">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>130</y>
+        <width>211</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_24">
+       <item>
+        <widget class="QLabel" name="Dispositivos_seleccionados_label">
+         <property name="text">
+          <string>Dispositivos seleccionados:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="Dispositivos_seleccionados"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPlainTextEdit" name="Formato_ip_dispositivo">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>50</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_formato_ip">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>20</y>
+        <width>201</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Formato: user@direccion_ip</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Agregar_dispositivo_boton">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>50</y>
+        <width>151</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Registrar dispositivo</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Agregar_dispositivo_ubicacion_boton">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>430</y>
+        <width>261</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Registrar en ubicacion seleccionada</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Limpiar_lista_dispositivos">
+      <property name="geometry">
+       <rect>
+        <x>1170</x>
+        <y>180</y>
+        <width>95</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Limpiar lista</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>190</y>
+        <width>141</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_25">
+       <item>
+        <widget class="QPushButton" name="Agregar_lista_dispositivos">
+         <property name="text">
+          <string>Agregar --&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Quitar_lista_dispositivos">
+         <property name="text">
+          <string>&lt;-- Quitar</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -496,7 +650,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1136,6 +1290,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QPushButton" name="Quitar_titular_small_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>220</y>
+        <width>84</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>&lt;-- Quitar</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QLabel" name="Logo_USM">
@@ -1160,7 +1327,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <x>320</x>
       <y>30</y>
       <width>621</width>
-      <height>101</height>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
