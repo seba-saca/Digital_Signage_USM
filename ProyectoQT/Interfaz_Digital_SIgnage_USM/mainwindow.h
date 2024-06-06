@@ -101,6 +101,8 @@ private slots:
 
     void on_Quitar_dispositivo_lista_ubicacion_clicked();
 
+    void on_home_ubicacion_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };

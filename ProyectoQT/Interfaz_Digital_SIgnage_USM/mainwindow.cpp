@@ -638,3 +638,23 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
     }
 }
 
+
+void MainWindow::on_home_ubicacion_activated(int index)
+{
+    ui->home_dispositivo->clear();
+    QString Ubicacion = ui->home_ubicacion->currentText();
+    QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QFile file(filename_ubicaciones);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (!line.isEmpty()){
+                ui->home_dispositivo->addItem(line); // Cargar el contenido del archivo en el QTextEdit
+            }
+        }
+        file.close();
+    }
+
+}
+
