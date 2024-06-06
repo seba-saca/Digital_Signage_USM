@@ -111,10 +111,11 @@ void MainWindow::on_sincronizar_clicked()
     QString scriptPath;
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/transferir.sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string;
+    arguments << indice_device_string << Dispositivo_seleccionado;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);

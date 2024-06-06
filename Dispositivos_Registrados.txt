@@ -4,3 +4,4 @@ pepe@2.2.2.2
 pinneable@3.3.3.3
 apple@4.4.4.4
 banana@5.5.5.5
+petit@7.7.7.7

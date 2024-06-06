@@ -1,9 +1,22 @@
 #!/bin/bash
-
 # Definir variables para directorios de origen y destino
 device=$1
+destino=$2
+
+# Usando cut para extraer cada parte del string
+username=$(echo "$destino" | cut -d ',' -f 1)
+
+# Imprimiendo las variables para verificar
+echo "Parte 1: $parte1"
+echo "Parte 2: $parte2"
+echo "Parte 3: $parte3"
+
 
 origen="/home/seba/Desktop/Contenido_Compartir/Dispositivo_$device"
+
+destino="$user_destino_1@$ip_destino_1:/home/$user_destino_1/Desktop"
+
+rsync -avr --delete "$origen" "$destino"
 
 user_destino_1="berry"
 ip_destino_1="192.168.0.39"
