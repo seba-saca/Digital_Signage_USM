@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
     ui->lista_ubicaciones->addItems(files_lista_lugares);
+    ui->home_ubicacion->addItems(files_lista_lugares);
 
     QString filename;
     QString filename2;
@@ -83,7 +84,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_Start_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -102,7 +103,7 @@ void MainWindow::on_Start_clicked()
 
 void MainWindow::on_sincronizar_clicked()
 {
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_device_string = QString::number(indice_actual_device+1);
     scriptPath = "/home/seba/Desktop/Digital_Signage_USM/transferir.sh";
@@ -368,7 +369,7 @@ void MainWindow::on_Generar_lista_titulares_large_clicked()
 void MainWindow::on_Generar_Video_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_plantilla = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -389,7 +390,7 @@ void MainWindow::on_Generar_Video_clicked()
 void MainWindow::on_Pause_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -410,7 +411,7 @@ void MainWindow::on_Pause_clicked()
 void MainWindow::on_Detener_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -431,7 +432,7 @@ void MainWindow::on_Detener_clicked()
 void MainWindow::on_Mute_video_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -452,7 +453,7 @@ void MainWindow::on_Mute_video_clicked()
 void MainWindow::on_Retroceder_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -473,7 +474,7 @@ void MainWindow::on_Retroceder_clicked()
 void MainWindow::on_Adelantar_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -494,7 +495,7 @@ void MainWindow::on_Adelantar_clicked()
 void MainWindow::on_Bajar_Volumen_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -515,7 +516,7 @@ void MainWindow::on_Bajar_Volumen_clicked()
 void MainWindow::on_Subir_Volumen_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->Lista_dispositivos->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
     QString scriptPath;
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
@@ -585,3 +586,55 @@ void MainWindow::on_Agregar_lista_dispositivos_clicked()
 }
 
 void MainWindow::on_Quitar_titular_small_2_clicked(){}
+
+void MainWindow::on_Limpiar_lista_dispositivos_clicked()
+{
+    ui->Dispositivos_seleccionados->clear();
+}
+
+
+void MainWindow::on_Agregar_dispositivo_ubicacion_boton_clicked()
+{
+    for (int i = 0; i < ui->Dispositivos_seleccionados->count(); ++i) {
+        QListWidgetItem *item = ui->Dispositivos_seleccionados->item(i)->clone();
+        ui->Dispositivos_Ubicacion->addItem(item);
+    }
+}
+
+
+void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
+{
+    QString textfile;
+    QString ubicacion;
+    ubicacion =ui->lista_ubicaciones->currentText();
+    textfile = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+ubicacion;
+
+    QFile file(textfile);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out(&file);
+    for (int i = 0; i < ui->Dispositivos_Ubicacion->count(); ++i) {
+        out << ui->Dispositivos_Ubicacion->item(i)->text()+"\n";
+    }
+
+    file.close();
+    qDebug() << "Elementos de la lista guardados en lista.txt";
+}
+
+
+
+
+void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Dispositivos_Ubicacion->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Dispositivos_Ubicacion->takeItem(ui->Dispositivos_Ubicacion->row(selectedItem));
+    }
+}
+

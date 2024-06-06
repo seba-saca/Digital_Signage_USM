@@ -92,6 +92,15 @@ private slots:
 
     void on_Quitar_lista_dispositivos_clicked();
 
+    void on_Limpiar_lista_dispositivos_clicked();
+
+    void on_Agregar_dispositivo_ubicacion_boton_clicked();
+
+    void on_Guardar_cambios_dispositivos_agregados_clicked();
+
+
+    void on_Quitar_dispositivo_lista_ubicacion_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
