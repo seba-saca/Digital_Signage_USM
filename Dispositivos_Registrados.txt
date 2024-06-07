@@ -1,4 +1,4 @@
-berry@192.168.0.39
+berry@10.2.51.88
 seba@1.1.1.1
 pepe@2.2.2.2
 pinneable@3.3.3.3
@@ -8,3 +8,5 @@ petit@7.7.7.7
 agv@9.9.9.9
 rufian@6.5.3.56
 alejandro@0.0.0.0
+berry@192.168.12.221
+sebastian@1.1.1.1
