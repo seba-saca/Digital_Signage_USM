@@ -105,6 +105,8 @@ private slots:
 
     void on_home_dispositivo_activated(int index);
 
+    void on_asignacion_dispositivos_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };

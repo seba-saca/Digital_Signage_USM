@@ -11,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Logo_ELO->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/elo.jpg"));
     QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
-    //ui->preview_plantilla->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Overlays/fondo_usm_1.jpg"));
-    //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
+
+
 
     QString path = "/home/seba/Desktop/Contenido/Videos/Material_Prueba";
     QDir dir(path);
@@ -34,6 +34,12 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
     ui->lista_ubicaciones->addItems(files_lista_lugares);
     ui->home_ubicacion->addItems(files_lista_lugares);
+
+    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/videos";
+    QDir dir5(filename_ubicaciones);
+    QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
+    ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
+
 
     QString filename;
     QString filename2;
@@ -77,6 +83,20 @@ MainWindow::MainWindow(QWidget *parent)
         }
         file_Dispositivos_Registrados.close();
     }
+
+    QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
+    QFile file_dispositivos_registrados(filename_dispositivos_registrados);
+    if (file_dispositivos_registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream_dispositivos_registrados(&file_dispositivos_registrados);
+        while (!stream_dispositivos_registrados.atEnd()) {
+            QString line_dispositivos_registrados = stream_dispositivos_registrados.readLine();
+            if (!line_dispositivos_registrados.isEmpty()){
+                ui->asignacion_dispositivos->addItem(line_dispositivos_registrados); // Cargar el contenido del archivo en el QTextEdit
+            }
+        }
+        file_dispositivos_registrados.close();
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -785,5 +805,45 @@ void MainWindow::on_home_dispositivo_activated(int index)
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
     ui->Lista_plantillas->addItems(files_lista_lugares);
+}
+
+
+void MainWindow::on_asignacion_dispositivos_activated(int index)
+{
+    //ui->asignacion_dispositivos->clear();
+    QString device = ui->asignacion_dispositivos->currentText();
+
+    QChar delimiter = '@';
+
+    // Divide la cadena usando el delimitador
+    QStringList tokens = device.split(delimiter);
+
+    // Imprimir todas las subcadenas
+    qDebug() << "Todas las subcadenas:";
+    for (const auto& token : tokens) {
+        qDebug() << token;
+    }
+
+    // Imprimir una subcadena específica (por ejemplo, la tercera)
+    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
+    if (i < tokens.size()) {
+        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
+    } else {
+        qDebug() << "Índice fuera de rango.";
+    }
+
+
+    ui->Gestion_Contenido_Disponible->clear();
+    ui->Gestion_Contenido_Disponible_2->clear();
+    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/videos";
+    QDir dir4(filename_ubicaciones);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    ui->Gestion_Contenido_Disponible->addItems(files_lista_lugares);
+
+    QString filename_ubicaciones2 = "/home/seba/Desktop/Contenido_Dispositivos/"+ tokens[i] +"/videos";
+    QDir dir5(filename_ubicaciones2);
+    QStringList files_lista_lugares2 = dir5.entryList(QDir::Files);
+    ui->Gestion_Contenido_Disponible_2->addItems(files_lista_lugares2);
+
 }
 
