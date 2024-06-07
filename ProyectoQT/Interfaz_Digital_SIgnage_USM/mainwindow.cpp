@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     //ui->Logo_USM->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/logo_usm.png"));
     ui->Logo_ELO->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/elo.jpg"));
-    ui->preview_plantilla->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Overlays/fondo_usm_1.jpg"));
+    //ui->preview_plantilla->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Overlays/fondo_usm_1.jpg"));
+    //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
 
     QString path = "/home/seba/Desktop/Contenido/Videos/Material_Prueba";
     QDir dir(path);
@@ -94,7 +95,10 @@ void MainWindow::on_Start_clicked()
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "1" << Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << indice_device_string << indice_string << "1" << Dispositivo_seleccionado << name_video;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -120,15 +124,40 @@ void MainWindow::on_sincronizar_clicked()
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
     //process->start("bash", QStringList() << scriptPath);
-    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
 }
 
 void MainWindow::on_Lista_plantillas_activated(int index)
 {
-    // Dependiendo del índice seleccionado, cambias la imagen mostrada en el QLabel
-    QString indice = QString::number(index+1);
-    ui->preview_plantilla->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Overlays/fondo_usm_"+indice+".jpg"));
+    QString name_video= ui->Lista_plantillas->currentText();
+    QChar delimiter = '.';
+
+    // Divide la cadena usando el delimitador
+    QStringList tokens = name_video.split(delimiter);
+
+    // Imprimir todas las subcadenas
+    qDebug() << "Todas las subcadenas:";
+    for (const auto& token : tokens) {
+        qDebug() << token;
+    }
+
+    // Imprimir una subcadena específica (por ejemplo, la tercera)
+    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
+    if (i < tokens.size()) {
+        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
+    } else {
+        qDebug() << "Índice fuera de rango.";
+    }
+
+
+
+
+
+    QString path_miniaturas = "/home/seba/Desktop/Contenido_ELO308/miniaturas/"+tokens[i]+".jpg";
+    qDebug() << path_miniaturas;
+    ui->preview_plantilla->setPixmap(QPixmap(path_miniaturas));
+    //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
 }
 
 void MainWindow::on_Lista_plantillas_2_activated(int index)
@@ -668,6 +697,7 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
 
 void MainWindow::on_home_ubicacion_activated(int index)
 {
+
     ui->home_dispositivo->clear();
     QString Ubicacion = ui->home_ubicacion->currentText();
     QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
@@ -682,6 +712,34 @@ void MainWindow::on_home_ubicacion_activated(int index)
         }
         file.close();
     }
+
+    QString name_device= ui->home_dispositivo->currentText();
+    QChar delimiter = '@';
+
+    // Divide la cadena usando el delimitador
+    QStringList tokens = name_device.split(delimiter);
+
+    // Imprimir todas las subcadenas
+    qDebug() << "Todas las subcadenas:";
+    for (const auto& token : tokens) {
+        qDebug() << token;
+    }
+
+    // Imprimir una subcadena específica (por ejemplo, la tercera)
+    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
+    if (i < tokens.size()) {
+        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
+    } else {
+        qDebug() << "Índice fuera de rango.";
+    }
+
+    ui->Lista_plantillas->clear();
+
+    QString path_lista_lugares = "/home/seba/Desktop/Contenido_Dispositivos/"+tokens[i]+"/videos";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    ui->Lista_plantillas->addItems(files_lista_lugares);
+
 
 }
 

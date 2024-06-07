@@ -3,8 +3,12 @@ device=$1
 plantilla=$2
 accion=$3
 user_ip=$4
+video=$5
 
-destino="/home/berry/Desktop/Dispositivo_$device/dispo_play.sh $device $plantilla $accion"
+# Usando cut para extraer cada parte del string
+username=$(echo "$user_ip" | cut -d '@' -f 1)
+
+destino="/home/$username/Desktop/$username/control_device.sh $device $plantilla $accion $username $video"
 
 ssh $user_ip $destino
 
