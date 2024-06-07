@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     //ui->Logo_USM->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/logo_usm.png"));
     ui->Logo_ELO->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/elo.jpg"));
+    QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     //ui->preview_plantilla->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Overlays/fondo_usm_1.jpg"));
     //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
 
@@ -158,6 +160,9 @@ void MainWindow::on_Lista_plantillas_activated(int index)
     qDebug() << path_miniaturas;
     ui->preview_plantilla->setPixmap(QPixmap(path_miniaturas));
     //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
+
+
+
 }
 
 void MainWindow::on_Lista_plantillas_2_activated(int index)
@@ -697,8 +702,11 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
 
 void MainWindow::on_home_ubicacion_activated(int index)
 {
-
+    QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->home_dispositivo->clear();
+    ui->Lista_plantillas->clear();
+
     QString Ubicacion = ui->home_ubicacion->currentText();
     QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
     QFile file(filename_ubicaciones);
@@ -713,6 +721,8 @@ void MainWindow::on_home_ubicacion_activated(int index)
         file.close();
     }
 
+
+    ui->Lista_plantillas->clear();
     QString name_device= ui->home_dispositivo->currentText();
     QChar delimiter = '@';
 
@@ -733,7 +743,7 @@ void MainWindow::on_home_ubicacion_activated(int index)
         qDebug() << "Índice fuera de rango.";
     }
 
-    ui->Lista_plantillas->clear();
+
 
     QString path_lista_lugares = "/home/seba/Desktop/Contenido_Dispositivos/"+tokens[i]+"/videos";
     QDir dir4(path_lista_lugares);
@@ -741,5 +751,39 @@ void MainWindow::on_home_ubicacion_activated(int index)
     ui->Lista_plantillas->addItems(files_lista_lugares);
 
 
+}
+
+
+void MainWindow::on_home_dispositivo_activated(int index)
+{
+    QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
+    ui->Lista_plantillas->clear();
+    QString name_device= ui->home_dispositivo->currentText();
+    QChar delimiter = '@';
+
+    // Divide la cadena usando el delimitador
+    QStringList tokens = name_device.split(delimiter);
+
+    // Imprimir todas las subcadenas
+    qDebug() << "Todas las subcadenas:";
+    for (const auto& token : tokens) {
+        qDebug() << token;
+    }
+
+    // Imprimir una subcadena específica (por ejemplo, la tercera)
+    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
+    if (i < tokens.size()) {
+        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
+    } else {
+        qDebug() << "Índice fuera de rango.";
+    }
+
+
+
+    QString path_lista_lugares = "/home/seba/Desktop/Contenido_Dispositivos/"+tokens[i]+"/videos";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    ui->Lista_plantillas->addItems(files_lista_lugares);
 }
 

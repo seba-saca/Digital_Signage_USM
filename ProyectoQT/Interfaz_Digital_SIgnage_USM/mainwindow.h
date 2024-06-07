@@ -103,6 +103,8 @@ private slots:
 
     void on_home_ubicacion_activated(int index);
 
+    void on_home_dispositivo_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };
