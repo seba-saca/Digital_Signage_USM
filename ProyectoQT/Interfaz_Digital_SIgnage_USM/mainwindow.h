@@ -107,6 +107,10 @@ private slots:
 
     void on_asignacion_dispositivos_activated(int index);
 
+    QStringList removeExtensions(const QStringList &fileList, const QChar &cutChar);
+
+    void on_boton_admin_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

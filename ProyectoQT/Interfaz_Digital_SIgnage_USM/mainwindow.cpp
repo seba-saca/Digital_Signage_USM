@@ -1,11 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "variables_globales.h"
 #include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     //ui->Logo_USM->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/logo_usm.png"));
     ui->Logo_ELO->setPixmap(QPixmap("/home/seba/Desktop/Contenido/Imagenes/Logos/elo.jpg"));
@@ -29,11 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList files3 = dir3.entryList(QDir::Files);
     ui->Titulares_Large_Lista->addItems(files3);
 
-    QString path_lista_lugares = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones";
-    QDir dir4(path_lista_lugares);
-    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    ui->lista_ubicaciones->addItems(files_lista_lugares);
-    ui->home_ubicacion->addItems(files_lista_lugares);
 
     QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/videos";
     QDir dir5(filename_ubicaciones);
@@ -44,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString filename;
     QString filename2;
     QString filename3;
-    QString filename_Dispositivos_Registrados;
+
 
 
     filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_lista_1.txt";
@@ -71,6 +68,7 @@ MainWindow::MainWindow(QWidget *parent)
         file3.close();
     }
 
+    QString filename_Dispositivos_Registrados;
     filename_Dispositivos_Registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
     QFile file_Dispositivos_Registrados(filename_Dispositivos_Registrados);
     if (file_Dispositivos_Registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -722,13 +720,15 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
 
 void MainWindow::on_home_ubicacion_activated(int index)
 {
+    //Limpieza
     QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->home_dispositivo->clear();
     ui->Lista_plantillas->clear();
 
-    QString Ubicacion = ui->home_ubicacion->currentText();
-    QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    //Leemos texto
+    QString Ubicacion = ui->home_ubicacion->currentText()+".txt";
+    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
     QFile file(filename_ubicaciones);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
@@ -844,6 +844,42 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
     QDir dir5(filename_ubicaciones2);
     QStringList files_lista_lugares2 = dir5.entryList(QDir::Files);
     ui->Gestion_Contenido_Disponible_2->addItems(files_lista_lugares2);
+
+}
+
+// Función para quitar la parte del string después del carácter de corte en una QStringList
+QStringList MainWindow::removeExtensions(const QStringList &fileList, const QChar &cutChar) {
+    QStringList modifiedList;
+
+    for (const QString &filename : fileList) {
+        int cutPosition = filename.lastIndexOf(cutChar);
+        QString modifiedFilename = filename;
+
+        if (cutPosition != -1) {
+            modifiedFilename = filename.left(cutPosition);
+        }
+
+        modifiedList.append(modifiedFilename);
+    }
+
+    return modifiedList;
+}
+
+void MainWindow::on_boton_admin_clicked()
+{
+    ui->lista_ubicaciones->clear();
+    ui->home_ubicacion->clear();
+    QString admin = ui->texto_admin->toPlainText();
+    global_path = "/home/"+admin+"/Desktop/";
+
+    QString path_lista_lugares = global_path+"Digital_Signage_USM/Ubicaciones";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
+    QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
+    ui->lista_ubicaciones->addItems(modified_files_lista_lugares);
+    ui->home_ubicacion->addItems(modified_files_lista_lugares);
+
 
 }
 
