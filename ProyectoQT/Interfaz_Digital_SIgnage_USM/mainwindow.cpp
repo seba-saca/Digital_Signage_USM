@@ -726,25 +726,29 @@ void MainWindow::on_home_ubicacion_activated(int index)
     ui->home_dispositivo->clear();
     ui->Lista_plantillas->clear();
 
+    //Delimitador
+    QChar delimiter = '@';
+
     //Leemos texto
     QString Ubicacion = ui->home_ubicacion->currentText()+".txt";
     QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
     QFile file(filename_ubicaciones);
+
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
         while (!stream.atEnd()) {
             QString line = stream.readLine();
+            QStringList tmp_string = line.split(delimiter);
             if (!line.isEmpty()){
-                ui->home_dispositivo->addItem(line); // Cargar el contenido del archivo en el QTextEdit
+                ui->home_dispositivo->addItem(tmp_string[0],tmp_string[1]); // user@ip
             }
         }
         file.close();
     }
 
-
-    ui->Lista_plantillas->clear();
+    /*
     QString name_device= ui->home_dispositivo->currentText();
-    QChar delimiter = '@';
+
 
     // Divide la cadena usando el delimitador
     QStringList tokens = name_device.split(delimiter);
@@ -769,7 +773,7 @@ void MainWindow::on_home_ubicacion_activated(int index)
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
     ui->Lista_plantillas->addItems(files_lista_lugares);
-
+    */
 
 }
 
