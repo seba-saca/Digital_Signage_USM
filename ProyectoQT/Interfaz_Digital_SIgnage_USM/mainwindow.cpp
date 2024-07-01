@@ -776,21 +776,20 @@ void MainWindow::on_home_ubicacion_activated(int index)
 
 void MainWindow::on_home_dispositivo_activated(int index)
 {
-    QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
-    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->Lista_plantillas->clear();
+    QString video_simbolo = global_path +"Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
+
+
     QString name_device= ui->home_dispositivo->currentText();
     QChar delimiter = '@';
-
     // Divide la cadena usando el delimitador
     QStringList tokens = name_device.split(delimiter);
-
     // Imprimir todas las subcadenas
     qDebug() << "Todas las subcadenas:";
     for (const auto& token : tokens) {
         qDebug() << token;
     }
-
     // Imprimir una subcadena específica (por ejemplo, la tercera)
     int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
     if (i < tokens.size()) {
@@ -800,11 +799,11 @@ void MainWindow::on_home_dispositivo_activated(int index)
     }
 
 
-
-    QString path_lista_lugares = "/home/seba/Desktop/Contenido_Dispositivos/"+tokens[i]+"/videos";
+    QString path_lista_lugares = global_path+"Contenido_Dispositivos/"+tokens[i]+"/videos";
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    ui->Lista_plantillas->addItems(files_lista_lugares);
+    QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
+    ui->Lista_plantillas->addItems(modified_files_lista_lugares);
 }
 
 
@@ -869,6 +868,9 @@ void MainWindow::on_boton_admin_clicked()
 {
     ui->lista_ubicaciones->clear();
     ui->home_ubicacion->clear();
+    ui->home_dispositivo->clear();
+    ui->Lista_plantillas->clear();
+
     QString admin = ui->texto_admin->toPlainText();
     global_path = "/home/"+admin+"/Desktop/";
 

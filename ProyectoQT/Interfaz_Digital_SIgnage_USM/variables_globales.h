@@ -5,5 +5,6 @@
 
 // Declaración de la variable global
 extern QString global_path;
+extern QString user_ip_dispositivo;
 
 #endif // VARIABLES_GLOBALES_H
