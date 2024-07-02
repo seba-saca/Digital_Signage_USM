@@ -150,37 +150,17 @@ void MainWindow::on_sincronizar_clicked()
 
 void MainWindow::on_Lista_plantillas_activated(int index)
 {
+    //Recuperamos video seleccionado
     QString name_video= ui->Lista_plantillas->currentText();
     QChar delimiter = '.';
-
-    // Divide la cadena usando el delimitador
     QStringList tokens = name_video.split(delimiter);
 
-    // Imprimir todas las subcadenas
-    qDebug() << "Todas las subcadenas:";
-    for (const auto& token : tokens) {
-        qDebug() << token;
-    }
+    int i = 0;
+    qDebug() << "Video:" << tokens[i] << "\n";
 
-    // Imprimir una subcadena específica (por ejemplo, la tercera)
-    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
-    if (i < tokens.size()) {
-        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
-    } else {
-        qDebug() << "Índice fuera de rango.";
-    }
-
-
-
-
-
-    QString path_miniaturas = "/home/seba/Desktop/Contenido_ELO308/miniaturas/"+tokens[i]+".jpg";
-    qDebug() << path_miniaturas;
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Contenido_ELO308/miniaturas/"+tokens[i]+".jpg";
     ui->preview_plantilla->setPixmap(QPixmap(path_miniaturas));
-    //ui->video_prev->setPixmap(QPixmap("/home/seba/Desktop/Contenido_Dispositivos/berry/cut_ticket.jpg"));
-
-
-
 }
 
 void MainWindow::on_Lista_plantillas_2_activated(int index)
@@ -602,7 +582,7 @@ void MainWindow::on_lista_ubicaciones_activated(int index)
 {
     ui->Dispositivos_Ubicacion->clear();
     QString Ubicacion = ui->lista_ubicaciones->currentText();
-    QString filename_ubicaciones = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion+".txt";
     QFile file(filename_ubicaciones);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
@@ -619,9 +599,11 @@ void MainWindow::on_lista_ubicaciones_activated(int index)
 
 void MainWindow::on_Agregar_dispositivo_boton_clicked()
 {
+    //Agregamos usuario registrado
     QString user_and_ip = ui->Formato_ip_dispositivo->toPlainText();
     QListWidgetItem *newItem = new QListWidgetItem(user_and_ip);
-    ui->Dispositivos_Registrados->addItem(newItem);
+    ui->Dispositivos_Ubicacion->addItem(newItem);
+    qDebug() << "Pre-registrado usuario: "<< user_and_ip <<"\n";
 }
 
 
@@ -712,16 +694,18 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
     QList<QListWidgetItem *> selectedItems = ui->Dispositivos_Ubicacion->selectedItems();
     if (!selectedItems.isEmpty()) {
         QListWidgetItem *selectedItem = selectedItems.first();
+        qDebug() << "Pre-eliminado usuario: "<< selectedItem->text() <<"\n";
         // Eliminar el elemento seleccionado del QListWidget
         delete ui->Dispositivos_Ubicacion->takeItem(ui->Dispositivos_Ubicacion->row(selectedItem));
     }
+
 }
 
 
 void MainWindow::on_home_ubicacion_activated(int index)
 {
     //Limpieza
-    QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    QString video_simbolo = global_path+"Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->home_dispositivo->clear();
     ui->Lista_plantillas->clear();
@@ -731,9 +715,11 @@ void MainWindow::on_home_ubicacion_activated(int index)
 
     //Leemos texto
     QString Ubicacion = ui->home_ubicacion->currentText()+".txt";
+    qDebug() << "Ubication:" << ui->home_ubicacion->currentText() << "\n";
     QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
     QFile file(filename_ubicaciones);
 
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
         while (!stream.atEnd()) {
@@ -746,35 +732,6 @@ void MainWindow::on_home_ubicacion_activated(int index)
         file.close();
     }
 
-    /*
-    QString name_device= ui->home_dispositivo->currentText();
-
-
-    // Divide la cadena usando el delimitador
-    QStringList tokens = name_device.split(delimiter);
-
-    // Imprimir todas las subcadenas
-    qDebug() << "Todas las subcadenas:";
-    for (const auto& token : tokens) {
-        qDebug() << token;
-    }
-
-    // Imprimir una subcadena específica (por ejemplo, la tercera)
-    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
-    if (i < tokens.size()) {
-        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
-    } else {
-        qDebug() << "Índice fuera de rango.";
-    }
-
-
-
-    QString path_lista_lugares = "/home/seba/Desktop/Contenido_Dispositivos/"+tokens[i]+"/videos";
-    QDir dir4(path_lista_lugares);
-    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    ui->Lista_plantillas->addItems(files_lista_lugares);
-    */
-
 }
 
 
@@ -784,25 +741,18 @@ void MainWindow::on_home_dispositivo_activated(int index)
     QString video_simbolo = global_path +"Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
 
+    //Feedback
+    QString ip = ui->home_dispositivo->itemData(index).toString();
+    QString user = ui->home_dispositivo->currentText();
+    qDebug() << "User:" << user << ", IP:" << ip << "\n";
 
+    // Divide la cadena usando el delimitador
     QString name_device= ui->home_dispositivo->currentText();
     QChar delimiter = '@';
-    // Divide la cadena usando el delimitador
     QStringList tokens = name_device.split(delimiter);
-    // Imprimir todas las subcadenas
-    qDebug() << "Todas las subcadenas:";
-    for (const auto& token : tokens) {
-        qDebug() << token;
-    }
-    // Imprimir una subcadena específica (por ejemplo, la tercera)
-    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
-    if (i < tokens.size()) {
-        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
-    } else {
-        qDebug() << "Índice fuera de rango.";
-    }
 
-
+    //Agregar videos asignados
+    int i=0;
     QString path_lista_lugares = global_path+"Contenido_Dispositivos/"+tokens[i]+"/videos";
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
@@ -876,6 +826,7 @@ void MainWindow::on_boton_admin_clicked()
     ui->Lista_plantillas->clear();
 
     QString admin = ui->texto_admin->toPlainText();
+    qDebug() << "Admin:" << admin << "\n";
     global_path = "/home/"+admin+"/Desktop/";
 
     QString path_lista_lugares = global_path+"Digital_Signage_USM/Ubicaciones";
