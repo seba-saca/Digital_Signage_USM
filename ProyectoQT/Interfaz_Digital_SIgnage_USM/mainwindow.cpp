@@ -68,20 +68,6 @@ MainWindow::MainWindow(QWidget *parent)
         file3.close();
     }
 
-    QString filename_Dispositivos_Registrados;
-    filename_Dispositivos_Registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
-    QFile file_Dispositivos_Registrados(filename_Dispositivos_Registrados);
-    if (file_Dispositivos_Registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file_Dispositivos_Registrados);
-        while (!stream.atEnd()) {
-            QString line = stream.readLine();
-            if (!line.isEmpty()){
-                ui->Dispositivos_Registrados->addItem(line); // Cargar el contenido del archivo en el QTextEdit
-            }
-        }
-        file_Dispositivos_Registrados.close();
-    }
-
     QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
     QFile file_dispositivos_registrados(filename_dispositivos_registrados);
     if (file_dispositivos_registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -603,68 +589,21 @@ void MainWindow::on_Agregar_dispositivo_boton_clicked()
     QString user_and_ip = ui->Formato_ip_dispositivo->toPlainText();
     QListWidgetItem *newItem = new QListWidgetItem(user_and_ip);
     ui->Dispositivos_Ubicacion->addItem(newItem);
+
     qDebug() << "Pre-registrado usuario: "<< user_and_ip <<"\n";
-}
-
-
-void MainWindow::on_Quitar_lista_dispositivos_clicked()
-{
-    // Obtener el elemento seleccionado del QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Dispositivos_seleccionados->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Eliminar el elemento seleccionado del QListWidget
-        delete ui->Dispositivos_seleccionados->takeItem(ui->Dispositivos_seleccionados->row(selectedItem));
-    }
-}
-
-
-void MainWindow::on_Agregar_lista_dispositivos_clicked()
-{
-    // Obtener el elemento seleccionado del primer QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Dispositivos_Registrados->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
-        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text());
-        ui->Dispositivos_seleccionados->addItem(newItem);
-    }
 }
 
 void MainWindow::on_Quitar_titular_small_2_clicked(){}
 
-void MainWindow::on_Limpiar_lista_dispositivos_clicked()
-{
-    ui->Dispositivos_seleccionados->clear();
-}
-
-
-void MainWindow::on_Agregar_dispositivo_ubicacion_boton_clicked()
-{
-    for (int i = 0; i < ui->Dispositivos_seleccionados->count(); ++i) {
-        QListWidgetItem *item = ui->Dispositivos_seleccionados->item(i)->clone();
-        ui->Dispositivos_Ubicacion->addItem(item);
-    }
-}
-
-
 void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
 {
     QString textfile;
-    QString textfile_dispositivos_registrados;
     QString ubicacion;
     ubicacion =ui->lista_ubicaciones->currentText();
-    textfile = "/home/seba/Desktop/Digital_Signage_USM/Ubicaciones/"+ubicacion;
-    textfile_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
+    textfile = global_path+"Digital_Signage_USM/Ubicaciones/"+ubicacion+".txt";
 
     QFile file(textfile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "No se pudo abrir el archivo para escritura";
-        return;
-    }
-
-    QFile file2(textfile_dispositivos_registrados);
-    if (!file2.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qDebug() << "No se pudo abrir el archivo para escritura";
         return;
     }
@@ -674,15 +613,42 @@ void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
         out << ui->Dispositivos_Ubicacion->item(i)->text()+"\n";
     }
 
-    QTextStream out2(&file2);
-    for (int i = 0; i < ui->Dispositivos_Registrados->count(); ++i) {
-        out2 << ui->Dispositivos_Registrados->item(i)->text()+"\n";
+    file.close();
+
+    //Crear archivos para dispositivo
+    QString ruta_file_contenido_dispositivos = global_path+"Contenido_Dispositivos/";
+    QDir dir(ruta_file_contenido_dispositivos);
+    if (!dir.exists()) {
+        qDebug() << "El directorio no existe:" << ruta_file_contenido_dispositivos;
+        return;
     }
 
+    QChar delimiter = '@';
 
-    file.close();
-    file2.close();
-    qDebug() << "Elementos de la lista guardados en lista.txt";
+    for (int i = 0; i < ui->Dispositivos_Ubicacion->count(); ++i) {
+        QListWidgetItem *item = ui->Dispositivos_Ubicacion->item(i);
+        if (item){
+            QStringList item_name = item->text().split(delimiter);
+            QString tmp_string = ruta_file_contenido_dispositivos + item_name[0] +".txt";
+            qDebug() << tmp_string <<"\n";
+            QFile archivo(tmp_string);
+            // Comprobar si el archivo ya existe
+            if (archivo.exists()) {
+                qDebug() << "El archivo ya existe, se saltará:" << tmp_string;
+                continue;
+            }
+            // Intentar abrir el archivo en modo de escritura
+            if (!archivo.open(QIODevice::WriteOnly | QIODevice::Text)) {
+                qDebug() << "No se puede abrir el archivo para escritura:" << archivo.errorString();
+                file.close();
+                continue;
+            }
+        }
+    }
+
+    qDebug() << "Cambios Guardados Satisfactoriamente\n";
+    ui->Lista_plantillas->clear();
+    ui->home_dispositivo->clear();
 }
 
 
@@ -766,37 +732,33 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
     //ui->asignacion_dispositivos->clear();
     QString device = ui->asignacion_dispositivos->currentText();
 
-    QChar delimiter = '@';
-
-    // Divide la cadena usando el delimitador
-    QStringList tokens = device.split(delimiter);
-
     // Imprimir todas las subcadenas
-    qDebug() << "Todas las subcadenas:";
-    for (const auto& token : tokens) {
-        qDebug() << token;
-    }
-
-    // Imprimir una subcadena específica (por ejemplo, la tercera)
-    int i = 0; // Índice de la subcadena que queremos imprimir (comienza en 0)
-    if (i < tokens.size()) {
-        qDebug() << "Subcadena específica (0ndice 0):" << tokens[i];
-    } else {
-        qDebug() << "Índice fuera de rango.";
-    }
-
+    qDebug() << "Dispositivo seleccionado: "<<device << " \n";
 
     ui->Gestion_Contenido_Disponible->clear();
     ui->Gestion_Contenido_Disponible_2->clear();
-    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/videos";
-    QDir dir4(filename_ubicaciones);
-    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    ui->Gestion_Contenido_Disponible->addItems(files_lista_lugares);
 
-    QString filename_ubicaciones2 = "/home/seba/Desktop/Contenido_Dispositivos/"+ tokens[i] +"/videos";
-    QDir dir5(filename_ubicaciones2);
-    QStringList files_lista_lugares2 = dir5.entryList(QDir::Files);
-    ui->Gestion_Contenido_Disponible_2->addItems(files_lista_lugares2);
+    //Delimitador
+    QChar delimiter = '.';
+
+    //Leemos texto
+    QString device_file = device+".txt";
+    qDebug() << "Ubication:" << ui->home_ubicacion->currentText() << "\n";
+    QString path_device_file = global_path+"Contenido_Dispositivos/"+device_file;
+    QFile file(path_device_file);
+
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            QStringList tmp_string = line.split(delimiter);
+            if (!line.isEmpty()){
+                ui->Gestion_Contenido_Disponible->addItem(new QListWidgetItem(tmp_string[0])); // user@ip
+            }
+        }
+        file.close();
+    }
 
 }
 
@@ -838,5 +800,17 @@ void MainWindow::on_boton_admin_clicked()
     ui->home_ubicacion->addItems(modified_files_lista_lugares);
 
 
+}
+
+
+void MainWindow::on_Actualizar_Lista_Dispositivos_clicked()
+{
+    //llenar lista con contenido disponible
+    QString path_asignacion_dispositivos = global_path+"Contenido_Dispositivos";
+    QDir dir4(path_asignacion_dispositivos);
+    QStringList files_asignacion_dispositivos = dir4.entryList(QDir::Files);
+    // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
+    QStringList modified_files_asignacion_dispositivos = removeExtensions(files_asignacion_dispositivos, '.');
+    ui->asignacion_dispositivos->addItems(modified_files_asignacion_dispositivos);
 }
 

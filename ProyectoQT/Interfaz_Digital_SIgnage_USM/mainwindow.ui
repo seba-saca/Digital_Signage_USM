@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -458,50 +458,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget_9">
-      <property name="geometry">
-       <rect>
-        <x>1080</x>
-        <y>240</y>
-        <width>81</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_23">
-       <item>
-        <widget class="QLabel" name="Dispositivos_Registrados_label">
-         <property name="text">
-          <string>Dispositivos disponibles a registrar:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="Dispositivos_Registrados"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget_10">
-      <property name="geometry">
-       <rect>
-        <x>1080</x>
-        <y>110</y>
-        <width>164</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_24">
-       <item>
-        <widget class="QLabel" name="Dispositivos_seleccionados_label">
-         <property name="text">
-          <string>Dispositivos seleccionados:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="Dispositivos_seleccionados"/>
-       </item>
-      </layout>
-     </widget>
      <widget class="QPlainTextEdit" name="Formato_ip_dispositivo">
       <property name="geometry">
        <rect>
@@ -538,33 +494,6 @@
        <string>Registrar dispositivo</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Agregar_dispositivo_ubicacion_boton">
-      <property name="geometry">
-       <rect>
-        <x>1080</x>
-        <y>410</y>
-        <width>141</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Registrar en 
- ubicacion seleccionada</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Limpiar_lista_dispositivos">
-      <property name="geometry">
-       <rect>
-        <x>1170</x>
-        <y>270</y>
-        <width>95</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Limpiar lista</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="Guardar_cambios_dispositivos_agregados">
       <property name="geometry">
        <rect>
@@ -590,32 +519,6 @@
       <property name="text">
        <string>Quitar seleccion</string>
       </property>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>1180</x>
-        <y>310</y>
-        <width>71</width>
-        <height>81</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_25">
-       <item>
-        <widget class="QPushButton" name="Agregar_lista_dispositivos">
-         <property name="text">
-          <string>Agregar --&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Quitar_lista_dispositivos">
-         <property name="text">
-          <string>&lt;-- Quitar</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_4">
@@ -757,6 +660,19 @@
        </attribute>
       </widget>
      </widget>
+     <widget class="QPushButton" name="Actualizar_Lista_Dispositivos">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>120</y>
+        <width>80</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Actualizar</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="EditPlantilla">
      <attribute name="title">
@@ -772,7 +688,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">

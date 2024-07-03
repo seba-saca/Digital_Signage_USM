@@ -1,2 +1,1 @@
-banana@5.5.5.5
-petit@7.7.7.7
+campus_guayaquil@2.2.2.2
