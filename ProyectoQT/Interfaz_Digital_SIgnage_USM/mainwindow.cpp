@@ -736,7 +736,7 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
     qDebug() << "Dispositivo seleccionado: "<<device << " \n";
 
     ui->Gestion_Contenido_Disponible->clear();
-    ui->Gestion_Contenido_Disponible_2->clear();
+
 
     //Delimitador
     QChar delimiter = '.';
@@ -759,6 +759,15 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
         }
         file.close();
     }
+
+    ui->lista_asignar_contenido->clear();
+    QString path_lista_lugares = global_path+"Contenido_ELO308/videos";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
+    QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
+    ui->lista_asignar_contenido->addItems(modified_files_lista_lugares);
+
 
 }
 
@@ -812,5 +821,18 @@ void MainWindow::on_Actualizar_Lista_Dispositivos_clicked()
     // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
     QStringList modified_files_asignacion_dispositivos = removeExtensions(files_asignacion_dispositivos, '.');
     ui->asignacion_dispositivos->addItems(modified_files_asignacion_dispositivos);
+}
+
+
+void MainWindow::on_lista_asignar_contenido_activated(int index)
+{
+    //Recuperamos video seleccionado
+    QString name_video= ui->lista_asignar_contenido->currentText();
+
+    qDebug() << "Video:" << name_video << "\n";
+
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Contenido_ELO308/miniaturas/"+name_video+".jpg";
+    ui->miniatura_asignar_contenido->setPixmap(QPixmap(path_miniaturas));
 }
 

@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -566,7 +566,7 @@
        <widget class="QWidget" name="layoutWidget_12">
         <property name="geometry">
          <rect>
-          <x>30</x>
+          <x>510</x>
           <y>50</y>
           <width>271</width>
           <height>351</height>
@@ -576,7 +576,7 @@
          <item>
           <widget class="QLabel" name="Gestion_Contenido_Disponible_Label">
            <property name="text">
-            <string>Contenido Disponible:</string>
+            <string>Contenido Asignado:</string>
            </property>
           </widget>
          </item>
@@ -585,72 +585,62 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="layoutWidget_13">
+       <widget class="QComboBox" name="lista_asignar_contenido">
         <property name="geometry">
          <rect>
-          <x>320</x>
-          <y>140</y>
-          <width>91</width>
-          <height>191</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_28">
-         <item>
-          <widget class="QPushButton" name="Gestion_Agregar_Boton">
-           <property name="text">
-            <string>Agregar --&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Gestion_Quitar_Boton">
-           <property name="text">
-            <string>&lt;-- Quitar</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_14">
-        <property name="geometry">
-         <rect>
-          <x>430</x>
+          <x>50</x>
           <y>50</y>
-          <width>271</width>
-          <height>351</height>
+          <width>221</width>
+          <height>24</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_29">
-         <item>
-          <widget class="QLabel" name="Gestion_Contenido_Disponible_Label_2">
-           <property name="text">
-            <string>Contenido en Dispositivo Seleccionado:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="Gestion_Contenido_Disponible_2"/>
-         </item>
-        </layout>
        </widget>
-       <widget class="QPushButton" name="sincronizar">
+       <widget class="QLabel" name="label_asignar_contenido">
         <property name="geometry">
          <rect>
-          <x>730</x>
-          <y>360</y>
-          <width>91</width>
-          <height>41</height>
+          <x>50</x>
+          <y>20</y>
+          <width>201</width>
+          <height>17</height>
          </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-          <bold>false</bold>
-         </font>
         </property>
         <property name="text">
-         <string>Sincronizar 
- Contenido</string>
+         <string>Asignar contenido:</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="boton_asignar_contenido">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>50</y>
+          <width>151</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Asignar contenido</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="miniatura_asignar_contenido">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>120</y>
+          <width>341</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Seleccione contenido para asignar</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>
@@ -664,13 +654,33 @@
       <property name="geometry">
        <rect>
         <x>60</x>
-        <y>120</y>
+        <y>30</y>
         <width>80</width>
         <height>24</height>
        </rect>
       </property>
       <property name="text">
        <string>Actualizar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sincronizar">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>140</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Sincronizar 
+ Contenido</string>
       </property>
      </widget>
     </widget>

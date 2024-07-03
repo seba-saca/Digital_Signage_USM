@@ -113,6 +113,8 @@ private slots:
 
     void on_Actualizar_Lista_Dispositivos_clicked();
 
+    void on_lista_asignar_contenido_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };
