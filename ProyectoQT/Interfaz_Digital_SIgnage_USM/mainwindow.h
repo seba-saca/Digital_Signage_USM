@@ -115,6 +115,14 @@ private slots:
 
     void on_lista_asignar_contenido_activated(int index);
 
+    void on_boton_asignar_contenido_clicked();
+
+    void on_Quitar_contenido_asignado_clicked();
+
+    void on_Guardar_cambios_contenido_asignado_clicked();
+
+    void on_Subir_video_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

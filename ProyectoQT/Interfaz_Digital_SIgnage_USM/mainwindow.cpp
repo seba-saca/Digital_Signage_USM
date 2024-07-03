@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "variables_globales.h"
 #include <QCoreApplication>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -714,16 +716,25 @@ void MainWindow::on_home_dispositivo_activated(int index)
 
     // Divide la cadena usando el delimitador
     QString name_device= ui->home_dispositivo->currentText();
-    QChar delimiter = '@';
-    QStringList tokens = name_device.split(delimiter);
 
     //Agregar videos asignados
-    int i=0;
-    QString path_lista_lugares = global_path+"Contenido_Dispositivos/"+tokens[i]+"/videos";
-    QDir dir4(path_lista_lugares);
-    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
-    QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
-    ui->Lista_plantillas->addItems(modified_files_lista_lugares);
+    QString path_lista_lugares = global_path+"Contenido_Dispositivos/"+name_device+".txt";
+    qDebug() << "Path lugar: " << path_lista_lugares << "\n";
+
+    QFile file(path_lista_lugares);
+
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (!line.isEmpty()){
+                ui->Lista_plantillas->addItem(line); // videos
+            }
+        }
+        file.close();
+    }
+
 }
 
 
@@ -814,6 +825,7 @@ void MainWindow::on_boton_admin_clicked()
 
 void MainWindow::on_Actualizar_Lista_Dispositivos_clicked()
 {
+    ui->asignacion_dispositivos->clear();
     //llenar lista con contenido disponible
     QString path_asignacion_dispositivos = global_path+"Contenido_Dispositivos";
     QDir dir4(path_asignacion_dispositivos);
@@ -834,5 +846,63 @@ void MainWindow::on_lista_asignar_contenido_activated(int index)
     //Miniatura plantilla
     QString path_miniaturas = global_path+"Contenido_ELO308/miniaturas/"+name_video+".jpg";
     ui->miniatura_asignar_contenido->setPixmap(QPixmap(path_miniaturas));
+}
+
+
+void MainWindow::on_boton_asignar_contenido_clicked()
+{
+    //Agregamos usuario registrado
+    QString video_selected = ui->lista_asignar_contenido->currentText();
+    QListWidgetItem *newItem = new QListWidgetItem(video_selected);
+    ui->Gestion_Contenido_Disponible->addItem(newItem);
+
+    qDebug() << "Pre-registrado video: "<< video_selected <<"\n";
+}
+
+
+void MainWindow::on_Quitar_contenido_asignado_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Gestion_Contenido_Disponible->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        qDebug() << "Pre-eliminado video: "<< selectedItem->text() <<"\n";
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Gestion_Contenido_Disponible->takeItem(ui->Gestion_Contenido_Disponible->row(selectedItem));
+    }
+}
+
+
+void MainWindow::on_Guardar_cambios_contenido_asignado_clicked()
+{
+    QString textfile;
+    QString device;
+    device =ui->asignacion_dispositivos->currentText();
+    textfile = global_path+"Contenido_Dispositivos/"+device+".txt";
+
+    QFile file(textfile);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out(&file);
+    for (int i = 0; i < ui->Gestion_Contenido_Disponible->count(); ++i) {
+        out << ui->Gestion_Contenido_Disponible->item(i)->text()+"\n";
+    }
+
+    qDebug() << "Cambios Guardados Satisfactoriamente: " << device<<"\n";
+
+    file.close();
+}
+
+
+void MainWindow::on_Subir_video_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir archivo"), "", tr("Todos los archivos (*)"));
+
+    if (!fileName.isEmpty()) {
+        QMessageBox::information(this, tr("Archivo seleccionado"), fileName);
+    }
 }
 

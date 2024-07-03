@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -557,7 +557,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -643,11 +643,50 @@
          <bool>true</bool>
         </property>
        </widget>
+       <widget class="QPushButton" name="Guardar_cambios_contenido_asignado">
+        <property name="geometry">
+         <rect>
+          <x>650</x>
+          <y>410</y>
+          <width>141</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Guardar cambios</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Quitar_contenido_asignado">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>410</y>
+          <width>139</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Quitar seleccion</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
         <string>Subir Video Local</string>
        </attribute>
+       <widget class="QPushButton" name="Subir_video">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>130</y>
+          <width>231</width>
+          <height>111</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Click para subir video</string>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QPushButton" name="Actualizar_Lista_Dispositivos">
