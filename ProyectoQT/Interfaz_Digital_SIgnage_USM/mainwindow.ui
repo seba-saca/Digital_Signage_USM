@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -535,7 +535,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -760,10 +760,10 @@
        <widget class="QPushButton" name="sincronizar">
         <property name="geometry">
          <rect>
-          <x>600</x>
-          <y>120</y>
-          <width>91</width>
-          <height>41</height>
+          <x>560</x>
+          <y>290</y>
+          <width>261</width>
+          <height>81</height>
          </rect>
         </property>
         <property name="font">
@@ -817,7 +817,7 @@
         <property name="geometry">
          <rect>
           <x>300</x>
-          <y>50</y>
+          <y>60</y>
           <width>80</width>
           <height>24</height>
          </rect>
@@ -858,10 +858,29 @@
          </rect>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Estado</string>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_sync_logo">
+        <property name="geometry">
+         <rect>
+          <x>490</x>
+          <y>40</y>
+          <width>411</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Sync</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </widget>
@@ -881,7 +900,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">

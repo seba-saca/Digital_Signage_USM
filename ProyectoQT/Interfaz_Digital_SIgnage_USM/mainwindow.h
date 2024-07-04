@@ -131,6 +131,8 @@ private slots:
 
     void on_sincronizar_check_dispo_clicked();
 
+    void on_lista_sincronizacion_devices_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };

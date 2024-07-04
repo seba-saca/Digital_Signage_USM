@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -121,21 +122,43 @@ void MainWindow::on_Start_clicked()
 
 void MainWindow::on_sincronizar_clicked()
 {
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-    QString scriptPath;
-    QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/transferir.sh";
-    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    // Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
+    QString loading_imagen = path_miniaturas+"loading.png";
+    QPixmap mapeo(loading_imagen);
+    ui->label_sync_logo->setPixmap(mapeo);
 
-    // Lista de argumentos que deseas pasar al script
-    QStringList arguments;
-    arguments << indice_device_string << Dispositivo_seleccionado;
-    QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
-    process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath << arguments;
+    QString error_imagen = path_miniaturas+"error.png";
+    QString ready_imagen = path_miniaturas+"ready.png";
+
+
+
+    // Inicia un temporizador para ejecutar el script después de actualizar la interfaz
+    QTimer::singleShot(100, this, [this, error_imagen, ready_imagen]() {
+        QString scriptPath;
+        scriptPath = global_path+"Digital_Signage_USM/transferir.sh";
+
+        // Lista de argumentos que deseas pasar al script
+        QStringList arguments;
+        QString path_origen = global_path+"Contenido_ELO308/videos";
+        QString path_destino = "/home/"+user_sincro+"/Desktop/"+user_sincro+"/videos";
+        QString path_file_contenido = global_path+"Contenido_Dispositivos/"+user_sincro+".txt";
+        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido;
+        qDebug() << scriptPath << arguments;
+
+        QProcess *process = new QProcess(this);
+        // Asignamos el script y los argumentos al proceso
+        process->start(scriptPath, arguments);
+        process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+
+
+        int exitCode = process->exitCode();
+        bool isConnected = (exitCode == 0);
+
+        QString imagePath = isConnected ? ready_imagen : error_imagen;
+        QPixmap pixmap(imagePath);
+        ui->label_sync_logo->setPixmap(pixmap);
+    });
 }
 
 void MainWindow::on_Lista_plantillas_activated(int index)
@@ -825,9 +848,9 @@ void MainWindow::on_boton_admin_clicked()
     //Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
     QString film_imagen = path_miniaturas+"film.png";
+    QString sync = path_miniaturas+"sync.png";
     ui->label_subir_video->setPixmap(QPixmap(film_imagen));
-
-
+    ui->label_sync_logo->setPixmap(QPixmap(sync));
 }
 
 
@@ -1022,27 +1045,42 @@ void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
 void MainWindow::on_sincronizar_check_dispo_clicked()
 {
 
-    //Miniatura plantilla
+    // Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
-    QString error_imagen = path_miniaturas+"error.png";
     QString loading_imagen = path_miniaturas+"loading.png";
+    QPixmap mapeo(loading_imagen);
+    ui->Estado_Disponibilidad->setPixmap(mapeo);
+
+    QString error_imagen = path_miniaturas+"error.png";
     QString ready_imagen = path_miniaturas+"ready.png";
-    ui->Estado_Disponibilidad->setPixmap(loading_imagen);
-
-    QProcess process;
-    QString script = "ping -c 1 1.168.1.1"; // Reemplaza con la IP de tu dispositivo
-
-
-    process.start("bash", QStringList() << "-c" << script);
-    process.waitForFinished();
-
-    int exitCode = process.exitCode();
-    bool isConnected = (exitCode == 0);
 
 
 
-    QString imagePath = isConnected ? ready_imagen : error_imagen; // Ajusta las rutas según sea necesario
-    QPixmap pixmap(imagePath);
-    ui->Estado_Disponibilidad->setPixmap(pixmap);
+    // Inicia un temporizador para ejecutar el script después de actualizar la interfaz
+    QTimer::singleShot(100, this, [this, error_imagen, ready_imagen]() {
+        QProcess process;
+        QString script = "ping -c 1 "+ip_sincro; // Reemplaza con la IP de tu dispositivo
+        qDebug() << script << "\n";
+
+        process.start("bash", QStringList() << "-c" << script);
+        process.waitForFinished();
+
+        int exitCode = process.exitCode();
+        bool isConnected = (exitCode == 0);
+
+        QString imagePath = isConnected ? ready_imagen : error_imagen;
+        QPixmap pixmap(imagePath);
+        ui->Estado_Disponibilidad->setPixmap(pixmap);
+    });
+}
+
+
+void MainWindow::on_lista_sincronizacion_devices_activated(int index)
+{
+    ui->Estado_Disponibilidad->clear();
+    //Feedback
+    ip_sincro = ui->lista_sincronizacion_devices->itemData(index).toString();
+    user_sincro = ui->lista_sincronizacion_devices->currentText();
+    qDebug() << "User:" << user_sincro << ", IP:" << ip_sincro << "\n";
 }
 
