@@ -525,39 +525,17 @@
      <attribute name="title">
       <string>Gestionar Material</string>
      </attribute>
-     <widget class="QWidget" name="layoutWidget_11">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>60</y>
-        <width>301</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_26">
-       <item>
-        <widget class="QLabel" name="asignacion_dispositivos_label">
-         <property name="text">
-          <string>Dispositivo registrados:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="asignacion_dispositivos"/>
-       </item>
-      </layout>
-     </widget>
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>60</y>
-        <width>851</width>
+        <x>90</x>
+        <y>50</y>
+        <width>1091</width>
         <height>481</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -566,8 +544,8 @@
        <widget class="QWidget" name="layoutWidget_12">
         <property name="geometry">
          <rect>
-          <x>510</x>
-          <y>50</y>
+          <x>650</x>
+          <y>30</y>
           <width>271</width>
           <height>351</height>
          </rect>
@@ -589,7 +567,7 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>50</y>
+          <y>130</y>
           <width>221</width>
           <height>24</height>
          </rect>
@@ -599,7 +577,7 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>20</y>
+          <y>100</y>
           <width>201</width>
           <height>17</height>
          </rect>
@@ -612,7 +590,7 @@
         <property name="geometry">
          <rect>
           <x>310</x>
-          <y>50</y>
+          <y>130</y>
           <width>151</width>
           <height>25</height>
          </rect>
@@ -624,8 +602,8 @@
        <widget class="QLabel" name="miniatura_asignar_contenido">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>120</y>
+          <x>70</x>
+          <y>180</y>
           <width>341</width>
           <height>221</height>
          </rect>
@@ -646,8 +624,8 @@
        <widget class="QPushButton" name="Guardar_cambios_contenido_asignado">
         <property name="geometry">
          <rect>
-          <x>650</x>
-          <y>410</y>
+          <x>790</x>
+          <y>390</y>
           <width>141</width>
           <height>25</height>
          </rect>
@@ -659,14 +637,49 @@
        <widget class="QPushButton" name="Quitar_contenido_asignado">
         <property name="geometry">
          <rect>
-          <x>490</x>
-          <y>410</y>
+          <x>630</x>
+          <y>390</y>
           <width>139</width>
           <height>25</height>
          </rect>
         </property>
         <property name="text">
          <string>Quitar seleccion</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_11">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>30</y>
+          <width>221</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_26">
+         <item>
+          <widget class="QLabel" name="asignacion_dispositivos_label">
+           <property name="text">
+            <string>Dispositivo registrados:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="asignacion_dispositivos"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="Actualizar_Lista_Dispositivos">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>60</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
         </property>
        </widget>
       </widget>
@@ -677,50 +690,165 @@
        <widget class="QPushButton" name="Subir_video">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>130</y>
-          <width>231</width>
-          <height>111</height>
+          <x>370</x>
+          <y>360</y>
+          <width>141</width>
+          <height>41</height>
          </rect>
         </property>
         <property name="text">
-         <string>Click para subir video</string>
+         <string>Click para 
+ seleccionar video</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_subir_video">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>40</y>
+          <width>531</width>
+          <height>261</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Seleccione un video para previsualizar</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="Guardar_subir_video">
+        <property name="geometry">
+         <rect>
+          <x>610</x>
+          <y>360</y>
+          <width>141</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Guardar Video</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_estado_subir_video">
+        <property name="geometry">
+         <rect>
+          <x>780</x>
+          <y>360</y>
+          <width>61</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Estado</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </widget>
-     </widget>
-     <widget class="QPushButton" name="Actualizar_Lista_Dispositivos">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>30</y>
-        <width>80</width>
-        <height>24</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Actualizar</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="sincronizar">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>140</y>
-        <width>91</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Sincronizar 
+      <widget class="QWidget" name="tab_7">
+       <attribute name="title">
+        <string>Sincronizar Contenido</string>
+       </attribute>
+       <widget class="QPushButton" name="sincronizar">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>120</y>
+          <width>91</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Sincronizar 
  Contenido</string>
-      </property>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="sincronizar_check_dispo">
+        <property name="geometry">
+         <rect>
+          <x>170</x>
+          <y>160</y>
+          <width>111</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Consultar 
+ Disponibilidad</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_13">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>100</y>
+          <width>211</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_28">
+         <item>
+          <widget class="QLabel" name="label_sincronizacion_devices">
+           <property name="text">
+            <string>Dispositivo registrados:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="lista_sincronizacion_devices"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QPushButton" name="actualizar_sincronizacion_lista_devices">
+        <property name="geometry">
+         <rect>
+          <x>300</x>
+          <y>50</y>
+          <width>80</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="layoutWidget_9">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>30</y>
+          <width>211</width>
+          <height>50</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_23">
+         <item>
+          <widget class="QLabel" name="label_sincronizacion_ubicacion">
+           <property name="text">
+            <string>Ubicacion:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="lista_sincronizacion_ubicacion"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="EditPlantilla">

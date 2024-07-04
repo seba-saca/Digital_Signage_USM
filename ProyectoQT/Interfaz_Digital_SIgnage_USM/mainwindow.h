@@ -123,6 +123,12 @@ private slots:
 
     void on_Subir_video_clicked();
 
+    void on_Guardar_subir_video_clicked();
+
+    void on_actualizar_sincronizacion_lista_devices_clicked();
+
+    void on_lista_sincronizacion_ubicacion_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };

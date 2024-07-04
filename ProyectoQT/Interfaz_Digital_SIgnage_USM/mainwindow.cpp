@@ -83,6 +83,8 @@ MainWindow::MainWindow(QWidget *parent)
         file_dispositivos_registrados.close();
     }
 
+
+
 }
 
 MainWindow::~MainWindow()
@@ -818,6 +820,12 @@ void MainWindow::on_boton_admin_clicked()
     QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
     ui->lista_ubicaciones->addItems(modified_files_lista_lugares);
     ui->home_ubicacion->addItems(modified_files_lista_lugares);
+    ui->lista_sincronizacion_ubicacion->addItems(modified_files_lista_lugares);
+
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
+    QString film_imagen = path_miniaturas+"film.png";
+    ui->label_subir_video->setPixmap(QPixmap(film_imagen));
 
 
 }
@@ -899,10 +907,114 @@ void MainWindow::on_Guardar_cambios_contenido_asignado_clicked()
 
 void MainWindow::on_Subir_video_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir archivo"), "", tr("Todos los archivos (*)"));
+    ui->label_estado_subir_video->clear();
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir archivo"), global_path, tr("Todos los archivos (*)"));
+    path_subir_video = fileName;
+    QString fileBaseName;
+    QStringList tmp_string;
 
     if (!fileName.isEmpty()) {
-        QMessageBox::information(this, tr("Archivo seleccionado"), fileName);
+        QFileInfo fileInfo(fileName);
+        fileBaseName = fileInfo.fileName(); // Solo el nombre del archivo
+        tmp_string = fileBaseName.split('.');
+        name_subir_video = fileBaseName;
+    }
+
+    QString scriptPath;
+    QString imagenPath = global_path+"Contenido_ELO308/miniaturas/"+tmp_string[0]+".jpg";
+    scriptPath = global_path+"Digital_Signage_USM/miniaturas_gen.sh";
+
+    QStringList arguments;
+    arguments << fileName << imagenPath;
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    //Miniatura plantilla
+    QString path_miniaturas = imagenPath;
+    ui->label_subir_video->setPixmap(QPixmap(path_miniaturas));
+    qDebug() << scriptPath << arguments;
+
+
+}
+
+
+void MainWindow::on_Guardar_subir_video_clicked()
+{
+
+    ui->lista_asignar_contenido->clear();
+
+    QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/copy_video.sh";
+    QString Path_video_destino = global_path+"Contenido_ELO308/videos/"+name_subir_video;
+
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
+    QString error_imagen = path_miniaturas+"loading.png";
+    QString ready_imagen = path_miniaturas+"ready.png";
+    ui->label_estado_subir_video->setPixmap(QPixmap(error_imagen));
+
+    QStringList arguments;
+    arguments << path_subir_video << Path_video_destino;
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+
+    ui->label_estado_subir_video->setPixmap(QPixmap(ready_imagen));
+
+}
+
+
+void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
+{
+    ui->lista_sincronizacion_devices->clear();
+    //Delimitador
+    QChar delimiter = '@';
+
+    //Leemos texto
+    QString Ubicacion = ui->lista_sincronizacion_ubicacion->currentText()+".txt";
+    qDebug() << "Ubication:" << ui->lista_sincronizacion_ubicacion->currentText() << "\n";
+    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QFile file(filename_ubicaciones);
+
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            QStringList tmp_string = line.split(delimiter);
+            if (!line.isEmpty()){
+                ui->lista_sincronizacion_devices->addItem(tmp_string[0],tmp_string[1]); // user@ip
+            }
+        }
+        file.close();
+    }
+}
+
+
+void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
+{
+    ui->lista_sincronizacion_devices->clear();
+    //Delimitador
+    QChar delimiter = '@';
+    //Leemos texto
+    QString Ubicacion = ui->lista_sincronizacion_ubicacion->currentText()+".txt";
+    qDebug() << "Ubication:" << ui->lista_sincronizacion_ubicacion->currentText() << "\n";
+    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QFile file(filename_ubicaciones);
+
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            QStringList tmp_string = line.split(delimiter);
+            if (!line.isEmpty()){
+                ui->lista_sincronizacion_devices->addItem(tmp_string[0],tmp_string[1]); // user@ip
+            }
+        }
+        file.close();
     }
 }
 
