@@ -129,6 +129,8 @@ private slots:
 
     void on_lista_sincronizacion_ubicacion_activated(int index);
 
+    void on_sincronizar_check_dispo_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

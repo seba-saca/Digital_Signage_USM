@@ -1018,3 +1018,31 @@ void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
     }
 }
 
+
+void MainWindow::on_sincronizar_check_dispo_clicked()
+{
+
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
+    QString error_imagen = path_miniaturas+"error.png";
+    QString loading_imagen = path_miniaturas+"loading.png";
+    QString ready_imagen = path_miniaturas+"ready.png";
+    ui->Estado_Disponibilidad->setPixmap(loading_imagen);
+
+    QProcess process;
+    QString script = "ping -c 1 1.168.1.1"; // Reemplaza con la IP de tu dispositivo
+
+
+    process.start("bash", QStringList() << "-c" << script);
+    process.waitForFinished();
+
+    int exitCode = process.exitCode();
+    bool isConnected = (exitCode == 0);
+
+
+
+    QString imagePath = isConnected ? ready_imagen : error_imagen; // Ajusta las rutas según sea necesario
+    QPixmap pixmap(imagePath);
+    ui->Estado_Disponibilidad->setPixmap(pixmap);
+}
+

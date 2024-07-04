@@ -780,8 +780,8 @@
        <widget class="QPushButton" name="sincronizar_check_dispo">
         <property name="geometry">
          <rect>
-          <x>170</x>
-          <y>160</y>
+          <x>70</x>
+          <y>170</y>
           <width>111</width>
           <height>41</height>
          </rect>
@@ -847,6 +847,22 @@
           <widget class="QComboBox" name="lista_sincronizacion_ubicacion"/>
          </item>
         </layout>
+       </widget>
+       <widget class="QLabel" name="Estado_Disponibilidad">
+        <property name="geometry">
+         <rect>
+          <x>190</x>
+          <y>170</y>
+          <width>81</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
        </widget>
       </widget>
      </widget>
