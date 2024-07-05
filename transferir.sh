@@ -6,6 +6,8 @@ DEST_DIR=$2  # Directorio destino en el dispositivo remoto
 DEST_USER=$3  # Usuario en el dispositivo remoto
 DEST_HOST=$4  # Dirección IP o nombre de host del dispositivo remoto
 FILES_LIST=$5  # Ruta del archivo con la lista de archivos
+PATH_CONTROL_DEVICE=$6  # Ruta del archivo de control en el dispositivo local
+PATH_DESTINO_SINCRO=$7
 
 # Verificar si el archivo de lista existe
 echo "Ruta del archivo: $FILES_LIST"
@@ -41,3 +43,5 @@ while IFS= read -r filename; do
         echo "No se encontraron archivos para: $filename"
     fi
 done < "$FILES_LIST"
+
+rsync -avr --delete "$PATH_CONTROL_DEVICE" "$DEST_USER@$DEST_HOST:$PATH_DESTINO_SINCRO"

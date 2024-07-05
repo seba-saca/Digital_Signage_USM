@@ -1,16 +1,11 @@
 #!/bin/bash
-device=$1
-plantilla=$2
-accion=$3
-user_ip=$4
-video=$5
+user_ip=$1
+path_script=$2
+path_videos=$3
+name_video=$4
+accion=$5
 
-# Usando cut para extraer cada parte del string
-username=$(echo "$user_ip" | cut -d '@' -f 1)
-
-destino="/home/$username/Desktop/$username/control_device.sh $device $plantilla $accion $username $video"
-
-ssh $user_ip $destino
+ssh $user_ip $path_script $path_videos $name_video $accion
 
 # Comprobar el código de salida de rsync
 if [ $? -eq 0 ]; then

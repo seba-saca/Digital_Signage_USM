@@ -98,22 +98,28 @@ void MainWindow::on_Start_clicked()
 
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
 
     QString name_video= ui->Lista_plantillas->currentText();
 
-    arguments << indice_device_string << indice_string << "1" << Dispositivo_seleccionado << name_video;
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "1";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
+
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 
@@ -143,7 +149,11 @@ void MainWindow::on_sincronizar_clicked()
         QString path_origen = global_path+"Contenido_ELO308/videos";
         QString path_destino = "/home/"+user_sincro+"/Desktop/"+user_sincro+"/videos";
         QString path_file_contenido = global_path+"Contenido_Dispositivos/"+user_sincro+".txt";
-        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido;
+
+        QString path_file_sincro = global_path+"Digital_Signage_USM/control_device.sh";
+        QString path_destino_sincro = "/home/"+user_sincro+"/Desktop/"+user_sincro;
+
+        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro;
         qDebug() << scriptPath << arguments;
 
         QProcess *process = new QProcess(this);
@@ -737,6 +747,7 @@ void MainWindow::on_home_dispositivo_activated(int index)
     //Feedback
     QString ip = ui->home_dispositivo->itemData(index).toString();
     QString user = ui->home_dispositivo->currentText();
+    user_ip_dispositivo = user+"@"+ip;
     qDebug() << "User:" << user << ", IP:" << ip << "\n";
 
     // Divide la cadena usando el delimitador
