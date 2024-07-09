@@ -48,7 +48,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -900,7 +900,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1521,6 +1521,231 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <string>Generar 
  Video</string>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_8">
+     <attribute name="title">
+      <string>Centro de Edición</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget_10">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>30</y>
+        <width>137</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_24">
+       <item>
+        <widget class="QLabel" name="Lista_plantillas_Centro_Edicion_label">
+         <property name="text">
+          <string>Seleccione Plantilla:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Lista_plantillas_Centro_Edicion">
+         <item>
+          <property name="text">
+           <string>Plantilla_1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla_2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla_3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla_4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plantilla_5</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="Imagen_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>150</y>
+        <width>411</width>
+        <height>251</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Plantilla Centro de Edición</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_14">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>30</y>
+        <width>137</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_25">
+       <item>
+        <widget class="QLabel" name="Lista_plantillas_Centro_Edicion_Sector_label">
+         <property name="text">
+          <string>Seleccione Sector:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Lista_plantillas_Centro_Edicion_Sector"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="Label_Asignar_Contenido_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>60</y>
+        <width>201</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Asignar contenido:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="Lista_Asignar_Contenido_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>100</y>
+        <width>221</width>
+        <height>24</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Boton_asignar_contenido_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>100</y>
+        <width>151</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Asignar contenido</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Miniatura_Asignar_Video_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>170</y>
+        <width>261</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Seleccione contenido para asignar</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Quitar_Contenido_Asignado_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>520</y>
+        <width>139</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitar seleccion</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_15">
+      <property name="geometry">
+       <rect>
+        <x>970</x>
+        <y>160</y>
+        <width>271</width>
+        <height>351</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_32">
+       <item>
+        <widget class="QLabel" name="Label_Contenido_Asignado_Centro_Edicion">
+         <property name="text">
+          <string>Contenido Asignado:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="Contenido_Asignado_Centro_Edicion"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="Guardar_contenido_Centro_EDICION">
+      <property name="geometry">
+       <rect>
+        <x>1110</x>
+        <y>520</y>
+        <width>141</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Guardar cambios</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_16">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>330</y>
+        <width>258</width>
+        <height>216</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_33">
+       <item>
+        <widget class="QLabel" name="LABEL_TITULO_CENTRO_EDICION">
+         <property name="text">
+          <string>Contenido Titular:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextBrowser" name="CONTENIDO_TITULO_CENTRO_EDICION"/>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="Credito">

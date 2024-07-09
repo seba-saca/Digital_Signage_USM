@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->Titulares_Large_Lista->addItems(files3);
 
 
-    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/videos";
+    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/Videos";
     QDir dir5(filename_ubicaciones);
     QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
     ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
@@ -146,7 +146,7 @@ void MainWindow::on_sincronizar_clicked()
 
         // Lista de argumentos que deseas pasar al script
         QStringList arguments;
-        QString path_origen = global_path+"Contenido_ELO308/videos";
+        QString path_origen = global_path+"Contenido_ELO308/Videos";
         QString path_destino = "/home/"+user_sincro+"/Desktop/"+user_sincro+"/videos";
         QString path_file_contenido = global_path+"Contenido_Dispositivos/"+user_sincro+".txt";
 
@@ -808,7 +808,7 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
     }
 
     ui->lista_asignar_contenido->clear();
-    QString path_lista_lugares = global_path+"Contenido_ELO308/videos";
+    QString path_lista_lugares = global_path+"Contenido_ELO308/Videos";
     QDir dir4(path_lista_lugares);
     QStringList files_lista_lugares = dir4.entryList(QDir::Files);
     // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
@@ -980,7 +980,7 @@ void MainWindow::on_Guardar_subir_video_clicked()
 
     QString scriptPath;
     scriptPath = global_path+"Digital_Signage_USM/copy_video.sh";
-    QString Path_video_destino = global_path+"Contenido_ELO308/videos/"+name_subir_video;
+    QString Path_video_destino = global_path+"Contenido_ELO308/Videos/"+name_subir_video;
 
     //Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
@@ -1093,5 +1093,78 @@ void MainWindow::on_lista_sincronizacion_devices_activated(int index)
     ip_sincro = ui->lista_sincronizacion_devices->itemData(index).toString();
     user_sincro = ui->lista_sincronizacion_devices->currentText();
     qDebug() << "User:" << user_sincro << ", IP:" << ip_sincro << "\n";
+}
+
+
+void MainWindow::on_Lista_plantillas_Centro_Edicion_activated(int index)
+{
+    ui->Lista_plantillas_Centro_Edicion_Sector->clear();
+
+    QChar delimiter = '.';
+
+    //Recuperamos video seleccionado
+    QString name_plantilla= ui->Lista_plantillas_Centro_Edicion->currentText();
+    qDebug() << "Seleccionada:" << name_plantilla << "\n";
+
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Plantillas/Imagenes/Overlays/"+name_plantilla+"/fondo.jpg";
+    qDebug() << "Path:" << path_miniaturas << "\n";
+
+    //Agregar videos asignados
+    QString path_lista_sectores = global_path+"Digital_Signage_USM/Plantillas/Imagenes/Overlays/"+name_plantilla+"/Sectores";
+    qDebug() << "Path sectores: " << path_lista_sectores << "\n";
+
+    QDir directory(path_lista_sectores);
+
+    // Obtener la lista de archivos en el directorio
+    QStringList fileList = directory.entryList(QDir::Files);
+
+    // Llenar el QComboBox con los nombres de los archivos
+    for (const QString &filename : fileList) {
+        QStringList tmp_string = filename.split(delimiter);
+        ui->Lista_plantillas_Centro_Edicion_Sector->addItem(tmp_string[0]);
+    }
+
+    ui->Imagen_Centro_Edicion->setPixmap(QPixmap(path_miniaturas));
+}
+
+
+void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
+{
+    // Divide la cadena usando el delimitador
+
+    QString name_plantilla= ui->Lista_plantillas_Centro_Edicion->currentText();
+    QString name_sector_selected= ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
+    //Miniatura plantilla
+    QString path_miniaturas = global_path+"Digital_Signage_USM/Plantillas/Imagenes/Overlays/"+name_plantilla+"/Sectores/"+name_sector_selected+".jpg";
+    qDebug() << "Path:" << path_miniaturas << "\n";
+
+    ui->Imagen_Centro_Edicion->setPixmap(QPixmap(path_miniaturas));
+
+
+    ui->Lista_Asignar_Contenido_Centro_Edicion->clear();
+    QChar delimiter = '.';
+    QChar delimiter2 = '-';
+
+    //Agregar videos asignados
+    QStringList name_sector = name_sector_selected.split(delimiter);
+    QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
+    qDebug() << "Path contenido: " << path_lista_contenido << "\n";
+
+    QDir directory(path_lista_contenido);
+
+    // Obtener la lista de archivos en el directorio
+    QStringList fileList = directory.entryList(QDir::Files);
+
+    // Llenar el QComboBox con los nombres de los archivos
+    for (const QString &filename : fileList) {
+        QStringList tmp_string = filename.split(delimiter);
+        QStringList tmp_string2 = tmp_string[0].split(delimiter2);
+        ui->Lista_Asignar_Contenido_Centro_Edicion->addItem(tmp_string2[0]);
+    }
+
+
+
+
 }
 
