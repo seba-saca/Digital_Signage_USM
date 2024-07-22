@@ -1147,7 +1147,7 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
     QChar delimiter2 = '-';
 
     //Agregar videos asignados
-    QStringList name_sector = name_sector_selected.split(delimiter);
+    QStringList name_sector = name_sector_selected.split(delimiter2);
     QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
     qDebug() << "Path contenido: " << path_lista_contenido << "\n";
 
@@ -1159,12 +1159,49 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
     // Llenar el QComboBox con los nombres de los archivos
     for (const QString &filename : fileList) {
         QStringList tmp_string = filename.split(delimiter);
-        QStringList tmp_string2 = tmp_string[0].split(delimiter2);
-        ui->Lista_Asignar_Contenido_Centro_Edicion->addItem(tmp_string2[0]);
+        qDebug() << "tmp_string[0]: " << tmp_string[0] << "tmp_string[1]: " << tmp_string[1] << "\n";
+        ui->Lista_Asignar_Contenido_Centro_Edicion->addItem(tmp_string[0],tmp_string[1]);
     }
 
+}
 
 
+void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
+{
+    ui->Miniatura_Asignar_Video_Centro_Edicion->clear();
+    ui->CONTENIDO_TITULO_CENTRO_EDICION->clear();
+
+    QString contenido_selected= ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
+    QString name_sector_selected= ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
+    QChar delimiter2 = '-';
+    QStringList name_sector = name_sector_selected.split(delimiter2);
+    QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
+    qDebug() << "Path contenido: " << path_lista_contenido << "\n";
+
+    //Feedback
+    QString contenido = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
+    QString extension = ui->Lista_Asignar_Contenido_Centro_Edicion->itemData(index).toString();
+
+    if (extension=="txt"){
+        qDebug() << "Es texto \n";
+        QString titular_texto;
+        QString file_content;
+        //titular_texto=item->text();
+        file_content = path_lista_contenido+"/"+contenido+"."+extension;
+        qDebug() << "Path contenido: " << file_content << "\n";
+        QFile file(file_content);
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream stream(&file);
+            ui->CONTENIDO_TITULO_CENTRO_EDICION->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+            file.close();
+        }
+    }
+
+    else {
+        qDebug() << "Es video \n";
+        QString miniatura_path = global_path+"Contenido_ELO308/miniaturas/"+contenido+".jpg";
+        ui->Miniatura_Asignar_Video_Centro_Edicion->setPixmap(QPixmap(miniatura_path));
+    }
 
 }
 

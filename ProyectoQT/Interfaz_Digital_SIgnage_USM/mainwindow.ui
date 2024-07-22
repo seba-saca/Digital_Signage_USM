@@ -535,7 +535,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -1652,31 +1652,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <string>Asignar contenido</string>
       </property>
      </widget>
-     <widget class="QLabel" name="Miniatura_Asignar_Video_Centro_Edicion">
-      <property name="geometry">
-       <rect>
-        <x>590</x>
-        <y>170</y>
-        <width>261</width>
-        <height>121</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Seleccione contenido para asignar</string>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
      <widget class="QPushButton" name="Quitar_Contenido_Asignado_Centro_Edicion">
       <property name="geometry">
        <rect>
@@ -1728,8 +1703,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QWidget" name="layoutWidget_16">
       <property name="geometry">
        <rect>
-        <x>610</x>
-        <y>330</y>
+        <x>530</x>
+        <y>150</y>
         <width>258</width>
         <height>216</height>
        </rect>
@@ -1738,7 +1713,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <item>
         <widget class="QLabel" name="LABEL_TITULO_CENTRO_EDICION">
          <property name="text">
-          <string>Contenido Titular:</string>
+          <string>Contenido:</string>
          </property>
         </widget>
        </item>
@@ -1746,6 +1721,31 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <widget class="QTextBrowser" name="CONTENIDO_TITULO_CENTRO_EDICION"/>
        </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="Miniatura_Asignar_Video_Centro_Edicion">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>190</y>
+        <width>221</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string>Seleccione contenido para asignar</string>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Credito">

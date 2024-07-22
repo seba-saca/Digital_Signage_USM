@@ -137,6 +137,8 @@ private slots:
 
     void on_Lista_plantillas_Centro_Edicion_Sector_activated(int index);
 
+    void on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index);
+
 private:
     Ui::MainWindow *ui;
 };
