@@ -139,6 +139,12 @@ private slots:
 
     void on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index);
 
+    void on_Boton_asignar_contenido_Centro_Edicion_clicked();
+
+    void on_Quitar_Contenido_Asignado_Centro_Edicion_clicked();
+
+    void on_Guardar_contenido_Centro_EDICION_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

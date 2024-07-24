@@ -900,7 +900,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1725,10 +1725,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QLabel" name="Miniatura_Asignar_Video_Centro_Edicion">
       <property name="geometry">
        <rect>
-        <x>550</x>
-        <y>190</y>
-        <width>221</width>
-        <height>161</height>
+        <x>520</x>
+        <y>170</y>
+        <width>281</width>
+        <height>201</height>
        </rect>
       </property>
       <property name="sizePolicy">

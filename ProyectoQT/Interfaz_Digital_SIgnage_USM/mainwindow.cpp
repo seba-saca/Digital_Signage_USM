@@ -1131,6 +1131,7 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_activated(int index)
 
 void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
 {
+    ui->Contenido_Asignado_Centro_Edicion->clear();
     // Divide la cadena usando el delimitador
 
     QString name_plantilla= ui->Lista_plantillas_Centro_Edicion->currentText();
@@ -1202,6 +1203,89 @@ void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
         QString miniatura_path = global_path+"Contenido_ELO308/miniaturas/"+contenido+".jpg";
         ui->Miniatura_Asignar_Video_Centro_Edicion->setPixmap(QPixmap(miniatura_path));
     }
+
+}
+
+
+void MainWindow::on_Boton_asignar_contenido_Centro_Edicion_clicked()
+{
+    QString Contenido_CE = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
+    int index = ui->Lista_Asignar_Contenido_Centro_Edicion->currentIndex();
+    QString extension = ui->Lista_Asignar_Contenido_Centro_Edicion->itemData(index).toString();
+    QListWidgetItem *newItem = new QListWidgetItem(Contenido_CE+"."+extension);
+    ui->Contenido_Asignado_Centro_Edicion->addItem(newItem);
+}
+
+
+void MainWindow::on_Quitar_Contenido_Asignado_Centro_Edicion_clicked()
+{
+    // Obtener el elemento seleccionado del QListWidget
+    QList<QListWidgetItem *> selectedItems = ui->Contenido_Asignado_Centro_Edicion->selectedItems();
+    if (!selectedItems.isEmpty()) {
+        QListWidgetItem *selectedItem = selectedItems.first();
+        // Eliminar el elemento seleccionado del QListWidget
+        delete ui->Contenido_Asignado_Centro_Edicion->takeItem(ui->Contenido_Asignado_Centro_Edicion->row(selectedItem));
+    }
+}
+
+
+void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
+{
+    //ui->Miniatura_Asignar_Video_Centro_Edicion->clear();
+    //ui->CONTENIDO_TITULO_CENTRO_EDICION->clear();
+    QString Plantilla = ui->Lista_plantillas_Centro_Edicion->currentText();
+    QString name_sector_selected= ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
+    QString contenido_selected= ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
+
+    QString path_lista_contenido = global_path+"Contenido_ELO308/Plantillas/"+Plantilla+"/"+name_sector_selected+".txt";
+    qDebug() << "Path archivo txt lista: " << path_lista_contenido << "\n";
+
+
+    QFile file(path_lista_contenido);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out(&file);
+
+
+
+
+    //Feedback
+    int index = ui->Lista_Asignar_Contenido_Centro_Edicion->currentIndex();
+    QString contenido = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
+    QString extension = ui->Lista_Asignar_Contenido_Centro_Edicion->itemData(index).toString();
+
+    if (extension=="txt"){
+        qDebug() << "Es texto \n";
+        //QString titular_texto;
+        //QString file_content;
+        //titular_texto=item->text();
+        //file_content = path_lista_contenido+"/"+contenido+"."+extension;
+        //qDebug() << "Path contenido: " << file_content << "\n";
+        //QFile file(file_content);
+        //if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            //QTextStream stream(&file);
+            //ui->CONTENIDO_TITULO_CENTRO_EDICION->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+            //file.close();
+        //}
+    }
+
+    else {
+        qDebug() << "Es video \n";
+
+        for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i) {
+            out << "file '"<<global_path<<"Contenido_ELO308/Videos/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "'" << "\n";
+        }
+    }
+
+    file.close();
+    qDebug() << "Elementos de la lista guardados en lista.txt";
+    ////////////////////////////////////////////////
+
+
+
 
 }
 
