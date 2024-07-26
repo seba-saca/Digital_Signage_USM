@@ -15,6 +15,7 @@ mostrar_menu() {
     echo "6. Salir"
 }
 
+
 # Función para ejecutar el script seleccionado
 ejecutar_opcion() {
     case $1 in
