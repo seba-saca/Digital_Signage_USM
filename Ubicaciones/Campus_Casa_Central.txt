@@ -2,3 +2,4 @@ Depto_ELO@1.2.3.4
 Depto_INF@3.3.3.3
 seba@192.168.1.89
 pana_sea@8.8.8.8
+maxi@8.6.4.3

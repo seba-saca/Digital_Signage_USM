@@ -1146,7 +1146,7 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
     ui->Lista_Asignar_Contenido_Centro_Edicion->clear();
     QChar delimiter = '.';
     QChar delimiter2 = '-';
-
+    //PONER UN ARCHIVO APARTE EN LA CREACION DE CONTENIDO
     //Agregar videos asignados
     QStringList name_sector = name_sector_selected.split(delimiter2);
     QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
@@ -1249,27 +1249,16 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 
     QTextStream out(&file);
 
-
-
-
     //Feedback
     int index = ui->Lista_Asignar_Contenido_Centro_Edicion->currentIndex();
     QString contenido = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
     QString extension = ui->Lista_Asignar_Contenido_Centro_Edicion->itemData(index).toString();
 
     if (extension=="txt"){
-        qDebug() << "Es texto \n";
-        //QString titular_texto;
-        //QString file_content;
-        //titular_texto=item->text();
-        //file_content = path_lista_contenido+"/"+contenido+"."+extension;
-        //qDebug() << "Path contenido: " << file_content << "\n";
-        //QFile file(file_content);
-        //if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            //QTextStream stream(&file);
-            //ui->CONTENIDO_TITULO_CENTRO_EDICION->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-            //file.close();
-        //}
+        qDebug() << "Es texto \n" << name_sector_selected;
+        for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i) {
+            out <<global_path<<"Contenido_ELO308/"+name_sector_selected+"/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
+        }
     }
 
     else {
@@ -1283,9 +1272,6 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
     file.close();
     qDebug() << "Elementos de la lista guardados en lista.txt";
     ////////////////////////////////////////////////
-
-
-
 
 }
 
