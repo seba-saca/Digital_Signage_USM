@@ -135,210 +135,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>100</y>
-        <width>681</width>
-        <height>58</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_6">
-       <item>
-        <widget class="QPushButton" name="Retroceder">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Retrocerder</string>
-         </property>
-         <property name="icon">
-          <iconset theme="media-seek-backward"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Pause">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Play/Pause</string>
-         </property>
-         <property name="icon">
-          <iconset theme="media-playback-pause"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>30</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Adelantar">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Adelantar</string>
-         </property>
-         <property name="icon">
-          <iconset theme="media-seek-forward"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>180</y>
-        <width>685</width>
-        <height>68</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="Bajar_Volumen">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Bajar Volumen</string>
-         </property>
-         <property name="icon">
-          <iconset theme="audio-volume-low"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Mute_video">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Silenciar</string>
-         </property>
-         <property name="icon">
-          <iconset theme="audio-volume-muted"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>60</width>
-           <height>60</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Subir_Volumen">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Subir Volumen</string>
-         </property>
-         <property name="icon">
-          <iconset theme="audio-volume-high"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>50</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>30</y>
-        <width>269</width>
-        <height>58</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
-       <item>
-        <widget class="QPushButton" name="Start">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Iniciar</string>
-         </property>
-         <property name="icon">
-          <iconset theme="media-playback-start"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>30</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Detener">
-         <property name="font">
-          <font>
-           <pointsize>20</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Detener</string>
-         </property>
-         <property name="icon">
-          <iconset theme="media-playback-stop"/>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>30</width>
-           <height>50</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
      <widget class="QLabel" name="preview_plantilla">
       <property name="geometry">
        <rect>
@@ -407,6 +203,222 @@
       </property>
       <property name="text">
        <string>Ingrese Usuario Administrador:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Bajar_Volumen">
+      <property name="geometry">
+       <rect>
+        <x>450</x>
+        <y>220</y>
+        <width>271</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Bajar Volumen</string>
+      </property>
+      <property name="icon">
+       <iconset theme="audio-volume-low"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>60</width>
+        <height>60</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Mute_video">
+      <property name="geometry">
+       <rect>
+        <x>820</x>
+        <y>210</y>
+        <width>339</width>
+        <height>66</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Silenciar</string>
+      </property>
+      <property name="icon">
+       <iconset theme="audio-volume-muted"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>60</width>
+        <height>60</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Subir_Volumen">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>290</y>
+        <width>251</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Subir Volumen</string>
+      </property>
+      <property name="icon">
+       <iconset theme="audio-volume-high"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Detener">
+      <property name="geometry">
+       <rect>
+        <x>920</x>
+        <y>10</y>
+        <width>141</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Detener</string>
+      </property>
+      <property name="icon">
+       <iconset theme="media-playback-stop"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Start">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>20</y>
+        <width>131</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Iniciar</string>
+      </property>
+      <property name="icon">
+       <iconset theme="media-playback-start"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Retroceder">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>110</y>
+        <width>222</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Retrocerder</string>
+      </property>
+      <property name="icon">
+       <iconset theme="media-seek-backward"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Pause">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>100</y>
+        <width>337</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Play/Pause</string>
+      </property>
+      <property name="icon">
+       <iconset theme="media-playback-pause"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>30</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="Adelantar">
+      <property name="geometry">
+       <rect>
+        <x>950</x>
+        <y>100</y>
+        <width>241</width>
+        <height>56</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Adelantar</string>
+      </property>
+      <property name="icon">
+       <iconset theme="media-seek-forward"/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>50</height>
+       </size>
       </property>
      </widget>
     </widget>
@@ -535,7 +547,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -886,643 +898,6 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="EditPlantilla">
-     <attribute name="title">
-      <string>Editor</string>
-     </attribute>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="geometry">
-       <rect>
-        <x>190</x>
-        <y>10</y>
-        <width>1061</width>
-        <height>531</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>Videos</string>
-       </attribute>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>120</x>
-          <y>130</y>
-          <width>258</width>
-          <height>217</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QLabel" name="titulo_videos_disponibles">
-           <property name="text">
-            <string>Videos disponibles:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="Video_lista"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>130</y>
-          <width>258</width>
-          <height>217</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="titulo_videos_escogidos">
-           <property name="text">
-            <string>Videos escogidos:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="Video_lista_escogida"/>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>390</x>
-          <y>220</y>
-          <width>172</width>
-          <height>58</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QPushButton" name="Agregar_video">
-           <property name="text">
-            <string>Agregar video --&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Borrar_video">
-           <property name="text">
-            <string>&lt;-- Quitar video</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>580</x>
-          <y>360</y>
-          <width>261</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QPushButton" name="Limpiar_lista">
-           <property name="text">
-            <string>Limpiar lista</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Generar_lista">
-           <property name="text">
-            <string>Generar lista</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Titulares</string>
-       </attribute>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>30</x>
-          <y>30</y>
-          <width>421</width>
-          <height>442</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <widget class="QLabel" name="titulo_titulares1">
-             <property name="text">
-              <string>Titulares disponibles:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="Titulares_Lista"/>
-           </item>
-          </layout>
-         </item>
-         <item row="0" column="1">
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <widget class="QLabel" name="titulo_titulares3">
-             <property name="text">
-              <string>Contenido Titular:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTextBrowser" name="Titulares_Contenido"/>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="0">
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QLabel" name="titulo_titulares2">
-             <property name="text">
-              <string>Titulares Large disponibles:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="Titulares_Large_Lista"/>
-           </item>
-          </layout>
-         </item>
-         <item row="1" column="1">
-          <layout class="QVBoxLayout" name="verticalLayout_9">
-           <item>
-            <widget class="QLabel" name="titulo_titulares4">
-             <property name="text">
-              <string>Contenido Titular Large:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTextBrowser" name="Titulares_Large_Contenido"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>510</x>
-          <y>180</y>
-          <width>86</width>
-          <height>58</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_10">
-         <item>
-          <widget class="QPushButton" name="Agregar_titular_small">
-           <property name="text">
-            <string>Agregar --&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Quitar_titular_small">
-           <property name="text">
-            <string>&lt;-- Quitar</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_3">
-        <property name="geometry">
-         <rect>
-          <x>510</x>
-          <y>390</y>
-          <width>86</width>
-          <height>58</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_11">
-         <item>
-          <widget class="QPushButton" name="Agregar_titular_large">
-           <property name="text">
-            <string>Agregar --&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Borrar_titular_large">
-           <property name="text">
-            <string>&lt;-- Quitar</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_6">
-        <property name="geometry">
-         <rect>
-          <x>940</x>
-          <y>130</y>
-          <width>97</width>
-          <height>58</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_16">
-         <item>
-          <widget class="QPushButton" name="Limpiar_lista_titulares_small">
-           <property name="text">
-            <string>Limpiar lista</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Generar_lista_titulares_small">
-           <property name="text">
-            <string>Generar lista</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>660</x>
-          <y>30</y>
-          <width>260</width>
-          <height>442</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_14">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_12">
-           <item>
-            <widget class="QLabel" name="titulo_videos_escogidos_2">
-             <property name="text">
-              <string>Titulares escogidos:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="Titulares_small_lista_escogida"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_13">
-           <item>
-            <widget class="QLabel" name="titulo_videos_escogidos_3">
-             <property name="text">
-              <string>Titulares Large escogidos:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListWidget" name="Titulares_large_lista_escogida"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>940</x>
-          <y>330</y>
-          <width>97</width>
-          <height>58</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_15">
-         <item>
-          <widget class="QPushButton" name="Limpiar_lista_titulares_large">
-           <property name="text">
-            <string>Limpiar lista</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="Generar_lista_titulares_large">
-           <property name="text">
-            <string>Generar lista</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_4">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>280</y>
-          <width>150</width>
-          <height>99</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_18">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>Inicio</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>Fin</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <widget class="QPlainTextEdit" name="Inicio_titular_large"/>
-           </item>
-           <item>
-            <widget class="QPlainTextEdit" name="FInal_titular_large"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>480</x>
-          <y>60</y>
-          <width>150</width>
-          <height>99</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_17">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>Inicio</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>Fin</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QPlainTextEdit" name="Inicio_titular_small"/>
-           </item>
-           <item>
-            <widget class="QPlainTextEdit" name="Final_titular_small"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Resumen</string>
-       </attribute>
-       <widget class="QTextBrowser" name="ResumenVideos">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>70</y>
-          <width>901</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Fira Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="ResumenVideos_Texto">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>20</y>
-          <width>461</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>27</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Resumen Videos</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QTextBrowser" name="ResumenTitulares">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>300</y>
-          <width>411</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Fira Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QTextBrowser" name="ResumenTitularesLarge">
-        <property name="geometry">
-         <rect>
-          <x>570</x>
-          <y>300</y>
-          <width>411</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="html">
-         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Fira Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="ResumenVideos_Texto_2">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>250</y>
-          <width>461</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>27</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Resumen Titulares</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="ResumenVideos_Texto_3">
-        <property name="geometry">
-         <rect>
-          <x>540</x>
-          <y>250</y>
-          <width>461</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>27</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Resumen Titulares Largos</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>430</y>
-          <width>381</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string> Titular | Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y </string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_6">
-        <property name="geometry">
-         <rect>
-          <x>570</x>
-          <y>430</y>
-          <width>381</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Titular | Inicio[seg] | Final[seg] | Font Size | Pos X | Pos Y</string>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>20</y>
-        <width>137</width>
-        <height>50</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Seleccione Plantilla:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="Lista_plantillas_2">
-         <item>
-          <property name="text">
-           <string>Plantilla 1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Plantilla 2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Plantilla 3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Plantilla 4</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Plantilla 5</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QPushButton" name="Generar_Video">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>110</y>
-        <width>121</width>
-        <height>70</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Generar 
- Video</string>
-      </property>
-     </widget>
-    </widget>
     <widget class="QWidget" name="tab_8">
      <attribute name="title">
       <string>Centro de Edición</string>
@@ -1834,19 +1209,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
       <property name="scaledContents">
        <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Quitar_titular_small_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>440</y>
-        <width>84</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;-- Quitar</string>
       </property>
      </widget>
     </widget>

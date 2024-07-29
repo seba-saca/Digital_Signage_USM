@@ -17,59 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
     QString video_simbolo = "/home/seba/Desktop/Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
 
-
-
-    QString path = "/home/seba/Desktop/Contenido/Videos/Material_Prueba";
-    QDir dir(path);
-    QStringList files = dir.entryList(QDir::Files);
-    ui->Video_lista->addItems(files);
-
-    QString path2 = "/home/seba/Desktop/Contenido/Titulares/Small";
-    QDir dir2(path2);
-    QStringList files2 = dir2.entryList(QDir::Files);
-    ui->Titulares_Lista->addItems(files2);
-
-    QString path3 = "/home/seba/Desktop/Contenido/Titulares/Large";
-    QDir dir3(path3);
-    QStringList files3 = dir3.entryList(QDir::Files);
-    ui->Titulares_Large_Lista->addItems(files3);
-
-
     QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/Videos";
     QDir dir5(filename_ubicaciones);
     QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
     ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
 
-
     QString filename;
     QString filename2;
     QString filename3;
-
-
-
-    filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_lista_1.txt";
-    QFile file(filename);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        ui->ResumenVideos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file.close();
-    }
-
-    filename2 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_titulares_1.txt";
-    QFile file2(filename2);
-    if (file2.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file2);
-        ui->ResumenTitulares->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file2.close();
-    }
-
-    filename3 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/1/video_titulares_large_1.txt";
-    QFile file3(filename3);
-    if (file3.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file3);
-        ui->ResumenTitularesLarge->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file3.close();
-    }
 
     QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
     QFile file_dispositivos_registrados(filename_dispositivos_registrados);
@@ -83,9 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
         }
         file_dispositivos_registrados.close();
     }
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -93,38 +45,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_Start_clicked()
-{
 
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path+"Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual+1);
-    QString indice_device_string = QString::number(indice_actual_device+1);
-    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
-
-    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
-    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
-    scriptPath = global_path+"Digital_Signage_USM/play.sh";
-
-    // Lista de argumentos que deseas pasar al script
-    QStringList arguments;
-
-    QString name_video= ui->Lista_plantillas->currentText();
-
-    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "1";
-    QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
-    process->start(scriptPath, arguments);
-
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath << arguments;
-
-
-}
 
 void MainWindow::on_sincronizar_clicked()
 {
@@ -186,420 +107,246 @@ void MainWindow::on_Lista_plantillas_activated(int index)
     ui->preview_plantilla->setPixmap(QPixmap(path_miniaturas));
 }
 
-void MainWindow::on_Lista_plantillas_2_activated(int index)
+void MainWindow::on_Start_clicked()
 {
-    // Dependiendo del índice seleccionado, cambias la imagen mostrada en el QLabel
-    QString indice = QString::number(index+1);
-    QString filename;
-    QString filename2;
-    QString filename3;
-    filename = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_lista_"+indice+".txt";
-    QFile file(filename);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        ui->ResumenVideos->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file.close();
-    }
 
-    filename2 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_"+indice+".txt";
-    QFile file2(filename2);
-    if (file2.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file2);
-        ui->ResumenTitulares->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file2.close();
-    }
-
-    filename3 = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_large_"+indice+".txt";
-    QFile file3(filename3);
-    if (file3.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file3);
-        ui->ResumenTitularesLarge->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file3.close();
-    }
-
-}
-
-
-void MainWindow::on_Agregar_video_clicked()
-{
-    // Obtener el elemento seleccionado del primer QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Video_lista->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
-        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text());
-        ui->Video_lista_escogida->addItem(newItem);
-    }
-}
-
-
-void MainWindow::on_Borrar_video_clicked()
-{
-    // Obtener el elemento seleccionado del QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Video_lista_escogida->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Eliminar el elemento seleccionado del QListWidget
-        delete ui->Video_lista_escogida->takeItem(ui->Video_lista_escogida->row(selectedItem));
-    }
-}
-
-
-void MainWindow::on_Generar_lista_clicked()
-{
-    int indice_actual = ui->Lista_plantillas_2->currentIndex();
-    QString textfile;
-    QString indice = QString::number(indice_actual+1);
-    textfile = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_lista_"+indice+".txt";
-
-    QFile file(textfile);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "No se pudo abrir el archivo para escritura";
-        return;
-    }
-
-    QTextStream out(&file);
-    for (int i = 0; i < ui->Video_lista_escogida->count(); ++i) {
-        out << "file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/" << ui->Video_lista_escogida->item(i)->text()<< "'" << "\n";
-    }
-
-    file.close();
-    qDebug() << "Elementos de la lista guardados en lista.txt";
-}
-
-
-void MainWindow::on_Limpiar_lista_clicked()
-{
-    ui->Video_lista_escogida->clear();
-}
-
-
-void MainWindow::on_Titulares_Lista_itemClicked(QListWidgetItem *item)
-{
-    QString titular_texto;
-    QString file_content;
-    titular_texto=item->text();
-    file_content = "/home/seba/Desktop/Contenido/Titulares/Small/"+titular_texto;
-    QFile file(file_content);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        ui->Titulares_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file.close();
-    }
-
-}
-
-
-void MainWindow::on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item)
-{
-    QString titular_texto;
-    QString file_content;
-    titular_texto=item->text();
-    file_content = "/home/seba/Desktop/Contenido/Titulares/Large/"+titular_texto;
-    QFile file(file_content);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        ui->Titulares_Large_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file.close();
-    }
-}
-
-
-void MainWindow::on_Agregar_titular_small_clicked()
-{
-    QString inicio = ui->Inicio_titular_small->toPlainText();
-    QString final = ui->Final_titular_small->toPlainText();
-    // Obtener el elemento seleccionado del primer QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Titulares_Lista->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
-        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text()+"|"+inicio+"|"+final);
-        ui->Titulares_small_lista_escogida->addItem(newItem);
-    }
-}
-
-
-void MainWindow::on_Quitar_titular_small_clicked()
-{
-    // Obtener el elemento seleccionado del QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Titulares_small_lista_escogida->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Eliminar el elemento seleccionado del QListWidget
-        delete ui->Titulares_small_lista_escogida->takeItem(ui->Titulares_small_lista_escogida->row(selectedItem));
-    }
-}
-
-
-void MainWindow::on_Limpiar_lista_titulares_small_clicked()
-{
-    ui->Titulares_small_lista_escogida->clear();
-}
-
-//titulares="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_$plantilla_number.txt"
-
-    //titulares_large="/home/$user_name/Desktop/Digital_Signage_USM/Plantillas/$plantilla_number/video_titulares_large_$plantilla_number.txt"
-
-void MainWindow::on_Generar_lista_titulares_small_clicked()
-{
-    int indice_actual = ui->Lista_plantillas_2->currentIndex();
-    QString textfile;
-    QString indice = QString::number(indice_actual+1);
-    textfile = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_"+indice+".txt";
-
-    QFile file(textfile);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "No se pudo abrir el archivo para escritura";
-        return;
-    }
-
-    QTextStream out(&file);
-    for (int i = 0; i < ui->Titulares_small_lista_escogida->count(); ++i) {
-        out << "/home/seba/Desktop/Contenido/Titulares/Small/" << ui->Titulares_small_lista_escogida->item(i)->text()<< "|48|150|830" << "\n";
-    }
-
-    file.close();
-    qDebug() << "Elementos de la lista guardados en lista.txt";
-}
-
-
-void MainWindow::on_Agregar_titular_large_clicked()
-{
-    QString inicio = ui->Inicio_titular_large->toPlainText();
-    QString final = ui->FInal_titular_large->toPlainText();
-    // Obtener el elemento seleccionado del primer QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Titulares_Large_Lista->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Clonar el elemento seleccionado y agregarlo al segundo QListWidget
-        QListWidgetItem *newItem = new QListWidgetItem(selectedItem->text()+"|"+inicio+"|"+final);
-        ui->Titulares_large_lista_escogida->addItem(newItem);
-    }
-}
-
-
-void MainWindow::on_Borrar_titular_large_clicked()
-{
-    // Obtener el elemento seleccionado del QListWidget
-    QList<QListWidgetItem *> selectedItems = ui->Titulares_large_lista_escogida->selectedItems();
-    if (!selectedItems.isEmpty()) {
-        QListWidgetItem *selectedItem = selectedItems.first();
-        // Eliminar el elemento seleccionado del QListWidget
-        delete ui->Titulares_large_lista_escogida->takeItem(ui->Titulares_large_lista_escogida->row(selectedItem));
-    }
-}
-
-
-void MainWindow::on_Limpiar_lista_titulares_large_clicked()
-{
-    ui->Titulares_large_lista_escogida->clear();
-}
-
-
-void MainWindow::on_Generar_lista_titulares_large_clicked()
-{
-    int indice_actual = ui->Lista_plantillas_2->currentIndex();
-    QString textfile;
-    QString indice = QString::number(indice_actual+1);
-    textfile = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice+"/video_titulares_large_"+indice+".txt";
-
-    QFile file(textfile);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "No se pudo abrir el archivo para escritura";
-        return;
-    }
-
-    QTextStream out(&file);
-    for (int i = 0; i < ui->Titulares_large_lista_escogida->count(); ++i) {
-        out << "/home/seba/Desktop/Contenido/Titulares/Large/" << ui->Titulares_large_lista_escogida->item(i)->text()<< "|40|1380|280" << "\n";
-    }
-
-    file.close();
-    qDebug() << "Elementos de la lista guardados en lista.txt";
-}
-
-
-
-
-
-
-
-
-void MainWindow::on_Generar_Video_clicked()
-{
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
-    QString indice_plantilla = QString::number(indice_actual+1);
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
+    QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/Plantillas/"+indice_plantilla+"/video_creacion_"+indice_plantilla+".sh";
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << "2";
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "1";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Pause_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "2"<<Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "2";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Detener_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "3" << Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "3";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Mute_video_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "8" << Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "8";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Retroceder_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "5"<<Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "5";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Adelantar_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "4"<<Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "4";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Bajar_Volumen_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "7" << Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "7";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_Subir_Volumen_clicked()
 {
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
+
     QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
     QString indice_string = QString::number(indice_actual+1);
     QString indice_device_string = QString::number(indice_actual_device+1);
-    scriptPath = "/home/seba/Desktop/Digital_Signage_USM/play.sh";
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-    arguments << indice_device_string << indice_string << "6" << Dispositivo_seleccionado;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "6";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-    //process->start("bash", QStringList() << scriptPath);
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    qDebug() << scriptPath;
-}
 
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
+}
 
 void MainWindow::on_lista_ubicaciones_activated(int index)
 {
@@ -619,7 +366,6 @@ void MainWindow::on_lista_ubicaciones_activated(int index)
     }
 }
 
-
 void MainWindow::on_Agregar_dispositivo_boton_clicked()
 {
     //Agregamos usuario registrado
@@ -629,8 +375,6 @@ void MainWindow::on_Agregar_dispositivo_boton_clicked()
 
     qDebug() << "Pre-registrado usuario: "<< user_and_ip <<"\n";
 }
-
-void MainWindow::on_Quitar_titular_small_2_clicked(){}
 
 void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
 {
@@ -688,9 +432,6 @@ void MainWindow::on_Guardar_cambios_dispositivos_agregados_clicked()
     ui->home_dispositivo->clear();
 }
 
-
-
-
 void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
 {
     // Obtener el elemento seleccionado del QListWidget
@@ -704,11 +445,10 @@ void MainWindow::on_Quitar_dispositivo_lista_ubicacion_clicked()
 
 }
 
-
 void MainWindow::on_home_ubicacion_activated(int index)
 {
     //Limpieza
-    QString video_simbolo = global_path+"Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    QString video_simbolo = global_path+"Digital_Signage_USM/Material_Interfaz/video_player.png";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->home_dispositivo->clear();
     ui->Lista_plantillas->clear();
@@ -737,11 +477,10 @@ void MainWindow::on_home_ubicacion_activated(int index)
 
 }
 
-
 void MainWindow::on_home_dispositivo_activated(int index)
 {
     ui->Lista_plantillas->clear();
-    QString video_simbolo = global_path +"Digital_Signage_USM/Material_Interfaz/video_simbolo.jpg";
+    QString video_simbolo = global_path +"Digital_Signage_USM/Material_Interfaz/video_player.png";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
 
     //Feedback
@@ -772,7 +511,6 @@ void MainWindow::on_home_dispositivo_activated(int index)
     }
 
 }
-
 
 void MainWindow::on_asignacion_dispositivos_activated(int index)
 {
@@ -814,8 +552,6 @@ void MainWindow::on_asignacion_dispositivos_activated(int index)
     // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
     QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
     ui->lista_asignar_contenido->addItems(modified_files_lista_lugares);
-
-
 }
 
 // Función para quitar la parte del string después del carácter de corte en una QStringList
@@ -863,8 +599,10 @@ void MainWindow::on_boton_admin_clicked()
     QString sync = path_miniaturas+"sync.png";
     ui->label_subir_video->setPixmap(QPixmap(film_imagen));
     ui->label_sync_logo->setPixmap(QPixmap(sync));
-}
 
+    QString video_simbolo = global_path+"Digital_Signage_USM/Material_Interfaz/video_player.png";
+    ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
+}
 
 void MainWindow::on_Actualizar_Lista_Dispositivos_clicked()
 {
@@ -878,7 +616,6 @@ void MainWindow::on_Actualizar_Lista_Dispositivos_clicked()
     ui->asignacion_dispositivos->addItems(modified_files_asignacion_dispositivos);
 }
 
-
 void MainWindow::on_lista_asignar_contenido_activated(int index)
 {
     //Recuperamos video seleccionado
@@ -891,7 +628,6 @@ void MainWindow::on_lista_asignar_contenido_activated(int index)
     ui->miniatura_asignar_contenido->setPixmap(QPixmap(path_miniaturas));
 }
 
-
 void MainWindow::on_boton_asignar_contenido_clicked()
 {
     //Agregamos usuario registrado
@@ -901,7 +637,6 @@ void MainWindow::on_boton_asignar_contenido_clicked()
 
     qDebug() << "Pre-registrado video: "<< video_selected <<"\n";
 }
-
 
 void MainWindow::on_Quitar_contenido_asignado_clicked()
 {
@@ -914,7 +649,6 @@ void MainWindow::on_Quitar_contenido_asignado_clicked()
         delete ui->Gestion_Contenido_Disponible->takeItem(ui->Gestion_Contenido_Disponible->row(selectedItem));
     }
 }
-
 
 void MainWindow::on_Guardar_cambios_contenido_asignado_clicked()
 {
@@ -938,7 +672,6 @@ void MainWindow::on_Guardar_cambios_contenido_asignado_clicked()
 
     file.close();
 }
-
 
 void MainWindow::on_Subir_video_clicked()
 {
@@ -973,7 +706,6 @@ void MainWindow::on_Subir_video_clicked()
 
 }
 
-
 void MainWindow::on_Guardar_subir_video_clicked()
 {
 
@@ -999,7 +731,6 @@ void MainWindow::on_Guardar_subir_video_clicked()
     ui->label_estado_subir_video->setPixmap(QPixmap(ready_imagen));
 
 }
-
 
 void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
 {
@@ -1027,7 +758,6 @@ void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
     }
 }
 
-
 void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
 {
     ui->lista_sincronizacion_devices->clear();
@@ -1052,7 +782,6 @@ void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
         file.close();
     }
 }
-
 
 void MainWindow::on_sincronizar_check_dispo_clicked()
 {
@@ -1096,7 +825,6 @@ void MainWindow::on_lista_sincronizacion_devices_activated(int index)
     qDebug() << "User:" << user_sincro << ", IP:" << ip_sincro << "\n";
 }
 
-
 void MainWindow::on_Lista_plantillas_Centro_Edicion_activated(int index)
 {
     ui->Lista_plantillas_Centro_Edicion_Sector->clear();
@@ -1128,7 +856,6 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_activated(int index)
 
     ui->Imagen_Centro_Edicion->setPixmap(QPixmap(path_miniaturas));
 }
-
 
 void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
 {
@@ -1182,7 +909,6 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
 
 }
 
-
 void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
 {
     ui->Miniatura_Asignar_Video_Centro_Edicion->clear();
@@ -1222,7 +948,6 @@ void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
 
 }
 
-
 void MainWindow::on_Boton_asignar_contenido_Centro_Edicion_clicked()
 {
     QString Contenido_CE = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
@@ -1231,7 +956,6 @@ void MainWindow::on_Boton_asignar_contenido_Centro_Edicion_clicked()
     QListWidgetItem *newItem = new QListWidgetItem(Contenido_CE+"."+extension);
     ui->Contenido_Asignado_Centro_Edicion->addItem(newItem);
 }
-
 
 void MainWindow::on_Quitar_Contenido_Asignado_Centro_Edicion_clicked()
 {
@@ -1243,7 +967,6 @@ void MainWindow::on_Quitar_Contenido_Asignado_Centro_Edicion_clicked()
         delete ui->Contenido_Asignado_Centro_Edicion->takeItem(ui->Contenido_Asignado_Centro_Edicion->row(selectedItem));
     }
 }
-
 
 void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 {
@@ -1306,7 +1029,6 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 
 }
 
-
 void MainWindow::on_boton_generar_video_editor_clicked()
 {
     QString path_miniaturas = global_path + "Digital_Signage_USM/Material_Interfaz/";
@@ -1342,7 +1064,5 @@ void MainWindow::on_boton_generar_video_editor_clicked()
     QPixmap mapeo2(ready_imagen);
     ui->label_status_editor->setPixmap(mapeo2);
     qDebug() << scriptPath << arguments;
-
-
 }
 

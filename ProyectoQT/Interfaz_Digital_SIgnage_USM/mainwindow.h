@@ -31,42 +31,7 @@ private slots:
 
     void on_Lista_plantillas_activated(int index);
 
-
-    void on_Lista_plantillas_2_activated(int index);
-
-    void on_Agregar_video_clicked();
-
-    void on_Borrar_video_clicked();
-
-
-
-    void on_Generar_lista_clicked();
-
-    void on_Limpiar_lista_clicked();
-
-    void on_Titulares_Lista_itemClicked(QListWidgetItem *item);
-
-    void on_Titulares_Large_Lista_itemClicked(QListWidgetItem *item);
-
-    void on_Agregar_titular_small_clicked();
-
-    void on_Quitar_titular_small_clicked();
-
-    void on_Limpiar_lista_titulares_small_clicked();
-
-    void on_Generar_lista_titulares_small_clicked();
-
-    void on_Agregar_titular_large_clicked();
-
-    void on_Borrar_titular_large_clicked();
-
-    void on_Limpiar_lista_titulares_large_clicked();
-
-    void on_Generar_lista_titulares_large_clicked();
-
     void on_sincronizar_clicked();
-
-    void on_Generar_Video_clicked();
 
     void on_Pause_clicked();
 
@@ -86,18 +51,7 @@ private slots:
 
     void on_Agregar_dispositivo_boton_clicked();
 
-
-
-    void on_Quitar_titular_small_2_clicked();
-
-
-
-
-
-
-
     void on_Guardar_cambios_dispositivos_agregados_clicked();
-
 
     void on_Quitar_dispositivo_lista_ubicacion_clicked();
 
