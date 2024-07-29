@@ -845,6 +845,7 @@ void MainWindow::on_boton_admin_clicked()
 
     QString admin = ui->texto_admin->toPlainText();
     qDebug() << "Admin:" << admin << "\n";
+    admin_nombre = admin;
     global_path = "/home/"+admin+"/Desktop/";
 
     QString path_lista_lugares = global_path+"Digital_Signage_USM/Ubicaciones";
@@ -1163,6 +1164,21 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
         qDebug() << "tmp_string[0]: " << tmp_string[0] << "tmp_string[1]: " << tmp_string[1] << "\n";
         ui->Lista_Asignar_Contenido_Centro_Edicion->addItem(tmp_string[0],tmp_string[1]);
     }
+    ///home/saca/Desktop/Contenido_ELO308/Plantillas/Plantilla_1
+    QString filePath = global_path+"Contenido_ELO308/Plantillas/"+name_plantilla+"/temp/"+name_sector_selected+".txt";
+
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo \n";
+        return;
+    }
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        ui->Contenido_Asignado_Centro_Edicion->addItem(line);
+    }
+    file.close();
 
 }
 
@@ -1238,6 +1254,7 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
     QString contenido_selected= ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
 
     QString path_lista_contenido = global_path+"Contenido_ELO308/Plantillas/"+Plantilla+"/"+name_sector_selected+".txt";
+    QString filePath = global_path+"Contenido_ELO308/Plantillas/"+Plantilla+"/temp/"+name_sector_selected+".txt";
     qDebug() << "Path archivo txt lista: " << path_lista_contenido << "\n";
 
 
@@ -1248,6 +1265,14 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
     }
 
     QTextStream out(&file);
+
+    QFile file2(filePath);
+    if (!file2.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "No se pudo abrir el archivo para escritura";
+        return;
+    }
+
+    QTextStream out2(&file2);
 
     //Feedback
     int index = ui->Lista_Asignar_Contenido_Centro_Edicion->currentIndex();
@@ -1261,6 +1286,7 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
         QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
         for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i) {
             out <<global_path<<"Contenido_ELO308/"+name_sector[0]+"/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
+            out2 <<ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
         }
     }
 
@@ -1269,12 +1295,54 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 
         for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i) {
             out << "file '"<<global_path<<"Contenido_ELO308/Videos/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "'" << "\n";
+            out2 <<ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
         }
     }
 
     file.close();
+    file2.close();
     qDebug() << "Elementos de la lista guardados en lista.txt";
     ////////////////////////////////////////////////
+
+}
+
+
+void MainWindow::on_boton_generar_video_editor_clicked()
+{
+    QString path_miniaturas = global_path + "Digital_Signage_USM/Material_Interfaz/";
+    QString loading_imagen = path_miniaturas + "loading.png";
+    QString error_imagen = path_miniaturas + "error.png";
+    QString ready_imagen = path_miniaturas + "ready.png";
+
+    // Establecer la imagen de carga
+    QPixmap mapeo(loading_imagen);
+    ui->label_status_editor->setPixmap(mapeo);
+
+    // Forzar la actualización de la interfaz de usuario
+    QApplication::processEvents();
+
+    QString name_video = ui->nombre_video->toPlainText();
+    QString plantilla = ui->Lista_plantillas_Centro_Edicion->currentText();
+
+    qDebug() << "Nombre asignado: " << name_video;
+    QString scriptPath = global_path + "Contenido_ELO308/Plantillas/" + plantilla + "/video.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << admin_nombre << name_video;
+
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+
+    // Espera a que el proceso termine antes de continuar
+    process->waitForFinished();
+
+    // Establecer la imagen de listo
+    QPixmap mapeo2(ready_imagen);
+    ui->label_status_editor->setPixmap(mapeo2);
+    qDebug() << scriptPath << arguments;
+
 
 }
 

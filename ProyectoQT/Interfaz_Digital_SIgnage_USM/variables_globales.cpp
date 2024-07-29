@@ -7,3 +7,4 @@ QString path_subir_video = "";
 QString name_subir_video = "";
 QString user_sincro="";
 QString ip_sincro="";
+QString admin_nombre="";

@@ -10,5 +10,5 @@ extern QString path_subir_video;
 extern QString name_subir_video;
 extern QString user_sincro;
 extern QString ip_sincro;
-
+extern QString admin_nombre;
 #endif // VARIABLES_GLOBALES_H

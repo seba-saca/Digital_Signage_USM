@@ -145,6 +145,8 @@ private slots:
 
     void on_Guardar_contenido_Centro_EDICION_clicked();
 
+    void on_boton_generar_video_editor_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
