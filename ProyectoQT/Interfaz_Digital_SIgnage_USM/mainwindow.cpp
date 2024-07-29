@@ -1256,8 +1256,11 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 
     if (extension=="txt"){
         qDebug() << "Es texto \n" << name_sector_selected;
+        QChar delimiter2 = '-';
+        QStringList name_sector = name_sector_selected.split(delimiter2);
+        QString path_lista_contenido = global_path+"Contenido_ELO308/"+name_sector[0];
         for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i) {
-            out <<global_path<<"Contenido_ELO308/"+name_sector_selected+"/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
+            out <<global_path<<"Contenido_ELO308/"+name_sector[0]+"/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text()<< "\n";
         }
     }
 
