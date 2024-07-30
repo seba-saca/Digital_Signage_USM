@@ -6,17 +6,19 @@ video_original=$1
 # Ruta de destino para copiar el video
 ruta_destino=$2
 
-# Verificar si el video existe en la ruta de destino
-if [ -f "$ruta_destino" ]; then
-    echo "El video ya existe en la ruta de destino."
-else
-    # Copiar el video a la ruta de destino
-    cp "$video_original" "$ruta_destino"
+# Nombre del video de salida
+name_output=$3
 
-    # Verificar si la copia fue exitosa
-    if [ $? -eq 0 ]; then
-        echo "El video se ha copiado exitosamente a $ruta_destino."
-    else
-        echo "Ha ocurrido un error al copiar el video."
-    fi
-fi
+# Parametros
+VBR="3000K"
+FPS="24"
+BUFSIZE="10000K"
+QUAL="ultrafast"
+AUDIO_ENCODER="aac"
+
+yes | ffmpeg -i $video_original \
+            -c:v libx264 -profile:v baseline -preset $QUAL \
+            -r $FPS -b:v $VBR -bufsize $BUFSIZE -maxrate $VBR \
+            -c:a $AUDIO_ENCODER -ar 44100 -b:a 128k -pix_fmt yuv420p \
+            "$name_output.mkv"
+            

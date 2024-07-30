@@ -677,31 +677,33 @@ void MainWindow::on_Subir_video_clicked()
 {
     ui->label_estado_subir_video->clear();
     QString fileName = QFileDialog::getOpenFileName(this, tr("Abrir archivo"), global_path, tr("Todos los archivos (*)"));
-    path_subir_video = fileName;
-    QString fileBaseName;
-    QStringList tmp_string;
 
     if (!fileName.isEmpty()) {
+        path_subir_video = fileName;
+        QString fileBaseName;
+        QStringList tmp_string;
+
         QFileInfo fileInfo(fileName);
         fileBaseName = fileInfo.fileName(); // Solo el nombre del archivo
         tmp_string = fileBaseName.split('.');
         name_subir_video = fileBaseName;
+
+        QString imagenPath = global_path + "Contenido_ELO308/miniaturas/" + tmp_string[0] + ".jpg";
+        QString scriptPath = global_path + "Digital_Signage_USM/miniaturas_gen.sh";
+
+        QStringList arguments;
+        arguments << fileName << imagenPath;
+        QProcess *process = new QProcess(this);
+        // Asignamos el script y los argumentos al proceso
+        process->start(scriptPath, arguments);
+        process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+
+        // Miniatura plantilla
+        ui->label_subir_video->setPixmap(QPixmap(imagenPath));
+        qDebug() << scriptPath << arguments;
+    } else {
+        qDebug() << "No se seleccionó ningún archivo.";
     }
-
-    QString scriptPath;
-    QString imagenPath = global_path+"Contenido_ELO308/miniaturas/"+tmp_string[0]+".jpg";
-    scriptPath = global_path+"Digital_Signage_USM/miniaturas_gen.sh";
-
-    QStringList arguments;
-    arguments << fileName << imagenPath;
-    QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
-    process->start(scriptPath, arguments);
-    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-    //Miniatura plantilla
-    QString path_miniaturas = imagenPath;
-    ui->label_subir_video->setPixmap(QPixmap(path_miniaturas));
-    qDebug() << scriptPath << arguments;
 
 
 }
@@ -721,8 +723,11 @@ void MainWindow::on_Guardar_subir_video_clicked()
     QString ready_imagen = path_miniaturas+"ready.png";
     ui->label_estado_subir_video->setPixmap(QPixmap(error_imagen));
 
+    QStringList video_name = Path_video_destino.split(".");
+
     QStringList arguments;
-    arguments << path_subir_video << Path_video_destino;
+    arguments << path_subir_video << Path_video_destino << video_name[0];
+    qDebug() << arguments[0] << arguments[1]<<arguments[2] << "\n";
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
