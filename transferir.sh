@@ -10,24 +10,22 @@ PATH_CONTROL_DEVICE=$6    # Ruta del archivo de control en el dispositivo local
 PATH_DESTINO_SINCRO=$7    # Ruta destino para la sincronización del archivo de control
 FEEDBACK_FILE=$8          # Archivo donde se escribirá el feedback de las operaciones
 
-# Verificar que los parámetros necesarios han sido proporcionados
-if [ $# -ne 8 ]; then
-    echo "Uso: $0 <directorio fuente> <directorio destino> <usuario remoto> <host remoto> <archivo lista> <ruta archivo control> <ruta destino sincronización> <archivo feedback>"
-    exit 1
-fi
+
+
+
+
+# Crear archivo de feedback
+echo "Creando archivo de feedback: $FEEDBACK_FILE"
+echo "Inicio de la transferencia: $(date)" > "$FEEDBACK_FILE"
 
 # Comando para verificar la conexión SSH sin contraseña
 ssh -o BatchMode=yes -o ConnectTimeout=5 "$DEST_USER@$DEST_HOST" 'echo SSH connection established' &>/dev/null
 
 # Verificar si la conexión SSH sin contraseña fue exitosa
 if [ $? -ne 0 ]; then
-    echo "No se pudo establecer conexión SSH sin contraseña con $user_ip. Verifica la configuración de la clave SSH."
+    echo "No se pudo establecer conexión SSH sin contraseña con $DEST_USER. Verifica la configuración de la clave SSH." | tee -a "$FEEDBACK_FILE"
     exit 1
 fi
-
-# Crear archivo de feedback
-echo "Creando archivo de feedback: $FEEDBACK_FILE"
-echo "Inicio de la transferencia: $(date)" > "$FEEDBACK_FILE"
 
 # Verificar si el archivo de lista existe
 echo "Ruta del archivo de lista: $FILES_LIST"
@@ -35,17 +33,19 @@ if [ ! -f "$FILES_LIST" ]; then
     echo "Error: El archivo $FILES_LIST no existe." | tee -a "$FEEDBACK_FILE"
     exit 1
 else
-    echo "El archivo $FILES_LIST existe." | tee -a "$FEEDBACK_FILE"
+    continue
+    #echo "El archivo $FILES_LIST existe." | tee -a "$FEEDBACK_FILE"
 fi
 
 # Verificar si el directorio de destino existe en el dispositivo remoto y crearlo si no existe
-echo "Verificando o creando el directorio de destino en el dispositivo remoto..." | tee -a "$FEEDBACK_FILE"
+#echo "Verificando o creando el directorio de destino en el dispositivo remoto..." | tee -a "$FEEDBACK_FILE"
 ssh "$DEST_USER@$DEST_HOST" "mkdir -p $DEST_DIR"
 if [ $? -ne 0 ]; then
     echo "Error: No se pudo crear el directorio de destino $DEST_DIR en el dispositivo remoto." | tee -a "$FEEDBACK_FILE"
     exit 1
 else
-    echo "El directorio de destino $DEST_DIR está listo en el dispositivo remoto." | tee -a "$FEEDBACK_FILE"
+    continue
+    #echo "El directorio de destino $DEST_DIR está listo en el dispositivo remoto." | tee -a "$FEEDBACK_FILE"
 fi
 
 # Imprimir el contenido del archivo de lista
@@ -65,10 +65,10 @@ while IFS= read -r filename; do
             #echo "Sincronizando archivo: $file" | tee -a "$FEEDBACK_FILE"
             rsync -avr --delete "$file" "$DEST_USER@$DEST_HOST:$DEST_DIR"
             if [ $? -ne 0 ]; then
-                echo "Error: No se pudo sincronizar el archivo $file." | tee -a "$FEEDBACK_FILE"
+                echo "Error: No se pudo sincronizar el archivo $filename." | tee -a "$FEEDBACK_FILE"
                 exit 1
             else
-                echo "Archivo $file sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
+                echo "$filename sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
             fi
         done
     else
@@ -83,7 +83,7 @@ if [ $? -ne 0 ]; then
     echo "Error: No se pudo sincronizar el archivo de control $PATH_CONTROL_DEVICE." | tee -a "$FEEDBACK_FILE"
     exit 1
 else
-    echo "Archivo de control $PATH_CONTROL_DEVICE sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
+    echo "Archivo de control sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
 fi
 
 echo "Transferencia completa." | tee -a "$FEEDBACK_FILE"
