@@ -101,6 +101,10 @@ private slots:
 
     void on_boton_generar_video_editor_clicked();
 
+    void on_Bucle_clicked();
+
+    void on_Consultar_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

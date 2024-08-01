@@ -16,6 +16,12 @@ if [ ! -p $CONTROL_FILE ]; then
     mkfifo $CONTROL_FILE
     echo "Archivo de control creado."
 fi
+# Crear archivo de control si no existe
+if [ ! -p $CONTROL_FILE ]; then
+    echo "No se ha encontrado el archivo de control."
+    mkfifo $CONTROL_FILE
+    echo "Archivo de control creado."
+fi
 
 # Crear archivo de estado si no existe
 if [ ! -f $STATUS_FILE ]; then
@@ -43,8 +49,8 @@ get_mplayer_info() {
     # Espera un momento para que mplayer procese el comando
     sleep 1
 
-    # Leer la línea relevante del archivo de salida de mplayer
-    result=$(grep "$command" $OUTPUT_FILE | tail -n 1 | awk -F= '{print $2}' | xargs)
+    # Leer la última línea del archivo de salida de mplayer
+    result=$(tail -n 1 $OUTPUT_FILE)
     echo "$result"
 }
 
@@ -87,10 +93,10 @@ case $OPTION in
         ;;
     10)
         # Obtener información y escribir en el archivo de estado
-        time_pos=$(get_mplayer_info "ANS_TIME_POSITION")
-        percent_pos=$(get_mplayer_info "ANS_PERCENT_POSITION")
-        time_length=$(get_mplayer_info "ANS_LENGTH")
-        volume=$(get_mplayer_info "ANS_VOLUME")
+        time_pos=$(get_mplayer_info "get_time_pos")
+        percent_pos=$(get_mplayer_info "get_percent_pos")
+        time_length=$(get_mplayer_info "get_time_length")
+        volume=$(get_mplayer_info "get_property volume")
 
         # Formatear la información de una manera más amigable
         {

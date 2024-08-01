@@ -17,7 +17,13 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Digital SIgnage USM</string>
+   <string>Digital Signage USM</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="computer"/>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="maximumSize">
@@ -72,8 +78,8 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>170</y>
+        <x>90</x>
+        <y>180</y>
         <width>201</width>
         <height>50</height>
        </rect>
@@ -94,10 +100,10 @@
      <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>250</y>
+        <x>490</x>
+        <y>20</y>
         <width>201</width>
-        <height>61</height>
+        <height>51</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -116,8 +122,8 @@
      <widget class="QWidget" name="layoutWidget_7">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>100</y>
+        <x>90</x>
+        <y>110</y>
         <width>201</width>
         <height>50</height>
        </rect>
@@ -138,10 +144,10 @@
      <widget class="QLabel" name="preview_plantilla">
       <property name="geometry">
        <rect>
-        <x>400</x>
-        <y>50</y>
-        <width>720</width>
-        <height>341</height>
+        <x>539</x>
+        <y>90</y>
+        <width>661</width>
+        <height>291</height>
        </rect>
       </property>
       <property name="maximumSize">
@@ -172,8 +178,8 @@
      <widget class="QPushButton" name="boton_admin">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>50</y>
+        <x>300</x>
+        <y>60</y>
         <width>91</width>
         <height>25</height>
        </rect>
@@ -185,8 +191,8 @@
      <widget class="QPlainTextEdit" name="texto_admin">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>50</y>
+        <x>90</x>
+        <y>60</y>
         <width>201</width>
         <height>31</height>
        </rect>
@@ -195,8 +201,8 @@
      <widget class="QLabel" name="label_admin">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>20</y>
+        <x>90</x>
+        <y>30</y>
         <width>221</width>
         <height>17</height>
        </rect>
@@ -205,92 +211,11 @@
        <string>Ingrese Usuario Administrador:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="Bajar_Volumen">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>530</y>
-        <width>155</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Bajar Volumen</string>
-      </property>
-      <property name="icon">
-       <iconset theme="audio-volume-low"/>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>60</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Mute_video">
-      <property name="geometry">
-       <rect>
-        <x>680</x>
-        <y>530</y>
-        <width>155</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Silenciar</string>
-      </property>
-      <property name="icon">
-       <iconset theme="audio-volume-muted"/>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>60</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Subir_Volumen">
-      <property name="geometry">
-       <rect>
-        <x>880</x>
-        <y>530</y>
-        <width>155</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Subir Volumen</string>
-      </property>
-      <property name="icon">
-       <iconset theme="audio-volume-high"/>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>50</height>
-       </size>
-      </property>
-     </widget>
      <widget class="QPushButton" name="Detener">
       <property name="geometry">
        <rect>
-        <x>880</x>
-        <y>420</y>
+        <x>990</x>
+        <y>410</y>
         <width>155</width>
         <height>30</height>
        </rect>
@@ -313,65 +238,11 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Start">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>420</y>
-        <width>155</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Iniciar</string>
-      </property>
-      <property name="icon">
-       <iconset theme="media-playback-start"/>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>50</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="Retroceder">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>480</y>
-        <width>155</width>
-        <height>30</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>13</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Retroceder</string>
-      </property>
-      <property name="icon">
-       <iconset theme="media-seek-backward"/>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>30</width>
-        <height>50</height>
-       </size>
-      </property>
-     </widget>
      <widget class="QPushButton" name="Pause">
       <property name="geometry">
        <rect>
-        <x>680</x>
-        <y>480</y>
+        <x>790</x>
+        <y>410</y>
         <width>155</width>
         <height>30</height>
        </rect>
@@ -394,11 +265,219 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="Adelantar">
+     <widget class="QFrame" name="frame">
       <property name="geometry">
        <rect>
-        <x>880</x>
-        <y>480</y>
+        <x>480</x>
+        <y>10</y>
+        <width>781</width>
+        <height>541</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>10</number>
+      </property>
+      <widget class="QPushButton" name="Start">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>400</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Iniciar</string>
+       </property>
+       <property name="icon">
+        <iconset theme="media-playback-start"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Retroceder">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>440</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Retroceder</string>
+       </property>
+       <property name="icon">
+        <iconset theme="media-seek-backward"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Adelantar">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>440</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Adelantar</string>
+       </property>
+       <property name="icon">
+        <iconset theme="media-seek-forward"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Bajar_Volumen">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>480</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Bajar Volumen</string>
+       </property>
+       <property name="icon">
+        <iconset theme="audio-volume-low"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>60</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Mute_video">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>480</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Silenciar</string>
+       </property>
+       <property name="icon">
+        <iconset theme="audio-volume-muted"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>60</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Subir_Volumen">
+       <property name="geometry">
+        <rect>
+         <x>510</x>
+         <y>480</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Subir Volumen</string>
+       </property>
+       <property name="icon">
+        <iconset theme="audio-volume-high"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="Bucle">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>440</y>
+         <width>155</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>13</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Búcle</string>
+       </property>
+       <property name="icon">
+        <iconset theme="media-playlist-repeat"/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>50</height>
+        </size>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="Consultar">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>240</y>
         <width>155</width>
         <height>30</height>
        </rect>
@@ -409,10 +488,10 @@
        </font>
       </property>
       <property name="text">
-       <string>Adelantar</string>
+       <string>Consultar</string>
       </property>
       <property name="icon">
-       <iconset theme="media-seek-forward"/>
+       <iconset theme="dialog-information"/>
       </property>
       <property name="iconSize">
        <size>
@@ -421,6 +500,45 @@
        </size>
       </property>
      </widget>
+     <widget class="QTextBrowser" name="Inicio_Status_Contenido">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>280</y>
+        <width>231</width>
+        <height>71</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="Inicio_status">
+      <property name="geometry">
+       <rect>
+        <x>165</x>
+        <y>300</y>
+        <width>61</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>frame</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget</zorder>
+     <zorder>layoutWidget_7</zorder>
+     <zorder>preview_plantilla</zorder>
+     <zorder>boton_admin</zorder>
+     <zorder>texto_admin</zorder>
+     <zorder>label_admin</zorder>
+     <zorder>Detener</zorder>
+     <zorder>Pause</zorder>
+     <zorder>Consultar</zorder>
+     <zorder>Inicio_Status_Contenido</zorder>
+     <zorder>Inicio_status</zorder>
     </widget>
     <widget class="QWidget" name="Dispositivos">
      <attribute name="title">
@@ -547,7 +665,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -1177,7 +1295,7 @@
     </widget>
     <widget class="QWidget" name="Credito">
      <attribute name="title">
-      <string>Credito</string>
+      <string>Crédito</string>
      </attribute>
      <widget class="QLabel" name="Credito_2">
       <property name="geometry">
@@ -1189,7 +1307,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Trabajo de Titulacion&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Desarrollo de plataforma de senalizacion digital para distribucion de contenido multimedia: Unidad de reproduccion audiovisual.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Autor:&lt;/span&gt; Sebastian Castillo - Estudiante Ingenieria Civil Electronica UTFSM&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Version: &lt;/span&gt;1&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Repositorio: &lt;/span&gt;https://github.com/sebandrescastillo1/Digital_Signage_USM&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Departamento de Electronica&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Trabajo de Titulación&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Desarrollo de plataforma de senalizacion digital para distribución de contenido multimedia: Unidad de reproducción audiovisual.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Autor:&lt;/span&gt; Sebastian Castillo - Estudiante Ingeniería Civil Electrónica UTFSM&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Versión: &lt;/span&gt;1&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Año: &lt;/span&gt;2024&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Departamento de Electrónica&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
