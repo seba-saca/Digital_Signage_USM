@@ -71,8 +71,9 @@ void MainWindow::on_sincronizar_clicked()
 
         QString path_file_sincro = global_path+"Digital_Signage_USM/control_device.sh";
         QString path_destino_sincro = "/home/"+user_sincro+"/Desktop/"+user_sincro;
+        QString path_file_log = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
 
-        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro;
+        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro <<path_file_log;
         qDebug() << scriptPath << arguments;
 
         QProcess *process = new QProcess(this);
@@ -82,11 +83,17 @@ void MainWindow::on_sincronizar_clicked()
 
 
         int exitCode = process->exitCode();
-        bool isConnected = (exitCode == 0);
 
-        QString imagePath = isConnected ? ready_imagen : error_imagen;
-        QPixmap pixmap(imagePath);
-        ui->label_sync_logo->setPixmap(pixmap);
+        if (exitCode == 0){
+
+            ui->label_sync_logo->setPixmap(QPixmap(ready_imagen));
+
+        }
+        else {
+            //Rescatar info
+            ui->label_sync_logo->setPixmap(QPixmap(error_imagen));
+        }
+
     });
 }
 
@@ -132,8 +139,14 @@ void MainWindow::on_Start_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
-    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Start->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Start->text()+"* solicitada");
+    }
     qDebug() << scriptPath << arguments;
 }
 
@@ -163,7 +176,14 @@ void MainWindow::on_Pause_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Pause->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Pause->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -194,7 +214,14 @@ void MainWindow::on_Detener_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Detener->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Detener->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -225,7 +252,14 @@ void MainWindow::on_Mute_video_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Mute_video->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Mute_video->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -256,7 +290,14 @@ void MainWindow::on_Retroceder_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Retroceder->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Retroceder->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -287,7 +328,14 @@ void MainWindow::on_Adelantar_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Adelantar->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Adelantar->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -318,7 +366,14 @@ void MainWindow::on_Bajar_Volumen_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Bajar_Volumen->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Bajar_Volumen->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -349,7 +404,14 @@ void MainWindow::on_Subir_Volumen_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Subir_Volumen->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Subir_Volumen->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -458,6 +520,7 @@ void MainWindow::on_home_ubicacion_activated(int index)
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
     ui->home_dispositivo->clear();
     ui->Lista_plantillas->clear();
+    ui->Inicio_feedback->clear();
 
     //Delimitador
     QChar delimiter = '@';
@@ -485,7 +548,9 @@ void MainWindow::on_home_ubicacion_activated(int index)
 
 void MainWindow::on_home_dispositivo_activated(int index)
 {
+    ui->Inicio_Status_Contenido->clear();
     ui->Lista_plantillas->clear();
+    ui->Inicio_feedback->clear();
     QString video_simbolo = global_path +"Digital_Signage_USM/Material_Interfaz/video_player.png";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
 
@@ -782,6 +847,7 @@ void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
 
 void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
 {
+    ui->Estado_Disponibilida_Contenido->clear();
     ui->lista_sincronizacion_devices->clear();
     //Delimitador
     QChar delimiter = '@';
@@ -807,7 +873,9 @@ void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
 
 void MainWindow::on_sincronizar_check_dispo_clicked()
 {
-
+    ui->Estado_Disponibilidad->clear();
+    ui->Estado_Disponibilidad->setPixmap(QPixmap(global_path+"Digital_Signage_USM/Material_Interfaz/loading.png"));
+    // Forzar la actualización de la interfaz de usuario
     // Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
     QString loading_imagen = path_miniaturas+"loading.png";
@@ -818,29 +886,53 @@ void MainWindow::on_sincronizar_check_dispo_clicked()
     QString ready_imagen = path_miniaturas+"ready.png";
 
 
+    QApplication::processEvents();
 
-    // Inicia un temporizador para ejecutar el script después de actualizar la interfaz
-    QTimer::singleShot(100, this, [this, error_imagen, ready_imagen]() {
-        QProcess process;
-        QString script = "ping -c 1 "+ip_sincro; // Reemplaza con la IP de tu dispositivo
-        qDebug() << script << "\n";
+    //Parametros
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
-        process.start("bash", QStringList() << "-c" << script);
-        process.waitForFinished();
+    //Path de scripts
+    QString scriptPath = global_path+"Digital_Signage_USM/check_dispo.sh";
 
-        int exitCode = process.exitCode();
-        bool isConnected = (exitCode == 0);
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+    arguments << user_sincro+"@"+ip_sincro;
+    qDebug() << arguments << "\n";
+    //Consultar
+    QProcess *process = new QProcess(this);
+    process->start(scriptPath, arguments);
+    process->waitForFinished();
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
 
-        QString imagePath = isConnected ? ready_imagen : error_imagen;
-        QPixmap pixmap(imagePath);
-        ui->Estado_Disponibilidad->setPixmap(pixmap);
-    });
+        ui->Estado_Disponibilidad->setPixmap(QPixmap(ready_imagen));
+        //QProcess *process2 = new QProcess(this);
+        //process2->start(script_copytext, arguments2);
+        //process2->waitForFinished(); // Espera a que el proceso termine antes de continuar
+
+        //Rescatar info
+
+
+    }
+    else {
+        //Rescatar info
+        ui->Estado_Disponibilidad->setPixmap(QPixmap(error_imagen));
+    }
+
+    QFile file = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        ui->Estado_Disponibilida_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+        file.close();
+    }
+
 }
 
 
 void MainWindow::on_lista_sincronizacion_devices_activated(int index)
 {
     ui->Estado_Disponibilidad->clear();
+    ui->Estado_Disponibilida_Contenido->clear();
     //Feedback
     ip_sincro = ui->lista_sincronizacion_devices->itemData(index).toString();
     user_sincro = ui->lista_sincronizacion_devices->currentText();
@@ -1115,7 +1207,14 @@ void MainWindow::on_Bucle_clicked()
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
-
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Bucle->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Bucle->text()+"* solicitada");
+    }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
 }
@@ -1158,15 +1257,17 @@ void MainWindow::on_Consultar_clicked()
 
     //Consultar
     QProcess *process = new QProcess(this);
-    process->start(scriptPath, arguments);
+    //process->start(scriptPath, arguments);
+    //process->waitForFinished();
+    process->start(script_copytext, arguments2);
     process->waitForFinished();
     int exitCode = process->exitCode();
     if (exitCode == 0){
         qDebug() << script_copytext << arguments2 <<"\n";
 
-        QProcess *process2 = new QProcess(this);
-        process2->start(script_copytext, arguments2);
-        process2->waitForFinished(); // Espera a que el proceso termine antes de continuar
+        //QProcess *process2 = new QProcess(this);
+        //process2->start(script_copytext, arguments2);
+        //process2->waitForFinished(); // Espera a que el proceso termine antes de continuar
 
         //Rescatar info
         ui->Inicio_status->clear();
@@ -1189,5 +1290,44 @@ void MainWindow::on_Consultar_clicked()
             file.close();
         }
     }
+}
+
+
+void MainWindow::on_Reanudar_clicked()
+{
+    int indice_actual = ui->Lista_plantillas->currentIndex();
+    int indice_actual_device = ui->home_dispositivo->currentIndex();
+
+    QString scriptPath;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
+    QString indice_string = QString::number(indice_actual+1);
+    QString indice_device_string = QString::number(indice_actual_device+1);
+    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+
+    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
+    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
+    QString ruta_status = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado;
+    scriptPath = global_path+"Digital_Signage_USM/play.sh";
+
+    // Lista de argumentos que deseas pasar al script
+    QStringList arguments;
+
+    QString name_video= ui->Lista_plantillas->currentText();
+
+    arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "10" <<ruta_status;
+    QProcess *process = new QProcess(this);
+    // Asignamos el script y los argumentos al proceso
+    process->start(scriptPath, arguments);
+    int exitCode = process->exitCode();
+    if (exitCode == 0){
+        //Exito
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Reanudar->text()+"* enviada satisfactoriamente");
+    }
+    else {
+        ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Reanudar->text()+"* solicitada");
+    }
+    //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    qDebug() << scriptPath << arguments;
 }
 

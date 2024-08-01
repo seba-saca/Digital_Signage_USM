@@ -1,4 +1,5 @@
 #!/bin/bash
+
 path_videos=$1
 name_video=$2
 OPTION=$3
@@ -9,24 +10,24 @@ VIDEO_PATH="$path_videos/$name_video.mkv"
 CONTROL_FILE="/tmp/mplayer-control"
 OUTPUT_FILE="/tmp/mplayer-output"
 STATUS_FILE="$path_txt_file/mplayer_status.txt"
+DEVICE_STATUS="No está reproduciendo"  # Estado inicial del dispositivo, interfiere con pause, debe estar comentado
+
+# Obtener la hora actual
+current_time() {
+    echo $(date +"%Y-%m-%d %H:%M:%S")
+}
 
 # Crear archivo de control si no existe
 if [ ! -p $CONTROL_FILE ]; then
-    echo "No se ha encontrado el archivo de control."
+    echo "$(current_time) - $name_video - No se ha encontrado el archivo de control."
     mkfifo $CONTROL_FILE
-    echo "Archivo de control creado."
+    echo "$(current_time) - $name_video - Archivo de control creado."
 fi
 
 # Crear archivo de estado si no existe
 if [ ! -f $STATUS_FILE ]; then
-    echo "Archivo de estado no encontrado, creando $STATUS_FILE"
+    echo "$(current_time) - $name_video - Archivo de estado no encontrado, creando $STATUS_FILE"
     touch $STATUS_FILE
-fi
-
-# Iniciar mplayer si la opción es reproducir
-if [ $OPTION -eq 1 ]; then
-    mplayer -slave -input file=$CONTROL_FILE -display :0 -fs $VIDEO_PATH > $OUTPUT_FILE &
-    sleep 2
 fi
 
 # Función para obtener información de mplayer
@@ -48,66 +49,106 @@ get_mplayer_info() {
     echo "$result"
 }
 
+# Registrar la acción realizada en el archivo de estado (sobreescribir)
+log_status() {
+    local action=$1
+    {
+        echo "============"
+        echo "$(current_time)"
+        echo "ESTADO: $DEVICE_STATUS"
+        if [ "$action" == "Contenido detenido" ]; then
+            continue
+        else
+            echo "============"
+            echo "ACCIÓN: $action"
+            #echo "Contenido seleccionado: $name_video"
+        fi
+               
+        echo "============"
+    } > "$STATUS_FILE"  # Utiliza ">" para sobreescribir
+}
+
+
+# Monitorizar el estado de mplayer
+monitor_mplayer() {
+    while true; do
+        # Verifica si el proceso mplayer sigue ejecutándose
+        if ! pgrep -f "mplayer" > /dev/null; then
+            DEVICE_STATUS="No está reproduciendo"
+            log_status "El dispositivo ya no está reproduciendo nada"
+            break
+        fi
+        sleep 1
+    done
+}
+
 # Procesar la opción seleccionada
 case $OPTION in
     1)
-        # Reproducir video (iniciado más arriba)
+        # Reproducir video
+        mplayer -slave -input file=$CONTROL_FILE -display :0 -fs $VIDEO_PATH > $OUTPUT_FILE &
+        sleep 2
+        DEVICE_STATUS="Reproduciendo $name_video"
+        log_status "Reproduciendo contenido"
+        monitor_mplayer &
         ;;
     2)
-        # Pausar video
+        # Pausar o reanudar video
         echo "pause" > $CONTROL_FILE
+        DEVICE_STATUS="No está reproduciendo"
+        log_status "Contenido pausado"
         ;;
     3)
         # Detener video
         echo "quit" > $CONTROL_FILE
+        DEVICE_STATUS="No está reproduciendo"
+        log_status "Contenido detenido"
         ;;
-    4)  
+    4)
         # Adelantar 5 segundos
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "seek 5" > $CONTROL_FILE
+        log_status "Adelantado 5 segundos"
         ;;
-    5) 
+    5)
         # Retroceder 5 segundos
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "seek -5" > $CONTROL_FILE
+        log_status "Retrocedido 5 segundos"
         ;;
     6)
         # Subir volumen 10
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "volume 10" > $CONTROL_FILE
+        log_status "Volumen subido en 10"
         ;;
-    7) 
+    7)
         # Bajar volumen 10
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "volume -10" > $CONTROL_FILE
+        log_status "Volumen bajado en 10"
         ;;
-    8) 
+    8)
         # Silenciar video
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "mute" > $CONTROL_FILE
+        log_status "Contenido silenciado"
         ;;
-    9) 
+    9)
         # Bucle
+        DEVICE_STATUS="Reproduciendo $name_video"
         echo "loop 1" > $CONTROL_FILE
+        log_status "Contenido en bucle"
         ;;
     10)
-        # Obtener información y escribir en el archivo de estado
-        time_pos=$(get_mplayer_info "ANS_TIME_POSITION")
-        percent_pos=$(get_mplayer_info "ANS_PERCENT_POSITION")
-        time_length=$(get_mplayer_info "ANS_LENGTH")
-        volume=$(get_mplayer_info "ANS_VOLUME")
-
-        # Formatear la información de una manera más amigable
-        {
-            echo "-----------------------------"
-            echo "Estado de Reproducción de Video"
-            echo "-----------------------------"
-            echo "Posición actual: $time_pos segundos"
-            echo "Porcentaje reproducido: $percent_pos%"
-            echo "Duración total del video: $time_length segundos"
-            echo "Volumen actual: $volume"
-            echo "-----------------------------"
-        } > "$STATUS_FILE"
-
-        echo "Información de estado escrita en $STATUS_FILE"
+        # Reanudar video
+        echo "pause" > $CONTROL_FILE
+        DEVICE_STATUS="Reproduciendo $name_video"
+        log_status "Contenido reanudado"
         ;;
     *)
         echo "Opción inválida."
+        log_status "Opción inválida seleccionada"
         ;;
 esac
 
@@ -116,4 +157,5 @@ if [ $? -eq 0 ]; then
     echo "La ejecución se ha completado correctamente."
 else
     echo "Hubo un error durante la ejecución."
+    log_status "Error durante la ejecución"
 fi

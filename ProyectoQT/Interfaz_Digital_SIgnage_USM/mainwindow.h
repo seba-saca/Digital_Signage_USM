@@ -105,6 +105,8 @@ private slots:
 
     void on_Consultar_clicked();
 
+    void on_Reanudar_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
