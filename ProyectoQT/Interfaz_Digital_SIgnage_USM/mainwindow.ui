@@ -502,9 +502,9 @@
       <widget class="QLabel" name="Inicio_feedback">
        <property name="geometry">
         <rect>
-         <x>255</x>
+         <x>205</x>
          <y>520</y>
-         <width>261</width>
+         <width>381</width>
          <height>20</height>
         </rect>
        </property>
@@ -911,7 +911,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>Estado</string>
+         <string/>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -928,8 +928,8 @@
        <widget class="QPushButton" name="sincronizar">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>320</y>
+          <x>590</x>
+          <y>350</y>
           <width>261</width>
           <height>51</height>
          </rect>
@@ -1034,14 +1034,14 @@
        <widget class="QLabel" name="label_sync_logo">
         <property name="geometry">
          <rect>
-          <x>490</x>
-          <y>40</y>
-          <width>411</width>
-          <height>221</height>
+          <x>880</x>
+          <y>350</y>
+          <width>81</width>
+          <height>51</height>
          </rect>
         </property>
         <property name="text">
-         <string>Sync</string>
+         <string/>
         </property>
         <property name="scaledContents">
          <bool>true</bool>
@@ -1053,10 +1053,10 @@
        <widget class="QTextBrowser" name="Estado_Disponibilida_Contenido">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>240</y>
-          <width>291</width>
-          <height>181</height>
+          <x>440</x>
+          <y>40</y>
+          <width>561</width>
+          <height>281</height>
          </rect>
         </property>
        </widget>
@@ -1333,7 +1333,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Status</string>
+       <string/>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

@@ -20,10 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
     ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
 
-    QString filename;
-    QString filename2;
-    QString filename3;
-
     QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
     QFile file_dispositivos_registrados(filename_dispositivos_registrados);
     if (file_dispositivos_registrados.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -52,50 +48,52 @@ void MainWindow::on_sincronizar_clicked()
     QString loading_imagen = path_miniaturas+"loading.png";
     QPixmap mapeo(loading_imagen);
     ui->label_sync_logo->setPixmap(mapeo);
+    QApplication::processEvents();
 
     QString error_imagen = path_miniaturas+"error.png";
     QString ready_imagen = path_miniaturas+"ready.png";
 
+    QString scriptPath = global_path+"Digital_Signage_USM/transferir.sh";
 
+    QStringList arguments;
+    QString path_origen = global_path+"Contenido_ELO308/Videos";
+    QString path_destino = "/home/"+user_sincro+"/Desktop/"+user_sincro+"/videos";
+    QString path_file_contenido = global_path+"Contenido_Dispositivos/"+user_sincro+".txt";
 
-    // Inicia un temporizador para ejecutar el script después de actualizar la interfaz
-    QTimer::singleShot(100, this, [this, error_imagen, ready_imagen]() {
-        QString scriptPath;
-        scriptPath = global_path+"Digital_Signage_USM/transferir.sh";
+    QString path_file_sincro = global_path+"Digital_Signage_USM/control_device.sh";
+    QString path_destino_sincro = "/home/"+user_sincro+"/Desktop/"+user_sincro;
+    QString path_file_log = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
 
-        // Lista de argumentos que deseas pasar al script
-        QStringList arguments;
-        QString path_origen = global_path+"Contenido_ELO308/Videos";
-        QString path_destino = "/home/"+user_sincro+"/Desktop/"+user_sincro+"/videos";
-        QString path_file_contenido = global_path+"Contenido_Dispositivos/"+user_sincro+".txt";
+    arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro << path_file_log;
+    qDebug() << scriptPath << arguments;
 
-        QString path_file_sincro = global_path+"Digital_Signage_USM/control_device.sh";
-        QString path_destino_sincro = "/home/"+user_sincro+"/Desktop/"+user_sincro;
-        QString path_file_log = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
+    QProcess *process = new QProcess(this);
 
-        arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro <<path_file_log;
-        qDebug() << scriptPath << arguments;
-
-        QProcess *process = new QProcess(this);
-        // Asignamos el script y los argumentos al proceso
-        process->start(scriptPath, arguments);
-        process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-
-
-        int exitCode = process->exitCode();
-
-        if (exitCode == 0){
-
+    // Conectar señales a las funciones correspondientes
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit){
             ui->label_sync_logo->setPixmap(QPixmap(ready_imagen));
-
-        }
-        else {
-            //Rescatar info
+        } else {
             ui->label_sync_logo->setPixmap(QPixmap(error_imagen));
         }
 
+        QFile file = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            QTextStream stream(&file);
+            ui->Estado_Disponibilida_Contenido->setPlainText(stream.readAll());
+            file.close();
+        }
     });
+
+    connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
+        ui->label_sync_logo->setPixmap(QPixmap(error_imagen));
+        qDebug() << "Error en la ejecución del proceso:" << error;
+    });
+
+    // Iniciar el proceso de manera asíncrona
+    process->start(scriptPath, arguments);
 }
+
 
 void MainWindow::on_Lista_plantillas_activated(int index)
 {
@@ -117,7 +115,7 @@ void MainWindow::on_Start_clicked()
 
     int indice_actual = ui->Lista_plantillas->currentIndex();
     int indice_actual_device = ui->home_dispositivo->currentIndex();
-
+    ui->Inicio_feedback->setText("Mandando instrucción"+ui->Start->text());
     QString scriptPath;
     scriptPath = global_path+"Digital_Signage_USM/play.sh";
 
@@ -789,14 +787,12 @@ void MainWindow::on_Subir_video_clicked()
 
 void MainWindow::on_Guardar_subir_video_clicked()
 {
-
     ui->lista_asignar_contenido->clear();
 
-    QString scriptPath;
-    scriptPath = global_path+"Digital_Signage_USM/copy_video.sh";
+    QString scriptPath = global_path+"Digital_Signage_USM/copy_video.sh";
     QString Path_video_destino = global_path+"Contenido_ELO308/Videos/"+name_subir_video;
 
-    //Miniatura plantilla
+    // Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
     QString error_imagen = path_miniaturas+"loading.png";
     QString ready_imagen = path_miniaturas+"ready.png";
@@ -809,15 +805,29 @@ void MainWindow::on_Guardar_subir_video_clicked()
 
     QStringList arguments;
     arguments << path_subir_video << Path_video_destino << video_name[0];
-    qDebug() << arguments[0] << arguments[1]<<arguments[2] << "\n";
+    qDebug() << arguments[0] << arguments[1] << arguments[2] << "\n";
+
     QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
+
+    // Conectar señales a las funciones correspondientes
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit){
+            ui->label_estado_subir_video->setPixmap(QPixmap(ready_imagen));
+        } else {
+            ui->label_estado_subir_video->setPixmap(QPixmap(error_imagen));
+            qDebug() << "Error al subir el video. Código de salida:" << exitCode;
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
+        ui->label_estado_subir_video->setPixmap(QPixmap(error_imagen));
+        qDebug() << "Error en la ejecución del proceso:" << error;
+    });
+
+    // Iniciar el proceso de manera asíncrona
     process->start(scriptPath, arguments);
-    process->waitForFinished(); // Espera a que el proceso termine antes de continuar
-
-    ui->label_estado_subir_video->setPixmap(QPixmap(ready_imagen));
-
 }
+
 
 void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
 {
@@ -875,7 +885,7 @@ void MainWindow::on_sincronizar_check_dispo_clicked()
 {
     ui->Estado_Disponibilidad->clear();
     ui->Estado_Disponibilidad->setPixmap(QPixmap(global_path+"Digital_Signage_USM/Material_Interfaz/loading.png"));
-    // Forzar la actualización de la interfaz de usuario
+
     // Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
     QString loading_imagen = path_miniaturas+"loading.png";
@@ -885,48 +895,41 @@ void MainWindow::on_sincronizar_check_dispo_clicked()
     QString error_imagen = path_miniaturas+"error.png";
     QString ready_imagen = path_miniaturas+"ready.png";
 
-
+    // Forzar la actualización de la interfaz de usuario
     QApplication::processEvents();
 
-    //Parametros
+    // Parámetros
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
 
-    //Path de scripts
+    // Path de scripts
     QString scriptPath = global_path+"Digital_Signage_USM/check_dispo.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
     arguments << user_sincro+"@"+ip_sincro;
     qDebug() << arguments << "\n";
-    //Consultar
+
+    // Consultar
     QProcess *process = new QProcess(this);
-    process->start(scriptPath, arguments);
-    process->waitForFinished();
-    int exitCode = process->exitCode();
-    if (exitCode == 0){
 
-        ui->Estado_Disponibilidad->setPixmap(QPixmap(ready_imagen));
-        //QProcess *process2 = new QProcess(this);
-        //process2->start(script_copytext, arguments2);
-        //process2->waitForFinished(); // Espera a que el proceso termine antes de continuar
+    // Conectar señales a las funciones correspondientes
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit){
+            ui->Estado_Disponibilidad->setPixmap(QPixmap(ready_imagen));
+        } else {
+            ui->Estado_Disponibilidad->setPixmap(QPixmap(error_imagen));
+        }
+    });
 
-        //Rescatar info
-
-
-    }
-    else {
-        //Rescatar info
+    connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
         ui->Estado_Disponibilidad->setPixmap(QPixmap(error_imagen));
-    }
+        qDebug() << "Error en la ejecución del proceso:" << error;
+    });
 
-    QFile file = global_path+"Contenido_Dispositivos/Logs/"+user_sincro+"_log.txt";
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        ui->Estado_Disponibilida_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-        file.close();
-    }
-
+    // Iniciar el proceso de manera asíncrona
+    process->start(scriptPath, arguments);
 }
+
 
 
 void MainWindow::on_lista_sincronizacion_devices_activated(int index)
@@ -1168,17 +1171,28 @@ void MainWindow::on_boton_generar_video_editor_clicked()
     arguments << admin_nombre << name_video;
 
     QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
+
+    // Conectar señales a las funciones correspondientes
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [=](int exitCode, QProcess::ExitStatus exitStatus){
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit){
+            ui->label_status_editor->setPixmap(QPixmap(ready_imagen));
+        } else {
+            ui->label_status_editor->setPixmap(QPixmap(error_imagen));
+            qDebug() << "Error al generar el video. Código de salida:" << exitCode;
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
+        ui->label_status_editor->setPixmap(QPixmap(error_imagen));
+        qDebug() << "Error en la ejecución del proceso:" << error;
+    });
+
+    // Iniciar el proceso de manera asíncrona
     process->start(scriptPath, arguments);
 
-    // Espera a que el proceso termine antes de continuar
-    process->waitForFinished();
-
-    // Establecer la imagen de listo
-    QPixmap mapeo2(ready_imagen);
-    ui->label_status_editor->setPixmap(mapeo2);
     qDebug() << scriptPath << arguments;
 }
+
 
 
 void MainWindow::on_Bucle_clicked()
@@ -1223,23 +1237,24 @@ void MainWindow::on_Bucle_clicked()
 void MainWindow::on_Consultar_clicked()
 {
     ui->Inicio_Status_Contenido->clear();
-    ui->Inicio_status->setPixmap(QPixmap(global_path+"Digital_Signage_USM/Material_Interfaz/loading.png"));
+    ui->Inicio_status->setPixmap(QPixmap(global_path + "Digital_Signage_USM/Material_Interfaz/loading.png"));
+
     // Forzar la actualización de la interfaz de usuario
     QApplication::processEvents();
 
-    //Parametros
+    // Parámetros
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
-    QString scriptPath_destino = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/control_device.sh";
-    QString scriptPath_videos = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado+"/videos";
-    QString ruta_status = "/home/"+Dispositivo_seleccionado+"/Desktop/"+Dispositivo_seleccionado;
-    QString name_video= ui->Lista_plantillas->currentText();
-    QString device=ui->home_dispositivo->currentText();
-    QString textfile=global_path+"Contenido_Dispositivos/Estado/"+device+"_status.txt";
-    QString textfile_remoto= "/home/"+device+"/Desktop/"+device+"/mplayer_status.txt";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
+    QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
+    QString name_video = ui->Lista_plantillas->currentText();
+    QString device = ui->home_dispositivo->currentText();
+    QString textfile = global_path + "Contenido_Dispositivos/Estado/" + device + "_status.txt";
+    QString textfile_remoto = "/home/" + device + "/Desktop/" + device + "/mplayer_status.txt";
 
-    //Path de scripts
-    QString scriptPath = global_path+"Digital_Signage_USM/play.sh";
-    QString script_copytext= global_path+"Digital_Signage_USM/copy_text.sh";
+    // Path de scripts
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
+    QString script_copytext = global_path + "Digital_Signage_USM/copy_text.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
@@ -1247,7 +1262,7 @@ void MainWindow::on_Consultar_clicked()
     QStringList arguments2;
     arguments2 << user_ip_dispositivo << textfile_remoto << textfile;
 
-    //Archivo
+    // Crear archivo
     QFile file(textfile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qDebug() << "No se pudo abrir el archivo para escritura";
@@ -1255,42 +1270,40 @@ void MainWindow::on_Consultar_clicked()
     }
     file.close();
 
-    //Consultar
+    // Consultar de forma asíncrona
     QProcess *process = new QProcess(this);
-    //process->start(scriptPath, arguments);
-    //process->waitForFinished();
+
+    // Conectar señales a las funciones correspondientes
+    connect(process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [=](int exitCode, QProcess::ExitStatus exitStatus){
+        ui->Inicio_status->clear();
+        if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
+            qDebug() << script_copytext << arguments2 << "\n";
+            QFile file(textfile);
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                QTextStream stream(&file);
+                ui->Inicio_Status_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
+                file.close();
+            }
+        } else {
+            QFile file(textfile);
+            if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+                ui->Inicio_Status_Contenido->setPlainText("Comunicación fallida con dispositivo: " + device); // Cargar el contenido del archivo en el QTextEdit
+                file.close();
+                qDebug() << "Cambios Guardados Satisfactoriamente: " << device << "\n";
+            }
+        }
+    });
+
+    connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
+        ui->Inicio_status->clear();
+        ui->Inicio_Status_Contenido->setPlainText("Error en la ejecución del proceso.");
+        qDebug() << "Error en la ejecución del proceso:" << error;
+    });
+
+    // Iniciar el proceso de manera asíncrona
     process->start(script_copytext, arguments2);
-    process->waitForFinished();
-    int exitCode = process->exitCode();
-    if (exitCode == 0){
-        qDebug() << script_copytext << arguments2 <<"\n";
-
-        //QProcess *process2 = new QProcess(this);
-        //process2->start(script_copytext, arguments2);
-        //process2->waitForFinished(); // Espera a que el proceso termine antes de continuar
-
-        //Rescatar info
-        ui->Inicio_status->clear();
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            QTextStream stream(&file);
-            ui->Inicio_Status_Contenido->setPlainText(stream.readAll()); // Cargar el contenido del archivo en el QTextEdit
-            file.close();
-        }
-
-        file.close();
-    }
-    else {
-        //Rescatar info
-        ui->Inicio_status->clear();
-        if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            ui->Inicio_Status_Contenido->setPlainText("Comunicacíon fallida con dispositivo: "+device); // Cargar el contenido del archivo en el QTextEdit
-            file.close();
-            qDebug() << "Cambios Guardados Satisfactoriamente: " << device<<"\n";
-
-            file.close();
-        }
-    }
 }
+
 
 
 void MainWindow::on_Reanudar_clicked()

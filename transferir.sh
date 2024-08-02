@@ -10,81 +10,40 @@ PATH_CONTROL_DEVICE=$6    # Ruta del archivo de control en el dispositivo local
 PATH_DESTINO_SINCRO=$7    # Ruta destino para la sincronización del archivo de control
 FEEDBACK_FILE=$8          # Archivo donde se escribirá el feedback de las operaciones
 
+# Inicializar el archivo de feedback (sobrescribir el contenido)
+echo "Iniciando transferencia de archivos - $(date '+%Y-%m-%d %H:%M:%S')" > "$FEEDBACK_FILE"
 
+# Función para registrar mensajes en el archivo de feedback
+log_feedback() {
+    local MESSAGE=$1
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $MESSAGE" >> "$FEEDBACK_FILE"
+}
 
-
-
-# Crear archivo de feedback
-echo "Creando archivo de feedback: $FEEDBACK_FILE"
-echo "Inicio de la transferencia: $(date)" > "$FEEDBACK_FILE"
-
-# Comando para verificar la conexión SSH sin contraseña
-ssh -o BatchMode=yes -o ConnectTimeout=5 "$DEST_USER@$DEST_HOST" 'echo SSH connection established' &>/dev/null
-
-# Verificar si la conexión SSH sin contraseña fue exitosa
-if [ $? -ne 0 ]; then
-    echo "No se pudo establecer conexión SSH sin contraseña con $DEST_USER. Verifica la configuración de la clave SSH." | tee -a "$FEEDBACK_FILE"
+# Validar que el archivo de lista de archivos existe
+if [[ ! -f "$FILES_LIST" ]]; then
+    log_feedback "Error: El archivo de lista $FILES_LIST no existe."
     exit 1
 fi
 
-# Verificar si el archivo de lista existe
-echo "Ruta del archivo de lista: $FILES_LIST"
-if [ ! -f "$FILES_LIST" ]; then
-    echo "Error: El archivo $FILES_LIST no existe." | tee -a "$FEEDBACK_FILE"
-    exit 1
-else
-    continue
-    #echo "El archivo $FILES_LIST existe." | tee -a "$FEEDBACK_FILE"
-fi
-
-# Verificar si el directorio de destino existe en el dispositivo remoto y crearlo si no existe
-#echo "Verificando o creando el directorio de destino en el dispositivo remoto..." | tee -a "$FEEDBACK_FILE"
-ssh "$DEST_USER@$DEST_HOST" "mkdir -p $DEST_DIR"
-if [ $? -ne 0 ]; then
-    echo "Error: No se pudo crear el directorio de destino $DEST_DIR en el dispositivo remoto." | tee -a "$FEEDBACK_FILE"
-    exit 1
-else
-    continue
-    #echo "El directorio de destino $DEST_DIR está listo en el dispositivo remoto." | tee -a "$FEEDBACK_FILE"
-fi
-
-# Imprimir el contenido del archivo de lista
-#echo "Contenido del archivo de lista:" | tee -a "$FEEDBACK_FILE"
-#cat "$FILES_LIST" | tee -a "$FEEDBACK_FILE"
-
-# Leer el archivo de lista de archivos y buscar cada archivo en el directorio fuente
-while IFS= read -r filename; do
-    #echo "Buscando archivos para: $filename" | tee -a "$FEEDBACK_FILE"
-
-    # Buscar archivos que coincidan con el nombre en el directorio fuente
-    found_files=$(find "$SOURCE_DIR" -maxdepth 1 -type f -name "$filename.*" -o -name "$filename")
-
-    # Si se encuentran archivos, sincronizar cada uno de ellos
-    if [ -n "$found_files" ]; then
-        for file in $found_files; do
-            #echo "Sincronizando archivo: $file" | tee -a "$FEEDBACK_FILE"
-            rsync -avr --delete "$file" "$DEST_USER@$DEST_HOST:$DEST_DIR"
-            if [ $? -ne 0 ]; then
-                echo "Error: No se pudo sincronizar el archivo $filename." | tee -a "$FEEDBACK_FILE"
-                exit 1
-            else
-                echo "$filename sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
-            fi
-        done
+# Leer el archivo de lista y transferir cada archivo
+while IFS= read -r FILE; do
+    if [[ -f "$SOURCE_DIR/$FILE.mkv" ]]; then
+        # Transferir el archivo usando rsync
+        rsync -avz --progress --ignore-existing "$SOURCE_DIR/$FILE.mkv" "$DEST_USER@$DEST_HOST:$DEST_DIR" >> "$FEEDBACK_FILE" 2>&1
+        if [[ $? -eq 0 ]]; then
+            log_feedback "Éxito: $FILE transferido correctamente."
+        else
+            log_feedback "Error: Falló la transferencia de $FILE."
+        fi
     else
-        echo "No se encontraron archivos para: $filename" | tee -a "$FEEDBACK_FILE"
+        log_feedback "Advertencia: El archivo $FILE no se encontró en $SOURCE_DIR."
     fi
 done < "$FILES_LIST"
 
 # Sincronizar el archivo de control
-#echo "Sincronizando archivo de control: $PATH_CONTROL_DEVICE" | tee -a "$FEEDBACK_FILE"
-rsync -avr --delete "$PATH_CONTROL_DEVICE" "$DEST_USER@$DEST_HOST:$PATH_DESTINO_SINCRO"
-if [ $? -ne 0 ]; then
-    echo "Error: No se pudo sincronizar el archivo de control $PATH_CONTROL_DEVICE." | tee -a "$FEEDBACK_FILE"
-    exit 1
+rsync -avz --progress "$PATH_CONTROL_DEVICE" "$DEST_USER@$DEST_HOST:$PATH_DESTINO_SINCRO" >> "$FEEDBACK_FILE" 2>&1
+if [[ $? -eq 0 ]]; then
+    log_feedback "Éxito: El archivo de control se ha sincronizado correctamente."
 else
-    echo "Archivo de control sincronizado correctamente." | tee -a "$FEEDBACK_FILE"
+    log_feedback "Error: Falló la sincronización del archivo de control."
 fi
-
-echo "Transferencia completa." | tee -a "$FEEDBACK_FILE"
-echo "Fin de la transferencia: $(date)" | tee -a "$FEEDBACK_FILE"
