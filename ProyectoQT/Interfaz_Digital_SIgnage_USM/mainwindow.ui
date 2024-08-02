@@ -502,9 +502,9 @@
       <widget class="QLabel" name="Inicio_feedback">
        <property name="geometry">
         <rect>
-         <x>205</x>
+         <x>10</x>
          <y>520</y>
-         <width>381</width>
+         <width>271</width>
          <height>20</height>
         </rect>
        </property>
@@ -703,7 +703,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -1409,7 +1409,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Digital Signage USM&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:700;&quot;&gt;Señalización Digital USM&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <zorder>Asignar_Videos</zorder>

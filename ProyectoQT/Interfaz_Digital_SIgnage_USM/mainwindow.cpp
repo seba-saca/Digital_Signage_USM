@@ -140,7 +140,7 @@ void MainWindow::on_Start_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Start->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Start->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Start->text()+"* solicitada");
@@ -177,7 +177,7 @@ void MainWindow::on_Pause_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Pause->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Pause->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Pause->text()+"* solicitada");
@@ -215,7 +215,7 @@ void MainWindow::on_Detener_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Detener->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Detener->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Detener->text()+"* solicitada");
@@ -253,7 +253,7 @@ void MainWindow::on_Mute_video_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Mute_video->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Mute_video->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Mute_video->text()+"* solicitada");
@@ -291,7 +291,7 @@ void MainWindow::on_Retroceder_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Retroceder->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Retroceder->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Retroceder->text()+"* solicitada");
@@ -329,7 +329,7 @@ void MainWindow::on_Adelantar_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Adelantar->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Adelantar->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Adelantar->text()+"* solicitada");
@@ -367,7 +367,7 @@ void MainWindow::on_Bajar_Volumen_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Bajar_Volumen->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Bajar_Volumen->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Bajar_Volumen->text()+"* solicitada");
@@ -405,7 +405,7 @@ void MainWindow::on_Subir_Volumen_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Subir_Volumen->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Subir_Volumen->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Subir_Volumen->text()+"* solicitada");
@@ -1224,7 +1224,7 @@ void MainWindow::on_Bucle_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Bucle->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Bucle->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Bucle->text()+"* solicitada");
@@ -1335,7 +1335,7 @@ void MainWindow::on_Reanudar_clicked()
     int exitCode = process->exitCode();
     if (exitCode == 0){
         //Exito
-        ui->Inicio_feedback->setText("Instrucción *"+ui->Reanudar->text()+"* enviada satisfactoriamente");
+        ui->Inicio_feedback->setText("Instrucción *"+ui->Reanudar->text()+"* enviada");
     }
     else {
         ui->Inicio_feedback->setText("No se envió instrucción *"+ui->Reanudar->text()+"* solicitada");
