@@ -11,6 +11,8 @@ PATH_DESTINO_SINCRO=$7    # Ruta destino para la sincronización del archivo de 
 FEEDBACK_FILE=$8          # Archivo donde se escribirá el feedback de las operaciones
 usuario=$USER
 
+
+
 # Inicializar el archivo de feedback (sobrescribir el contenido)
 echo "Iniciando transferencia de archivos - $(date '+%Y-%m-%d %H:%M:%S')" > "$FEEDBACK_FILE"
 
@@ -26,19 +28,11 @@ if [[ ! -f "$FILES_LIST" ]]; then
     exit 1
 fi
 
-# Verificar y crear el directorio de destino en el dispositivo remoto
-ssh "$DEST_USER@$DEST_HOST" "mkdir -p '$DEST_DIR'"
-if [[ $? -ne 0 ]]; then
-    log_feedback "Error: No se pudo crear el directorio de destino $DEST_DIR en el dispositivo remoto."
-    exit 1
-else
-    log_feedback "Éxito: El directorio de destino $DEST_DIR se verificó/creó correctamente en el dispositivo remoto."
-fi
-
 # Leer el archivo de lista y transferir cada archivo
 while IFS= read -r FILE; do
     if [[ -f "$SOURCE_DIR/$FILE.mkv" ]]; then
         # Transferir el archivo usando rsync
+        #rsync -avz --progress --ignore-existing "$SOURCE_DIR/$FILE.mkv" "$DEST_USER@$DEST_HOST:$DEST_DIR" >> "$FEEDBACK_FILE" 2>&1
         rsync -avz --progress --ignore-existing "$SOURCE_DIR/$FILE.mkv" "$DEST_USER@$DEST_HOST:$DEST_DIR"
         if [[ $? -eq 0 ]]; then
             log_feedback "Éxito: $FILE transferido correctamente."
@@ -50,16 +44,8 @@ while IFS= read -r FILE; do
     fi
 done < "$FILES_LIST"
 
-# Verificar y crear el directorio de sincronización del archivo de control en el dispositivo remoto
-ssh "$DEST_USER@$DEST_HOST" "mkdir -p '$(dirname "$PATH_DESTINO_SINCRO")'"
-if [[ $? -ne 0 ]]; then
-    log_feedback "Error: No se pudo crear el directorio de sincronización $(dirname "$PATH_DESTINO_SINCRO") en el dispositivo remoto."
-    exit 1
-else
-    log_feedback "Éxito: El directorio de sincronización $(dirname "$PATH_DESTINO_SINCRO")) se verificó/creó correctamente en el dispositivo remoto."
-fi
-
 # Sincronizar el archivo de control
+#rsync -avz --progress "$PATH_CONTROL_DEVICE" "$DEST_USER@$DEST_HOST:$PATH_DESTINO_SINCRO" >> "$FEEDBACK_FILE" 2>&1
 rsync -avz --progress "$PATH_CONTROL_DEVICE" "$DEST_USER@$DEST_HOST:$PATH_DESTINO_SINCRO"
 if [[ $? -eq 0 ]]; then
     log_feedback "Éxito: El archivo de control se ha sincronizado correctamente."

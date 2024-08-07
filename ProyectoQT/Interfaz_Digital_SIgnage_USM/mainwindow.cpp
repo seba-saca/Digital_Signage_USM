@@ -39,11 +39,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-
 void MainWindow::on_sincronizar_clicked()
 {
     // Miniatura plantilla
+    ui->info_sincro->clear();
+
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
     QString loading_imagen = path_miniaturas+"loading.png";
     QPixmap mapeo(loading_imagen);
@@ -83,6 +83,8 @@ void MainWindow::on_sincronizar_clicked()
             ui->Estado_Disponibilida_Contenido->setPlainText(stream.readAll());
             file.close();
         }
+
+        ui->info_sincro->setText("Información "+user_sincro);
     });
 
     connect(process, &QProcess::errorOccurred, this, [=](QProcess::ProcessError error){
@@ -661,7 +663,7 @@ void MainWindow::on_boton_admin_clicked()
     QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
     ui->lista_ubicaciones->addItems(modified_files_lista_lugares);
     ui->home_ubicacion->addItems(modified_files_lista_lugares);
-    ui->lista_sincronizacion_ubicacion->addItems(modified_files_lista_lugares);
+
 
     //Miniatura plantilla
     QString path_miniaturas = global_path+"Digital_Signage_USM/Material_Interfaz/";
@@ -832,53 +834,13 @@ void MainWindow::on_Guardar_subir_video_clicked()
 void MainWindow::on_actualizar_sincronizacion_lista_devices_clicked()
 {
     ui->lista_sincronizacion_devices->clear();
-    //Delimitador
-    QChar delimiter = '@';
-
-    //Leemos texto
-    QString Ubicacion = ui->lista_sincronizacion_ubicacion->currentText()+".txt";
-    qDebug() << "Ubication:" << ui->lista_sincronizacion_ubicacion->currentText() << "\n";
-    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
-    QFile file(filename_ubicaciones);
-
-    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        while (!stream.atEnd()) {
-            QString line = stream.readLine();
-            QStringList tmp_string = line.split(delimiter);
-            if (!line.isEmpty()){
-                ui->lista_sincronizacion_devices->addItem(tmp_string[0],tmp_string[1]); // user@ip
-            }
-        }
-        file.close();
-    }
-}
-
-void MainWindow::on_lista_sincronizacion_ubicacion_activated(int index)
-{
-    ui->Estado_Disponibilida_Contenido->clear();
-    ui->lista_sincronizacion_devices->clear();
-    //Delimitador
-    QChar delimiter = '@';
-    //Leemos texto
-    QString Ubicacion = ui->lista_sincronizacion_ubicacion->currentText()+".txt";
-    qDebug() << "Ubication:" << ui->lista_sincronizacion_ubicacion->currentText() << "\n";
-    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
-    QFile file(filename_ubicaciones);
-
-    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        while (!stream.atEnd()) {
-            QString line = stream.readLine();
-            QStringList tmp_string = line.split(delimiter);
-            if (!line.isEmpty()){
-                ui->lista_sincronizacion_devices->addItem(tmp_string[0],tmp_string[1]); // user@ip
-            }
-        }
-        file.close();
-    }
+    ui->lista_sincronizar_ubi->clear();
+    QString path_lista_lugares = global_path+"Digital_Signage_USM/Ubicaciones";
+    QDir dir4(path_lista_lugares);
+    QStringList files_lista_lugares = dir4.entryList(QDir::Files);
+    // Quitar las extensiones de los archivos usando la función, especificando el carácter de corte
+    QStringList modified_files_lista_lugares = removeExtensions(files_lista_lugares, '.');
+    ui->lista_sincronizar_ubi->addItems(modified_files_lista_lugares);
 }
 
 void MainWindow::on_sincronizar_check_dispo_clicked()
@@ -1342,5 +1304,31 @@ void MainWindow::on_Reanudar_clicked()
     }
     //process->waitForFinished(); // Espera a que el proceso termine antes de continuar
     qDebug() << scriptPath << arguments;
+}
+
+
+void MainWindow::on_lista_sincronizar_ubi_activated(int index)
+{
+    //Delimitador
+    QChar delimiter = '@';
+
+    //Leemos texto
+    QString Ubicacion = ui->lista_sincronizar_ubi->currentText()+".txt";
+    qDebug() << "Ubication:" << ui->lista_sincronizar_ubi->currentText() << "\n";
+    QString filename_ubicaciones = global_path+"Digital_Signage_USM/Ubicaciones/"+Ubicacion;
+    QFile file(filename_ubicaciones);
+
+    //Agregamos Dispositivos Asociados a la ubicacion Seleccionada
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            QStringList tmp_string = line.split(delimiter);
+            if (!line.isEmpty()){
+                ui->lista_sincronizacion_devices->addItem(tmp_string[0],tmp_string[1]); // user@ip
+            }
+        }
+        file.close();
+    }
 }
 

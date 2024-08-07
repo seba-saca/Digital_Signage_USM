@@ -81,8 +81,6 @@ private slots:
 
     void on_actualizar_sincronizacion_lista_devices_clicked();
 
-    void on_lista_sincronizacion_ubicacion_activated(int index);
-
     void on_sincronizar_check_dispo_clicked();
 
     void on_lista_sincronizacion_devices_activated(int index);
@@ -106,6 +104,8 @@ private slots:
     void on_Consultar_clicked();
 
     void on_Reanudar_clicked();
+
+    void on_lista_sincronizar_ubi_activated(int index);
 
 private:
     Ui::MainWindow *ui;
