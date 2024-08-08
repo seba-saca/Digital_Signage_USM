@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/Videos";
     QDir dir5(filename_ubicaciones);
     QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
-    ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
+    //ui->Gestion_Contenido_Disponible->addItems(files_lista_ubicaciones);
 
     QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
     QFile file_dispositivos_registrados(filename_dispositivos_registrados);
