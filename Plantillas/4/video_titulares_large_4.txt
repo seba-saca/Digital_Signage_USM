@@ -1,3 +1,0 @@
-0|10|40|1380|280|/home/seba/Desktop/Contenido/Titulares/Large/robotica.txt
-10|15|40|1380|280|/home/seba/Desktop/Contenido/Titulares/Large/paula.txt
-15|20|40|1380|280|/home/seba/Desktop/Contenido/Titulares/Large/acatec.txt

@@ -1,3 +1,0 @@
-sudo apt-get install openssh-server
-ssh-keygen
-ssh-copy-id user@ip

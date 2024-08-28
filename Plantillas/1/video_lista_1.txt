@@ -1,8 +1,0 @@
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_luna.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_noche.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_novacandy.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_fe.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_daylight.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_post.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_shake.mkv'
-file '/home/seba/Desktop/Contenido/Videos/Material_Prueba/test_ticket.mkv'

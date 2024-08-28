@@ -1,3 +1,0 @@
-/home/seba/Desktop/Contenido/Titulares/Small/ejemplo1_corto.txt|0|10|48|150|830
-/home/seba/Desktop/Contenido/Titulares/Small/ejemplo2_corto.txt|10|20|48|150|830
-/home/seba/Desktop/Contenido/Titulares/Small/ejemplo3_corto.txt|20|30|48|150|830
