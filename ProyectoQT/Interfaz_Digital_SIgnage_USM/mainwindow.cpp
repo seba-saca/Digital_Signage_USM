@@ -9,30 +9,11 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
+
+    //Simbolo reproductor en inicio
     QString video_simbolo = "/home/saca/Desktop/Digital_Signage_USM/Material_Interfaz/video_player.png";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
-
-    QString filename_ubicaciones = "/home/seba/Desktop/Contenido_ELO308/Videos";
-    QDir dir5(filename_ubicaciones);
-    QStringList files_lista_ubicaciones = dir5.entryList(QDir::Files);
-
-    QString filename_dispositivos_registrados = "/home/seba/Desktop/Digital_Signage_USM/Dispositivos_Registrados.txt";
-    QFile file_dispositivos_registrados(filename_dispositivos_registrados);
-    if (file_dispositivos_registrados.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream stream_dispositivos_registrados(&file_dispositivos_registrados);
-        while (!stream_dispositivos_registrados.atEnd())
-        {
-            QString line_dispositivos_registrados = stream_dispositivos_registrados.readLine();
-            if (!line_dispositivos_registrados.isEmpty())
-            {
-                ui->asignacion_dispositivos->addItem(line_dispositivos_registrados);
-            }
-        }
-        file_dispositivos_registrados.close();
-    }
 }
 
 MainWindow::~MainWindow()
@@ -42,21 +23,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_sincronizar_clicked()
 {
-    // Miniatura plantilla
+    // Limpiar
     ui->info_sincro->clear();
 
+    // Paths
     QString path_miniaturas = global_path + "Digital_Signage_USM/Material_Interfaz/";
-    QString loading_imagen = path_miniaturas + "loading.png";
-    QPixmap mapeo(loading_imagen);
-    ui->label_sync_logo->setPixmap(mapeo);
-    QApplication::processEvents();
 
-    QString error_imagen = path_miniaturas + "error.png";
-    QString ready_imagen = path_miniaturas + "ready.png";
-
-    QString scriptPath = global_path + "Digital_Signage_USM/transferir.sh";
-
-    QStringList arguments;
     QString path_origen = global_path + "Contenido_ELO308/Videos";
     QString path_destino = "/home/" + user_sincro + "/Desktop/" + user_sincro + "/videos";
     QString path_file_contenido = global_path + "Contenido_Dispositivos/" + user_sincro + ".txt";
@@ -65,9 +37,25 @@ void MainWindow::on_sincronizar_clicked()
     QString path_destino_sincro = "/home/" + user_sincro + "/Desktop/" + user_sincro;
     QString path_file_log = global_path + "Contenido_Dispositivos/Logs/" + user_sincro + "_log.txt";
 
+    // Imagenes
+    QString loading_imagen = path_miniaturas + "loading.png";
+    QString error_imagen = path_miniaturas + "error.png";
+    QString ready_imagen = path_miniaturas + "ready.png";
+
+    // Asigna imagen
+    QPixmap mapeo(loading_imagen);
+    ui->label_sync_logo->setPixmap(mapeo); //Forzar espera de accion anterior
+    QApplication::processEvents();
+
+    // Script
+    QString scriptPath = global_path + "Digital_Signage_USM/transferir.sh";
+
+    // Argumentos
+    QStringList arguments;
     arguments << path_origen << path_destino << user_sincro << ip_sincro << path_file_contenido << path_file_sincro << path_destino_sincro << path_file_log;
     qDebug() << scriptPath << arguments;
 
+    // Proceso
     QProcess *process = new QProcess(this);
 
     // Conectar señales a las funciones correspondientes
@@ -114,30 +102,23 @@ void MainWindow::on_Lista_plantillas_activated(int index)
 
 void MainWindow::on_Start_clicked()
 {
-
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
     ui->Inicio_feedback->setText("Mandando instrucción" + ui->Start->text());
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Paths
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "1" << ruta_status;
+
+    // Proceso
     QProcess *process = new QProcess(this);
-    // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
     int exitCode = process->exitCode();
     if (exitCode == 0)
@@ -154,26 +135,18 @@ void MainWindow::on_Start_clicked()
 
 void MainWindow::on_Pause_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Path
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "2" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -193,27 +166,21 @@ void MainWindow::on_Pause_clicked()
 
 void MainWindow::on_Detener_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Rutas
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
+
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "3" << ruta_status;
+
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
     process->start(scriptPath, arguments);
@@ -232,26 +199,18 @@ void MainWindow::on_Detener_clicked()
 
 void MainWindow::on_Mute_video_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Rutas
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "8" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -271,25 +230,18 @@ void MainWindow::on_Mute_video_clicked()
 
 void MainWindow::on_Retroceder_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Rutas
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
 
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "5" << ruta_status;
     QProcess *process = new QProcess(this);
@@ -310,26 +262,18 @@ void MainWindow::on_Retroceder_clicked()
 
 void MainWindow::on_Adelantar_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variable
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Ruta
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "4" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -349,26 +293,18 @@ void MainWindow::on_Adelantar_clicked()
 
 void MainWindow::on_Bajar_Volumen_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variable
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Ruta
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "7" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -388,26 +324,18 @@ void MainWindow::on_Bajar_Volumen_clicked()
 
 void MainWindow::on_Subir_Volumen_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variable
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Ruta
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "6" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -889,9 +817,6 @@ void MainWindow::on_sincronizar_check_dispo_clicked()
     // Forzar la actualización de la interfaz de usuario
     QApplication::processEvents();
 
-    // Parámetros
-    QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
-
     // Path de scripts
     QString scriptPath = global_path + "Digital_Signage_USM/check_dispo.sh";
 
@@ -1021,7 +946,6 @@ void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
     ui->Miniatura_Asignar_Video_Centro_Edicion->clear();
     ui->CONTENIDO_TITULO_CENTRO_EDICION->clear();
 
-    QString contenido_selected = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
     QString name_sector_selected = ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
     QChar delimiter2 = '-';
     QStringList name_sector = name_sector_selected.split(delimiter2);
@@ -1035,7 +959,6 @@ void MainWindow::on_Lista_Asignar_Contenido_Centro_Edicion_activated(int index)
     if (extension == "txt")
     {
         qDebug() << "Es texto \n";
-        QString titular_texto;
         QString file_content;
         // titular_texto=item->text();
         file_content = path_lista_contenido + "/" + contenido + "." + extension;
@@ -1082,7 +1005,6 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 {
     QString Plantilla = ui->Lista_plantillas_Centro_Edicion->currentText();
     QString name_sector_selected = ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
-    QString contenido_selected = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
 
     QString path_lista_contenido = global_path + "Contenido_ELO308/Plantillas/" + Plantilla + "/" + name_sector_selected + ".txt";
     QString filePath = global_path + "Contenido_ELO308/Plantillas/" + Plantilla + "/temp/" + name_sector_selected + ".txt";
@@ -1108,7 +1030,6 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
 
     // Feedback
     int index = ui->Lista_Asignar_Contenido_Centro_Edicion->currentIndex();
-    QString contenido = ui->Lista_Asignar_Contenido_Centro_Edicion->currentText();
     QString extension = ui->Lista_Asignar_Contenido_Centro_Edicion->itemData(index).toString();
 
     if (extension == "txt")
@@ -1117,7 +1038,6 @@ void MainWindow::on_Guardar_contenido_Centro_EDICION_clicked()
                  << name_sector_selected;
         QChar delimiter2 = '-';
         QStringList name_sector = name_sector_selected.split(delimiter2);
-        QString path_lista_contenido = global_path + "Contenido_ELO308/" + name_sector[0];
         for (int i = 0; i < ui->Contenido_Asignado_Centro_Edicion->count(); ++i)
         {
             out << global_path << "Contenido_ELO308/" + name_sector[0] + "/" << ui->Contenido_Asignado_Centro_Edicion->item(i)->text() << "\n";
@@ -1191,26 +1111,19 @@ void MainWindow::on_boton_generar_video_editor_clicked()
 
 void MainWindow::on_Bucle_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variable
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Ruta
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
+
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "9" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
@@ -1247,7 +1160,6 @@ void MainWindow::on_Consultar_clicked()
     QString textfile_remoto = "/home/" + device + "/Desktop/" + device + "/mplayer_status.txt";
 
     // Path de scripts
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
     QString script_copytext = global_path + "Digital_Signage_USM/copy_text.sh";
 
     // Lista de argumentos que deseas pasar al script
@@ -1301,26 +1213,18 @@ void MainWindow::on_Consultar_clicked()
 
 void MainWindow::on_Reanudar_clicked()
 {
-    int indice_actual = ui->Lista_plantillas->currentIndex();
-    int indice_actual_device = ui->home_dispositivo->currentIndex();
-
-    QString scriptPath;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
-
-    QString indice_string = QString::number(indice_actual + 1);
-    QString indice_device_string = QString::number(indice_actual_device + 1);
+    // Variables
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
+    QString name_video = ui->Lista_plantillas->currentText();
 
+    // Rutas
     QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    scriptPath = global_path + "Digital_Signage_USM/play.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
-
-    QString name_video = ui->Lista_plantillas->currentText();
-
     arguments << user_ip_dispositivo << scriptPath_destino << scriptPath_videos << name_video << "10" << ruta_status;
     QProcess *process = new QProcess(this);
     // Asignamos el script y los argumentos al proceso
