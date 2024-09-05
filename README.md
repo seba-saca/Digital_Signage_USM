@@ -13,7 +13,6 @@ Desarrollo de plataforma de senalizacion digital para distribucion de contenido 
 ### Hardware:
 
 - Raspberry Pi 4
-
 - Notebook
 
 ### Software:
@@ -21,3 +20,4 @@ Desarrollo de plataforma de senalizacion digital para distribucion de contenido 
 - Ubuntu 22.04 LTS
 - SSH
 - FFmpeg
+- MPlayer
