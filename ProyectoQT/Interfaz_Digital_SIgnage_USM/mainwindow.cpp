@@ -630,7 +630,7 @@ void MainWindow::on_boton_admin_clicked()
     QString video_simbolo = global_path + "Digital_Signage_USM/Material_Interfaz/video_player.png";
     ui->preview_plantilla->setPixmap(QPixmap(video_simbolo));
 
-    ui->Logo_ELO->setPixmap(QPixmap(global_path + "Digital_Signage_USM/Plantillas/Imagenes/Logos/elo.jpg"));
+    ui->Logo_ELO->setPixmap(QPixmap(global_path + "Digital_Signage_USM/Material_Interfaz/Logos/elo.jpg"));
 
     ui->Imagen_Centro_Edicion->setPixmap(QPixmap(global_path + "Digital_Signage_USM/Material_Interfaz/layout.png"));
 
@@ -867,11 +867,11 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_activated(int index)
     qDebug() << "Seleccionada:" << name_plantilla << "\n";
 
     // Miniatura plantilla
-    QString path_miniaturas = global_path + "Digital_Signage_USM/Plantillas/Imagenes/Overlays/" + name_plantilla + "/fondo.jpg";
+    QString path_miniaturas = global_path + "Digital_Signage_USM/Material_Interfaz/Overlays/" + name_plantilla + "/fondo.jpg";
     qDebug() << "Path:" << path_miniaturas << "\n";
 
     // Agregar videos asignados
-    QString path_lista_sectores = global_path + "Digital_Signage_USM/Plantillas/Imagenes/Overlays/" + name_plantilla + "/Sectores";
+    QString path_lista_sectores = global_path + "Digital_Signage_USM/Material_Interfaz/Overlays/" + name_plantilla + "/Sectores";
     qDebug() << "Path sectores: " << path_lista_sectores << "\n";
 
     QDir directory(path_lista_sectores);
@@ -897,7 +897,7 @@ void MainWindow::on_Lista_plantillas_Centro_Edicion_Sector_activated(int index)
     QString name_plantilla = ui->Lista_plantillas_Centro_Edicion->currentText();
     QString name_sector_selected = ui->Lista_plantillas_Centro_Edicion_Sector->currentText();
     // Miniatura plantilla
-    QString path_miniaturas = global_path + "Digital_Signage_USM/Plantillas/Imagenes/Overlays/" + name_plantilla + "/Sectores/" + name_sector_selected + ".jpg";
+    QString path_miniaturas = global_path + "Digital_Signage_USM/Material_Interfaz/Overlays/" + name_plantilla + "/Sectores/" + name_sector_selected + ".jpg";
     qDebug() << "Path:" << path_miniaturas << "\n";
 
     ui->Imagen_Centro_Edicion->setPixmap(QPixmap(path_miniaturas));
