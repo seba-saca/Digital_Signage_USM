@@ -1,0 +1,4 @@
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/clubes.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/innovacion.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/practicas.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/sostenibilidad.txt

@@ -1,0 +1,6 @@
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/becas.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/bienestar_salud.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/cursos.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/fondo_apoyo.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/hackaton.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Pequeno/innovacion.txt

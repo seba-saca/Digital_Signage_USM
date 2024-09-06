@@ -1,0 +1,4 @@
+file '/home/saca/Desktop/Contenido_ELO308/Videos/test_cuadrupedo.mkv'
+file '/home/saca/Desktop/Contenido_ELO308/Videos/test_deporte.mkv'
+file '/home/saca/Desktop/Contenido_ELO308/Videos/test_tsunami.mkv'
+file '/home/saca/Desktop/Contenido_ELO308/Videos/test_tuneles.mkv'

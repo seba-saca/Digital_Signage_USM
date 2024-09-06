@@ -1,0 +1,7 @@
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/alianza.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/centro_inv.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/innovacion.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/sostenibilidad.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/tutorias.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/medallas.txt
+/home/saca/Desktop/Contenido_ELO308/Titular_Grande/clubes.txt
