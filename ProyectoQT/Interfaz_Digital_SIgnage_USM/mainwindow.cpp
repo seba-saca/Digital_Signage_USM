@@ -33,7 +33,7 @@ void MainWindow::on_sincronizar_clicked()
     QString path_destino = "/home/" + user_sincro + "/Desktop/" + user_sincro + "/videos";
     QString path_file_contenido = global_path + "Contenido_Dispositivos/" + user_sincro + ".txt";
 
-    QString path_file_sincro = global_path + "Digital_Signage_USM/control_device.sh";
+    QString path_file_sincro = global_path + "Digital_Signage_USM/Scripts/control_device.sh";
     QString path_destino_sincro = "/home/" + user_sincro + "/Desktop/" + user_sincro;
     QString path_file_log = global_path + "Contenido_Dispositivos/Logs/" + user_sincro + "_log.txt";
 
@@ -48,7 +48,7 @@ void MainWindow::on_sincronizar_clicked()
     QApplication::processEvents();
 
     // Script
-    QString scriptPath = global_path + "Digital_Signage_USM/transferir.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/transferir.sh";
 
     // Argumentos
     QStringList arguments;
@@ -108,8 +108,8 @@ void MainWindow::on_Start_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Paths
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -140,8 +140,8 @@ void MainWindow::on_Pause_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Path
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -171,8 +171,8 @@ void MainWindow::on_Detener_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Rutas
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -204,8 +204,8 @@ void MainWindow::on_Mute_video_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Rutas
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -235,8 +235,8 @@ void MainWindow::on_Retroceder_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Rutas
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -267,8 +267,8 @@ void MainWindow::on_Adelantar_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Ruta
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -298,8 +298,8 @@ void MainWindow::on_Bajar_Volumen_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Ruta
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -329,8 +329,8 @@ void MainWindow::on_Subir_Volumen_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Ruta
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -726,7 +726,7 @@ void MainWindow::on_Subir_video_clicked()
         name_subir_video = fileBaseName;
 
         QString imagenPath = global_path + "Contenido_ELO308/miniaturas/" + tmp_string[0] + ".jpg";
-        QString scriptPath = global_path + "Digital_Signage_USM/miniaturas_gen.sh";
+        QString scriptPath = global_path + "Digital_Signage_USM/Scripts/miniaturas_gen.sh";
 
         QStringList arguments;
         arguments << fileName << imagenPath;
@@ -749,7 +749,7 @@ void MainWindow::on_Guardar_subir_video_clicked()
 {
     ui->lista_asignar_contenido->clear();
 
-    QString scriptPath = global_path + "Digital_Signage_USM/copy_video.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/copy_video.sh";
     QString Path_video_destino = global_path + "Contenido_ELO308/Videos/" + name_subir_video;
 
     // Miniatura plantilla
@@ -818,7 +818,7 @@ void MainWindow::on_sincronizar_check_dispo_clicked()
     QApplication::processEvents();
 
     // Path de scripts
-    QString scriptPath = global_path + "Digital_Signage_USM/check_dispo.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/check_dispo.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
@@ -1080,7 +1080,7 @@ void MainWindow::on_boton_generar_video_editor_clicked()
     QString plantilla = ui->Lista_plantillas_Centro_Edicion->currentText();
 
     qDebug() << "Nombre asignado: " << name_video;
-    QString scriptPath = global_path + "Contenido_ELO308/Plantillas/" + plantilla + "/video.sh";
+    QString scriptPath = global_path + "Contenido_ELO308/Plantillas/" + plantilla + "/Scripts/video.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
@@ -1116,8 +1116,8 @@ void MainWindow::on_Bucle_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Ruta
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
 
@@ -1151,7 +1151,7 @@ void MainWindow::on_Consultar_clicked()
 
     // Parámetros
     QString Dispositivo_seleccionado = ui->home_dispositivo->currentText();
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
     QString name_video = ui->Lista_plantillas->currentText();
@@ -1160,7 +1160,7 @@ void MainWindow::on_Consultar_clicked()
     QString textfile_remoto = "/home/" + device + "/Desktop/" + device + "/mplayer_status.txt";
 
     // Path de scripts
-    QString script_copytext = global_path + "Digital_Signage_USM/copy_text.sh";
+    QString script_copytext = global_path + "Digital_Signage_USM/Scripts/copy_text.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;
@@ -1218,10 +1218,10 @@ void MainWindow::on_Reanudar_clicked()
     QString name_video = ui->Lista_plantillas->currentText();
 
     // Rutas
-    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/control_device.sh";
+    QString scriptPath_destino = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/Scripts/control_device.sh";
     QString scriptPath_videos = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado + "/videos";
     QString ruta_status = "/home/" + Dispositivo_seleccionado + "/Desktop/" + Dispositivo_seleccionado;
-    QString scriptPath = global_path + "Digital_Signage_USM/play.sh";
+    QString scriptPath = global_path + "Digital_Signage_USM/Scripts/play.sh";
 
     // Lista de argumentos que deseas pasar al script
     QStringList arguments;

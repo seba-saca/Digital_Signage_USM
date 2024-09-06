@@ -1,4 +1,4 @@
-# Digital Signage USM - V1
+# Digital Signage USM - V2
 
 ## Trabajo de Titulacion
 
